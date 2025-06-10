@@ -1,6 +1,6 @@
 import wollok.game.*
 
-import pruebas2.*
+import NotasyBotones.*
 
 program juegoJorge {
 	game.height(16)
