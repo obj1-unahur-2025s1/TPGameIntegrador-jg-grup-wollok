@@ -1,14 +1,11 @@
 import wollok.game.*
-import menu.*
-import juego.*
 
-import ejercicioJorge.*
+import pruebas2.*
 
 program juegoJorge {
 	game.height(16)
 	game.width(12)
 	//game.boardGround("menu.jpg")
-	movimientoNotas.iniciar()
 	juego.iniciar()
 	game.start()
 

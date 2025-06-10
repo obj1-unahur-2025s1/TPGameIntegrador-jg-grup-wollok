@@ -1,12 +1,16 @@
-
-
 object juego {
     var property estaRojoPrendido = false
     var property estaAzulPrendido = false
     var property estaVerdePrendido = false
-
     method iniciar() {
-        game.addVisual(botonRojoApagado)
+    const unaNota = nota
+    game.addVisualCharacter(unaNota)
+    game.onTick(300,"caerse", {unaNota.position(unaNota.position().down(1))})
+
+
+    // BOTONES Y KEYS
+
+    game.addVisual(botonRojoApagado)
         game.addVisual(botonAzulApagado)
         game.addVisual(botonVerdeApagado)
 
@@ -47,7 +51,7 @@ object juego {
                 estaVerdePrendido = true
                 game.removeVisual(botonVerdeApagado)
                 game.addVisual(botonVerdePrendido)
-                persona.pulsarNota(nota1)
+
 
                 game.removeTickEvent("apagadoBotonVerde")
                 game.onTick(200, "apagadoBotonVerde", { =>
@@ -59,9 +63,60 @@ object juego {
             }
         }
     }
+}
+
+
+object player {
+    // seguro
+    var property puntuacion = 0 // puntuacion del jugador
+    var property multiplicador = 1 // maximo 4 sin poder, maximo 8 con poder
+    var property energia =  0 //maximo 10
+    var property fallos = 0 // cantidad de fallos
+    var property poder = false  //  activasion de poderes
+    var vida = 3 // sistema de vidas
+
+
+    method pulsarNota(unaNota, unBoton){
+        if( unaNota.posiciones().contains(unBoton.position())){
+            self.puntuacion(self.puntuacion() + unaNota.hit())
+        }
+        else {
+            unaNota.fail()
+        }
+    }
+
+   method revisarVida() {
+    if (fallos == 8) {
+        vida = (vida - 1).max(0)
+        fallos = 0               
+        }
+    }
+
+}
+
+object nota {
+    var property image = "note2.png"
+    var property puntuacion = 2
+    var property position = game.at(5, 18)
+    var property posiciones = []
+
+    method position() = position
+
+    method posicion(nuevaPosicion) {
+        position = nuevaPosicion
+        posiciones.add(nuevaPosicion)
+    }
     
-
-
+    
+    method hit() {
+        return self.puntuacion() * player.multiplicador()
+        
+        }
+    
+    method fail() {
+        player.fallos(player.fallos() + 1) 
+        player.multiplicador(1)
+    }
 
 }
 
@@ -73,11 +128,11 @@ object botonRojoApagado {
 }
 
 object botonRojoPrendido {
-    var property position = game.at(5, 1)
+    var property position = botonRojoApagado.position()
     method image() = "note2Hit.png"
     method position() = position
-    
 }
+
 
 object botonAzulApagado {
     var property position = botonRojoApagado.position().right(3)
