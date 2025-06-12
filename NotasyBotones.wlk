@@ -1,4 +1,5 @@
 
+
 object juego {
     var property notasActivas = []
     var property estaVerdePrendido = false
@@ -15,6 +16,7 @@ object juego {
         game.addVisual(botonAmarillo)
         game.addVisual(botonAzul)
         game.addVisual(cartelPuntuacion) 
+        game.addVisual(cartelFallos)
 
         game.schedule(1000, {=>self.crearNotaVerde()})
         game.schedule(1500, {=>self.crearNotaRoja()})
@@ -67,7 +69,9 @@ object juego {
             notasActivas.remove(notaCercana)
             cartelPuntuacion.actualizar(player.puntuacion())
         } else {
-            notaCercana.fail()
+            player.sumarFallo()
+            player.reiniciarMultiplicador()
+            cartelFallos.actualizarFallo(player.fallos())
         }
     }
 
@@ -100,11 +104,21 @@ object juego {
 
 object cartelPuntuacion {
     var property position = game.center()
-    var property text = "Puntuación: 0" 
+    var property text = "Puntuación: 0"
     var property size = 20 
 
     method actualizar(nuevaPuntuacion) {
         self.text("Puntuación: " + nuevaPuntuacion)
+    }
+    
+}
+object cartelFallos {
+    var property text = "Fallos: 0" 
+    var property size = 20
+    var property position = game.at(5,6)
+    
+    method actualizarFallo(cantFallos) {
+        self.text("Fallo: " + cantFallos)
     }
 }
 
@@ -120,19 +134,10 @@ object player {
     // puede ser
     var property vida = 3
 
-    // Situacion de pulsar Nota
-    method pulsarNota(unaNota){
-        if(  unaNota.position().equals(unaNota.botonAsignado().position())){
-            unaNota.hit()
-        }
-        else {
-            unaNota.fail()
-        }
-    }
     // Metodo 3 vidas maximo
     method restarVida() {
         if(fallos == 8) {
-            fallos = 0
+            //fallos = 0
             vida = (vida- 1).max(0)
         }
     }
