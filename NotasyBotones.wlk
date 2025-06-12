@@ -22,11 +22,7 @@ object juego {
         game.schedule(1500, {=>self.crearNotaRoja()})
         game.schedule(2000, {=>self.crearNotaAmarilla()})
         game.schedule(4000, {=>self.crearNotaVerde()})
-        game.schedule(5000, {=>self.crearNotaRoja()})
-        game.schedule(6000, {=>self.crearNotaAmarilla()})
-        game.schedule(7000, {=>self.crearNotaVerde()})
-        game.schedule(8000, {=>self.crearNotaRoja()})
-        game.schedule(9000, {=>self.crearNotaAmarilla()})
+        game.onTick(300, "verificarFallos", { => self.verificarNotasFalladas() })
 
         keyboard.a().onPressDo({=>self.pulsarNotaEn(botonVerde)
         if (!estaVerdePrendido) {
@@ -58,13 +54,11 @@ object juego {
     }
     
     method pulsarNotaEn(unBoton) {
-        const notaCercana = notasActivas.find({n =>
+        const notaCercana = notasActivas.findOrElse({n =>
         n.botonAsignado() == unBoton &&
         (n.position().equals(unBoton.position()))
-         
-    })
-
-        if (notaCercana != false) {
+    },{null})
+        if (notaCercana != null) {
             notaCercana.hit()
             notasActivas.remove(notaCercana)
             cartelPuntuacion.actualizar(player.puntuacion())
@@ -74,6 +68,18 @@ object juego {
             cartelFallos.actualizarFallo(player.fallos())
         }
     }
+
+    method verificarNotasFalladas() {
+    const notasFalladas = notasActivas.filter({ n =>
+        n.position().y() > n.botonAsignado().position().y()
+    })
+
+    notasFalladas.forEach({ n =>
+        n.fail()
+        notasActivas.remove(n)
+        game.removeVisual(n)
+    })
+}
 
 
     method crearNotaVerde() {
@@ -118,7 +124,7 @@ object cartelFallos {
     var property position = game.at(5,6)
     
     method actualizarFallo(cantFallos) {
-        self.text("Fallo: " + cantFallos)
+        self.text("Fallos: " + cantFallos)
     }
 }
 
@@ -130,10 +136,8 @@ object player {
     var property energia =  0 //maximo 10
     var property fallos = 0 // cantidad de fallos
     var property poder = false  //  
-
     // puede ser
     var property vida = 3
-
     // Metodo 3 vidas maximo
     method restarVida() {
         if(fallos == 8) {
@@ -194,6 +198,7 @@ class Notas {
         player.sumarPuntuacion(puntuacion * player.multiplicador())
         self.eliminar()
         player.aumentarMultiplicador()
+
         }
         
     
