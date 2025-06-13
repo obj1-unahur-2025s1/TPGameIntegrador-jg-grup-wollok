@@ -1,5 +1,6 @@
 
 
+
 object juego {
     var property notasActivas = []
     var property estaVerdePrendido = false
@@ -17,12 +18,23 @@ object juego {
         game.addVisual(botonAzul)
         game.addVisual(cartelPuntuacion) 
         game.addVisual(cartelFallos)
+        game.addVisual(cartelVida)
 
-        game.schedule(1000, {=>self.crearNotaVerde()})
-        game.schedule(1500, {=>self.crearNotaRoja()})
-        game.schedule(2000, {=>self.crearNotaAmarilla()})
-        game.schedule(4000, {=>self.crearNotaVerde()})
-        game.onTick(300, "verificarFallos", { => self.verificarNotasFalladas() })
+        game.schedule(100, {=>self.crearNotaVerde()})
+        game.schedule(2000, {=>self.crearNotaRoja()})
+        game.schedule(4000, {=>self.crearNotaAzul()})
+        game.schedule(6000, {=>self.crearNotaVerde()})
+        game.schedule(8000, {=>self.crearNotaVerde()})
+        game.schedule(9000, {=>self.crearNotaAzul()})
+        game.schedule(12000, {=>self.crearNotaAmarilla()})
+        game.schedule(15000, {=>self.crearNotaVerde()})
+        game.schedule(18990, {=>self.crearNotaVerde()})
+        game.schedule(20000, {=>self.crearNotaAzul()})
+        game.schedule(23000, {=>self.crearNotaAmarilla()})
+        game.schedule(27000, {=>self.crearNotaAzul()})
+        //game.onTick(300, "verificarFallos", { => self.verificarNotasFalladas() })
+
+        game.onTick(50, "verificarFallos", { => self.verificarNotasFalladas() })
 
         keyboard.a().onPressDo({=>self.pulsarNotaEn(botonVerde)
         if (!estaVerdePrendido) {
@@ -30,10 +42,10 @@ object juego {
                 botonVerde.cambiarImage(botonVerde.botonHit()) 
 
                 game.removeTickEvent("apagadoBotonVerde")
-                game.onTick(200, "apagadoBotonVerde", { =>
-                    estaVerdePrendido = false
-                    botonVerde.cambiarImage(botonVerde.image())
-                    game.removeTickEvent("apagadoBotonVerde")
+                game.onTick(300, "apagadoBotonVerde", {
+                estaVerdePrendido = false
+                botonVerde.cambiarImage(botonVerde.imagenApagado())
+                game.removeTickEvent("apagadoBotonVerde")
                 })
             }})
         keyboard.s().onPressDo({=>self.pulsarNotaEn(botonRojo)
@@ -42,14 +54,37 @@ object juego {
                 botonRojo.cambiarImage(botonRojo.botonHit()) 
 
                 game.removeTickEvent("apagadoBotonRojo")
-                game.onTick(200, "apagadoBotonRojo", { =>
+                game.onTick(300, "apagadoBotonRojo", { =>
                     estaRojoPrendido = false
-                    botonRojo.cambiarImage(botonRojo.image())
+                    botonRojo.cambiarImage(botonRojo.imagenApagado())
                     game.removeTickEvent("apagadoBotonRojo")
                 })
             }})
-        keyboard.d().onPressDo({=>self.pulsarNotaEn(botonAmarillo)})
-        keyboard.f().onPressDo({=>self.pulsarNotaEn(botonAzul)})
+        keyboard.d().onPressDo({=>self.pulsarNotaEn(botonAmarillo)
+            if (!estaAmarilloPrendido) {
+                estaAmarilloPrendido = true
+                botonAmarillo.cambiarImage(botonAmarillo.botonHit()) 
+
+                game.removeTickEvent("apagadoBotonAmarillo")
+                game.onTick(300, "apagadoBotonAmarillo", { =>
+                    estaAmarilloPrendido = false
+                    botonAmarillo.cambiarImage(botonAmarillo.imagenApagado())
+                    game.removeTickEvent("apagadoBotonAmarillo")
+                })
+            }})
+
+        keyboard.f().onPressDo({=>self.pulsarNotaEn(botonAzul)
+            if (!estaAzulPrendido) {
+                estaAzulPrendido = true
+                botonAzul.cambiarImage(botonAzul.botonHit()) 
+
+                game.removeTickEvent("apagadoBotonAzul")
+                game.onTick(300, "apagadoBotonAzul", { =>
+                    estaAzulPrendido = false
+                    botonAzul.cambiarImage(botonAzul.imagenApagado())
+                    game.removeTickEvent("apagadoBotonAzul")
+                })
+            }})
 
     }
     
@@ -65,21 +100,34 @@ object juego {
         } else {
             player.sumarFallo()
             player.reiniciarMultiplicador()
+            notasActivas.remove(notaCercana)
             cartelFallos.actualizarFallo(player.fallos())
+            player.restarVida()
         }
     }
 
     method verificarNotasFalladas() {
-    const notasFalladas = notasActivas.filter({ n =>
-        n.position().y() > n.botonAsignado().position().y()
-    })
+        // Define a small offset. You'll need to experiment with this value.
+        // A positive value means the note has to go further down (lower Y)
+        // before it's considered missed.
+        const posicionParaFallo = -4 // Example: 1 unit below the button's Y
 
-    notasFalladas.forEach({ n =>
-        n.fail()
-        notasActivas.remove(n)
-        game.removeVisual(n)
-    })
-}
+        const notasFalladas = notasActivas.filter({ n =>
+             // Note is considered missed if its Y position is less than
+             // the button's Y position PLUS the offset.
+             // If Y_OFFSET_PARA_FALLO is negative (e.g., -1), it means it has to go 1 unit past the button.
+            n.position().y() < (n.botonAsignado().position().y() + posicionParaFallo)
+        })
+
+        notasFalladas.forEach({ n =>
+            n.fail()
+            notasActivas.remove(n)
+            game.removeVisual(n)
+            cartelFallos.actualizarFallo(player.fallos())
+            player.restarVida()
+        })
+    }
+
 
 
     method crearNotaVerde() {
@@ -109,7 +157,7 @@ object juego {
 }
 
 object cartelPuntuacion {
-    var property position = game.center()
+    var property position = game.at(17,15)
     var property text = "Puntuación: 0"
     var property size = 20 
 
@@ -121,10 +169,20 @@ object cartelPuntuacion {
 object cartelFallos {
     var property text = "Fallos: 0" 
     var property size = 20
-    var property position = game.at(5,6)
+    var property position = game.at(17,14)
     
     method actualizarFallo(cantFallos) {
         self.text("Fallos: " + cantFallos)
+    }
+}
+
+object cartelVida {
+    var property text = "Vida: 3" 
+    var property size = 20
+    var property position = game.at(17,13)
+    
+    method actualizarVida(cantVida) {
+        self.text("Vida: " + cantVida)
     }
 }
 
@@ -136,13 +194,15 @@ object player {
     var property energia =  0 //maximo 10
     var property fallos = 0 // cantidad de fallos
     var property poder = false  //  
+    var property consecutiveHits = 0
     // puede ser
     var property vida = 3
     // Metodo 3 vidas maximo
     method restarVida() {
-        if(fallos == 8) {
-            //fallos = 0
+        if(fallos >= 20) {
             vida = (vida- 1).max(0)
+            fallos = 0
+            cartelVida.actualizarVida(self.vida())
         }
     }
 
@@ -164,9 +224,23 @@ object player {
     }
 
     method sumarFallo() {fallos += 1}
-    method reiniciarMultiplicador() {multiplicador = 1}
+    // method reiniciarMultiplicador() {multiplicador = 1}
     method sumarPuntuacion(valor) {puntuacion += valor}
-    method aumentarMultiplicador() {multiplicador += 0.2}
+    // method aumentarMultiplicador() {multiplicador += 0.2}
+
+    method aumentarMultiplicador() {
+        consecutiveHits += 1 // Increment streak
+        if (consecutiveHits == 4) { // After 4 consecutive hits, multiplier becomes 2x
+            multiplicador = 2
+        } else if (consecutiveHits == 8) { // After 8 consecutive hits, multiplier becomes 3x
+            multiplicador = 3
+        } // ... and so on for higher multipliers
+    }
+
+    method reiniciarMultiplicador() {
+        multiplicador = 1
+        consecutiveHits = 0 // Reset streak on miss
+    }
 }
 
 //NOTAS
@@ -174,22 +248,23 @@ object player {
 class Notas {
     var property image 
     var noteHit 
-    var property puntuacion = 13
+    var property puntuacion = 2
     var property position
     var property botonAsignado
 
 
      //ELIMINA LA NOTA
     method eliminar() {
-         game.removeVisual(self)
-     }
+        game.removeVisual(self)
+        
+    }
 
     
 
     method cambiarImage(png) {image = png}
     method cambiarHit(png) {noteHit = png}
     method queCaiga() {
-        game.onTick(300,"caerse", {self.position(self.position().down(1))})
+        game.onTick(100,"caerse", {self.position(self.position().down(1))})
     }
 
     //SISTEMA DE PUNTUACION
@@ -206,35 +281,38 @@ class Notas {
     // SISTEMA DE REINICIO 
     method fail() {
         //Reproducir sonido de fallo de la nota
-        player.sumarFallo() 
+        player.sumarFallo()
         player.reiniciarMultiplicador()
+        
+        
     }
 }
 // // BOTONES
 
 class Botones {
     var property position
-    var property imagen 
+    var property imagenApagado     
+    var property imagenActual      
     var property botonHit
-    method image() = imagen
+
+    method image() = imagenActual
     method position() = position
-    method cambiarImage(png) {imagen = png}
-    
+    method cambiarImage(png) { imagenActual = png }
 }
 
-object botonVerde inherits Botones(position = game.at(2,1), imagen = "boton1.png", botonHit = "boton1Hit.png"){
+object botonVerde inherits Botones(position = game.at(2,1), imagenApagado = "boton1.png", imagenActual = "boton1.png" ,botonHit = "boton1Hit.png"){
 
 }
-object botonRojo inherits Botones(position = game.at(5,1), imagen = "boton2.png", botonHit = "boton2Hit.png"){
+object botonRojo inherits Botones(position = game.at(5,1), imagenApagado = "boton2.png", imagenActual = "boton2.png", botonHit = "boton2Hit.png"){
 
 }
-object botonAmarillo inherits Botones(position = game.at(8,1), imagen = "boton3.png", botonHit = "boton3Hit.png"){
+object botonAmarillo inherits Botones(position = game.at(8,1), imagenApagado = "boton3.png", imagenActual ="boton3.png", botonHit = "boton3Hit.png"){
 
 }
-object botonAzul inherits Botones(position = game.at(11,1), imagen = "boton4.png", botonHit = "boton4Hit.png"){
+object botonAzul inherits Botones(position = game.at(11,1), imagenApagado = "boton4.png", imagenActual = "boton4.png", botonHit = "boton4Hit.png"){
 
 }
-object botonNaranja inherits Botones(position = game.at(14,1), imagen = "boton5.png", botonHit = "boton5Hit.png"){
+object botonNaranja inherits Botones(position = game.at(14,1), imagenApagado = "boton5.png", imagenActual = "boton5.png", botonHit = "boton5Hit.png"){
 
 }
 
