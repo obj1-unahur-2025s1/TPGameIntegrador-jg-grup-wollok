@@ -107,15 +107,10 @@ object juego {
     }
 
     method verificarNotasFalladas() {
-        // Define a small offset. You'll need to experiment with this value.
-        // A positive value means the note has to go further down (lower Y)
-        // before it's considered missed.
+        
         const posicionParaFallo = -4 // Example: 1 unit below the button's Y
 
         const notasFalladas = notasActivas.filter({ n =>
-             // Note is considered missed if its Y position is less than
-             // the button's Y position PLUS the offset.
-             // If Y_OFFSET_PARA_FALLO is negative (e.g., -1), it means it has to go 1 unit past the button.
             n.position().y() < (n.botonAsignado().position().y() + posicionParaFallo)
         })
 
@@ -230,16 +225,16 @@ object player {
 
     method aumentarMultiplicador() {
         consecutiveHits += 1 // Increment streak
-        if (consecutiveHits == 4) { // After 4 consecutive hits, multiplier becomes 2x
+        if (consecutiveHits == 4) { 
             multiplicador = 2
-        } else if (consecutiveHits == 8) { // After 8 consecutive hits, multiplier becomes 3x
+        } else if (consecutiveHits == 8) {
             multiplicador = 3
-        } // ... and so on for higher multipliers
+        } 
     }
 
     method reiniciarMultiplicador() {
         multiplicador = 1
-        consecutiveHits = 0 // Reset streak on miss
+        consecutiveHits = 0 
     }
 }
 
