@@ -108,7 +108,7 @@ object juego {
 
     method verificarNotasFalladas() {
         
-        const posicionParaFallo = -4 // Example: 1 unit below the button's Y
+        const posicionParaFallo = -4 
 
         const notasFalladas = notasActivas.filter({ n =>
             n.position().y() < (n.botonAsignado().position().y() + posicionParaFallo)
