@@ -250,17 +250,17 @@ object player {
     method sumarFallo() {fallos += 1}
     method sumarPuntuacion(valor) {puntuacion += valor}
     method aumentarMultiplicador() {
-        consecutiveHits += 1 
-        if (consecutiveHits == 4) {
+        consecutiveHits += 1 // Increment streak
+        if (consecutiveHits == 4) { 
             multiplicador = 2
-        } else if (consecutiveHits == 8){
+        } else if (consecutiveHits == 8) {
             multiplicador = 3
         } 
     }
 
     method reiniciarMultiplicador() {
         multiplicador = 1
-        consecutiveHits = 0 // Reset streak on miss
+        consecutiveHits = 0 
     }
 
 
