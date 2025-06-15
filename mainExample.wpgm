@@ -5,8 +5,7 @@ import NotasyBotones.*
 program juegoJorge {
 	game.height(16)
 	game.width(20)
-	//game.boardGround("menu.jpg")
+	//game.boardGround("copado3.png")
 	juego.iniciar()
 	game.start()
-
 }
