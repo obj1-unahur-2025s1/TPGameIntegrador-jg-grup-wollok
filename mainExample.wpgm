@@ -2,10 +2,12 @@ import wollok.game.*
 
 import NotasyBotones.*
 
+import Menu.*
+
 program juegoJorge {
 	game.height(16)
 	game.width(20)
 	//game.boardGround("copado3.png")
-	juego.iniciar()
+	menu.iniciar()
 	game.start()
 }

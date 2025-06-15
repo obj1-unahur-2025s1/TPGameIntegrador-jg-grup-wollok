@@ -1,7 +1,6 @@
 
 object juego {
     var property notasActivas = []
-    
 
     method iniciar() {
         
@@ -20,8 +19,20 @@ object juego {
         game.onTick(50, "verificarFallos", { => self.verificarNotasFalladas() })
 
     }
+
+    method eliminarVisuals() {
+        game.removeVisual(botonAmarillo)
+        game.removeVisual(botonAzul)
+        game.removeVisual(botonRojo)
+        game.removeVisual(botonVerde)
+        game.removeVisual(cartelFallos)
+        game.removeVisual(imagenPuntuacion)
+        game.removeVisual(cartelHits)
+        game.removeVisual(cartelVida)
+    }
     
     method pulsarNotaEn(unBoton) {
+        
         const notaCercana = notasActivas.findOrElse({n =>
         n.botonAsignado() == unBoton &&
         (n.position().equals(unBoton.position()))
@@ -31,11 +42,13 @@ object juego {
             notasActivas.remove(notaCercana)
             cartelPuntuacion.actualizar(player.puntuacion())
         } else {
+            game.sound("sonido2.mp3").play()
             player.sumarFallo()
             player.reiniciarMultiplicador()
             notasActivas.remove(notaCercana)
             cartelFallos.actualizarFallo(player.fallos())
             player.restarVida()
+
         }
     }
 
@@ -45,8 +58,9 @@ object juego {
         const notasFalladas = notasActivas.filter({ n =>
             n.position().y() < (n.botonAsignado().position().y() + posicionParaFallo)
         })
-
+        
         notasFalladas.forEach({ n =>
+            game.sound("sonido2.mp3").play()
             n.fail()
             notasActivas.remove(n)
             game.removeVisual(n)
@@ -89,14 +103,12 @@ object teclado {
     var property estaAmarilloPrendido = false
     var property estaAzulPrendido = false
     var property juegoAsociado = juego
-    
+
     method iniciar(){
         keyboard.a().onPressDo({=>juegoAsociado.pulsarNotaEn(botonVerde)
         if (!estaVerdePrendido) {
                 estaVerdePrendido = true
                 botonVerde.cambiarImage(botonVerde.botonHit()) 
-
-                game.sound("sonido2.mp3").play()
 
                 game.removeTickEvent("apagadoBotonVerde")
                 game.onTick(300, "apagadoBotonVerde", {
@@ -110,8 +122,6 @@ object teclado {
                 estaRojoPrendido = true
                 botonRojo.cambiarImage(botonRojo.botonHit()) 
 
-                game.sound("sonido3.mp3").play()
-
                 game.removeTickEvent("apagadoBotonRojo")
                 game.onTick(300, "apagadoBotonRojo", { =>
                     estaRojoPrendido = false
@@ -122,9 +132,7 @@ object teclado {
         keyboard.d().onPressDo({=>juegoAsociado.pulsarNotaEn(botonAmarillo)
             if (!estaAmarilloPrendido) {
                 estaAmarilloPrendido = true
-                botonAmarillo.cambiarImage(botonAmarillo.botonHit()) 
-
-                game.sound("sonido4.mp3").play()
+                botonAmarillo.cambiarImage(botonAmarillo.botonHit())
 
                 game.removeTickEvent("apagadoBotonAmarillo")
                 game.onTick(300, "apagadoBotonAmarillo", { =>
@@ -138,9 +146,6 @@ object teclado {
             if (!estaAzulPrendido) {
                 estaAzulPrendido = true
                 botonAzul.cambiarImage(botonAzul.botonHit()) 
-
-                game.sound("sonido5.mp3").play()
-
                 game.removeTickEvent("apagadoBotonAzul")
                 game.onTick(300, "apagadoBotonAzul", { =>
                     estaAzulPrendido = false
@@ -150,6 +155,7 @@ object teclado {
             }})
     }
 }
+
 
 
 object cancion1 {
@@ -317,7 +323,6 @@ class Notas {
 
     // SISTEMA DE REINICIO 
     method fail() {
-        game.sound("water-drop-sound.mp3").play()
         player.sumarFallo()
         player.reiniciarMultiplicador()
         
