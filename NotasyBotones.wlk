@@ -160,6 +160,7 @@ object teclado {
 
 object cancion1 {
     method iniciar() {
+        game.sound("cancion1.mp3").play()
         game.schedule(100, {=>juego.crearNotaVerde()})
         game.schedule(2000, {=>juego.crearNotaRoja()})
         game.schedule(4000, {=>juego.crearNotaAzul()})

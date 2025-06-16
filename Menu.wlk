@@ -1,32 +1,32 @@
 import NotasyBotones.*
 object fondoMenu {
-    method image() = "fondoProv.jpg" // Replace with your menu background image
-    method position() = game.at(0, 3) // Position at top-left
+    method image() = "fondomenu.jpg" 
+    method position() = game.at(-10,-1) 
 }
 
 object tituloJuego {
-    method image() = "game_title.png" // Replace with your game title image or a text visual
-    method position() = game.at(5, 15) // Adjust position as needed
+    method image() = "game_title.png" 
+    method position() = game.at(5, 15) 
 }
 
 object botonIniciar {
-    method image() = "jugar.png" // Replace with your start button image
-    method position() = game.at(5, 5) // Adjust position as needed
+    method image() = "jugar4.png"
+    method position() = game.at(7, 8) 
 }
 object dificultad {
-    method image() = "dificultad.png"
-    method position() = game.at(2,2) 
+    method image() = "dificultad3.png"
+    method position() = game.at(6,5) 
 }
-// Optional: for game over screen
+
 object gameOverText {
-    method image() = "game_over_text.png" // Or use a text rendering function if available
+    method image() = "game_over_text.png" 
     method position() = game.at(5, 10)
 }
 object menu {
-    var property estadoJuego = "menuPrincipal" // New property to manage game state
+    var property estadoJuego = "menuPrincipal" 
 
     method iniciar() {
-        self.mostrarMenuPrincipal() // Call method to display the main menu
+        self.mostrarMenuPrincipal() 
     }
 
     method mostrarMenuPrincipal() {
