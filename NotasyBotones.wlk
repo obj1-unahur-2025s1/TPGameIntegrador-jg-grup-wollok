@@ -1,4 +1,3 @@
-
 object juego {
     var property notasActivas = []
 
@@ -32,33 +31,55 @@ object juego {
     }
     
     method pulsarNotaEn(unBoton) {
-        
-        const notaCercana = notasActivas.findOrElse({n =>
+        // implementar un codigo que dada la distancia de la nota con el boton, le mande al metodo multiplicador
+        // si la nota esta por fuera del botón, no le multiplica la puntuación
+        // si la nota esta dentro del botón, le multiplica la puntuación por el multiplicador
+
+    //     const notaCercana = notasActivas.findOrElse({n =>
+    //     n.botonAsignado() == unBoton &&
+    //     (n.position().equals(unBoton.position()))
+    // },{null})
+
+    // guardo la nota que esta por encima del botón, si justo le dio cuando esto sucedía
+        const notaPorEncima = notasActivas.findOrElse({n =>
         n.botonAsignado() == unBoton &&
         (n.position().equals(unBoton.position()))
     },{null})
-        if (notaCercana != null) {
+    // si hay una nota cercana (sea a 1 posicion del botón) la toma como válida
+        const notaCercana = notasActivas.findOrElse({n =>
+        (n.botonAsignado() == unBoton) && ((n.position().y() == unBoton.position().y() + 1))
+    },{null})
+
+        if (notaCercana != null ) {
             notaCercana.hit()
             notasActivas.remove(notaCercana)
+            cartelPuntuacion.actualizar(player.puntuacion())
+        } else if (notaPorEncima != null) {
+            notaPorEncima.hit()
+            notasActivas.remove(notaPorEncima)
             cartelPuntuacion.actualizar(player.puntuacion())
         } else {
             game.sound("sonido2.mp3").play()
             player.sumarFallo()
             player.reiniciarMultiplicador()
             notasActivas.remove(notaCercana)
+            notasActivas.remove(notaPorEncima)
             cartelFallos.actualizarFallo(player.fallos())
             player.restarVida()
-
         }
     }
 
     method verificarNotasFalladas() {
-        const posicionParaFallo = -4 
 
-        const notasFalladas = notasActivas.filter({ n =>
-            n.position().y() < (n.botonAsignado().position().y() + posicionParaFallo)
+        // const notasFalladas = notasActivas.filter({ n =>
+        //     n.position().y() < (n.botonAsignado().position().y() + posicionParaFallo)
+        // })
+        // cambie este código para poder acertar las notas 
+        // si estan en +1 posición arriba del botón porque sino
+        // era muy difícil acertar las notas en el juego
+         const notasFalladas = notasActivas.filter({ n =>
+            n.position().y() < (n.botonAsignado().position().y() - 2)
         })
-        
         notasFalladas.forEach({ n =>
             game.sound("sonido2.mp3").play()
             n.fail()
@@ -160,31 +181,96 @@ object teclado {
 
 object cancion1 {
     method iniciar() {
-        game.sound("cancion1.mp3").play()
-        game.schedule(100, {=>juego.crearNotaVerde()})
-        game.schedule(2000, {=>juego.crearNotaRoja()})
-        game.schedule(4000, {=>juego.crearNotaAzul()})
-        game.schedule(6000, {=>juego.crearNotaVerde()})
-        game.schedule(8000, {=>juego.crearNotaVerde()})
-        game.schedule(9000, {=>juego.crearNotaAzul()})
-        game.schedule(12000, {=>juego.crearNotaAmarilla()})
-        game.schedule(15000, {=>juego.crearNotaVerde()})
-        game.schedule(18990, {=>juego.crearNotaVerde()})
-        game.schedule(20000, {=>juego.crearNotaAzul()})
-        game.schedule(23000, {=>juego.crearNotaAmarilla()})
-        game.schedule(27000, {=>juego.crearNotaAzul()})
-        game.schedule(30000, {=>juego.crearNotaVerde()})
-        game.schedule(34000, {=>juego.crearNotaRoja()})
-        game.schedule(38000, {=>juego.crearNotaAzul()})
-        game.schedule(40000, {=>juego.crearNotaVerde()})
-        game.schedule(42000, {=>juego.crearNotaVerde()})
-        game.schedule(45000, {=>juego.crearNotaAzul()})
-        game.schedule(48000, {=>juego.crearNotaAmarilla()})
-        game.schedule(50000, {=>juego.crearNotaVerde()})
-        game.schedule(54000, {=>juego.crearNotaVerde()})
-        game.schedule(58000, {=>juego.crearNotaAzul()})
-        game.schedule(60000, {=>juego.crearNotaAmarilla()})
-        game.schedule(62000, {=>juego.crearNotaAzul()})
+        game.sound("cancionNivel1.mp3").play()
+        game.schedule(4300, {=>self.iniciaMusica()})
+
+    }
+    method tresNotas() {
+        juego.crearNotaVerde()
+        juego.crearNotaRoja()
+        game.schedule(250, {=>juego.crearNotaAzul()})
+    }
+    method cuatroNotas() {
+        game.schedule(0, {=>self.tresNotas()})
+        game.schedule(800, {=>juego.crearNotaAmarilla()})
+    }
+    method primerParte() {
+        self.tresNotas()
+        game.schedule(1300, {=>self.cuatroNotas()})
+
+
+        game.schedule(2500, {=>self.tresNotas()})
+        game.schedule(3800, {=>self.cuatroNotas()})
+
+
+        game.schedule(5000, {=>self.tresNotas()})
+        game.schedule(6100, {=>self.cuatroNotas()})
+
+        game.schedule(7400, {=>self.tresNotas()})
+
+    }
+    method segundaParte() {
+        self.tresNotas()
+
+        game.schedule(600, {=>
+        juego.crearNotaAmarilla()
+        juego.crearNotaAzul()
+        })
+        game.schedule(1100, {=>
+        juego.crearNotaRoja()})
+
+    }
+    method terceraParte() {
+        self.tresNotas()
+
+        game.schedule(1200, {=>
+            juego.crearNotaAmarilla()
+            juego.crearNotaAzul()
+        })
+        // secuencia doble
+        game.schedule(1400, {=>
+            self.secuenciaDoble()
+        })
+        game.schedule(2000, {=>
+            juego.crearNotaRoja() 
+        })
+        game.schedule(2300, {=>
+            juego.crearNotaAmarilla() 
+        })  
+    }
+    method secuenciaDoble() {
+        game.schedule(0, {=> 
+        juego.crearNotaVerde() 
+        juego.crearNotaRoja() })
+        game.schedule(500, {=>
+        juego.crearNotaAmarilla()
+        juego.crearNotaAzul() })
+    }
+    method midGame() {
+        self.tresNotas()
+        game.schedule(2300, {=>self.terceraParte()})
+        game.schedule(5000, {=>self.tresNotas()}) 
+
+        game.schedule(7300, {=>
+            juego.crearNotaAmarilla()
+            juego.crearNotaAzul()
+                game.schedule(300, {=>
+                    juego.crearNotaRoja()
+                    juego.crearNotaVerde()
+            })
+        })
+        game.schedule(8700, {=>
+            self.secuenciaDoble()})    
+        game.schedule(9400, {=>
+            juego.crearNotaRoja()})
+    }
+    method iniciaMusica() {
+        self.primerParte()
+        //7400 termina la primera parte
+        game.schedule(8500, {=>self.segundaParte()})
+        game.schedule(11600, {=>self.terceraParte()
+        })
+        game.schedule(14200, {=>self.midGame()})
     }
 }
 
@@ -292,8 +378,7 @@ object player {
 //NOTAS
 
 class Notas {
-    var property image 
-    
+    var property image   
     var property puntuacion = 2
     var property position
     var property botonAsignado
