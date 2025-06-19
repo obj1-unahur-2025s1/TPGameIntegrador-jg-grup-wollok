@@ -1,3 +1,4 @@
+import pruebas2.*
 import Menu.*
 object juego {
     var property notasActivas = []
@@ -335,15 +336,15 @@ object cancion1 {
             juego.crearNotaVerde()
             game.schedule(350, {=>
                 juego.crearNotaRoja()
-                game.schedule(360, {=>
+                game.schedule(300, {=>
                     juego.crearNotaAmarilla()
-                    game.schedule(400, {=>
+                    game.schedule(300, {=>
                         juego.crearNotaAzul()
-                        game.schedule(350, {=>
+                        game.schedule(300, {=>
                             juego.crearNotaVerde()
-                            game.schedule(350, {=> 
+                            game.schedule(300, {=> 
                                 juego.crearNotaAzul()
-                                game.schedule(350, {=>
+                                game.schedule(300, {=>
                                     juego.crearNotaAmarilla()
                             })
                         })
@@ -353,10 +354,19 @@ object cancion1 {
         })
         game.schedule(2600, {=> 
             juego.crearNotaRoja()
-            juego.crearNotaVerde()
             juego.crearNotaAzul()
             game.schedule(400, {=> 
                 juego.crearNotaAmarilla()    
+            })})
+        game.schedule(3500, {=> 
+            juego.crearNotaVerde()
+            juego.crearNotaAmarilla()
+            game.schedule(600, {=> 
+                juego.crearNotaRoja()
+                juego.crearNotaAzul()  
+                game.schedule(900, {=> 
+                    juego.crearNotaAmarilla()
+                })  
             })
     })})
     }
