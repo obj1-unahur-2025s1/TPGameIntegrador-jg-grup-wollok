@@ -322,7 +322,7 @@ object cancion1 {
                             juego.crearNotaRoja()
                             game.schedule(650, {=>
                                 juego.crearNotaAmarilla()
-                                game.schedule(650, {=>
+                                game.schedule(500, {=>
                                     juego.crearNotaAzul()
                                 })
                             })
@@ -331,6 +331,34 @@ object cancion1 {
                 })
             })
         })
+        game.schedule(4800, {=> 
+            juego.crearNotaVerde()
+            game.schedule(350, {=>
+                juego.crearNotaRoja()
+                game.schedule(360, {=>
+                    juego.crearNotaAmarilla()
+                    game.schedule(400, {=>
+                        juego.crearNotaAzul()
+                        game.schedule(350, {=>
+                            juego.crearNotaVerde()
+                            game.schedule(350, {=> 
+                                juego.crearNotaAzul()
+                                game.schedule(350, {=>
+                                    juego.crearNotaAmarilla()
+                            })
+                        })
+                    })
+                })
+            })
+        })
+        game.schedule(2600, {=> 
+            juego.crearNotaRoja()
+            juego.crearNotaVerde()
+            juego.crearNotaAzul()
+            game.schedule(400, {=> 
+                juego.crearNotaAmarilla()    
+            })
+    })})
     }
     method iniciaMusica() {
         self.primerParte()
