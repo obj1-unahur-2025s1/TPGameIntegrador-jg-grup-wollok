@@ -1,3 +1,4 @@
+import Menu.*
 object juego {
     var property notasActivas = []
 
@@ -174,12 +175,22 @@ object teclado {
                     game.removeTickEvent("apagadoBotonAzul")
                 })
             }})
+        keyboard.space().onPressDo({ => cancion1.cerrarNivel()})
     }
 }
 
 
-
 object cancion1 {
+    //METODO CERRAR NIVEL A TERMINAR (NO SE COMO PARAR LA MUSICA :( ))
+    method cerrarNivel() {
+        juego.eliminarVisuals()
+        game.addVisual(dificultad)
+        game.addVisual(botonIniciar)
+        game.addVisual(fondoMenu)
+        game.addVisual(tituloJuego)
+        game.addVisual(botonIniciar)
+
+    }
     method iniciar() {
         game.sound("cancionNivel1.mp3").play()
         game.schedule(4300, {=>self.iniciaMusica()})
@@ -192,7 +203,7 @@ object cancion1 {
     }
     method cuatroNotas() {
         game.schedule(0, {=>self.tresNotas()})
-        game.schedule(800, {=>juego.crearNotaAmarilla()})
+        game.schedule(750, {=>juego.crearNotaAmarilla()})
     }
     method primerParte() {
         self.tresNotas()
@@ -228,13 +239,13 @@ object cancion1 {
             juego.crearNotaAzul()
         })
         // secuencia doble
-        game.schedule(1400, {=>
+        game.schedule(1300, {=>
             self.secuenciaDoble()
         })
-        game.schedule(2000, {=>
+        game.schedule(2100, {=>
             juego.crearNotaRoja() 
         })
-        game.schedule(2300, {=>
+        game.schedule(2200, {=>
             juego.crearNotaAmarilla() 
         })  
     }
@@ -259,10 +270,29 @@ object cancion1 {
                     juego.crearNotaVerde()
             })
         })
-        game.schedule(8700, {=>
+
+        game.schedule(8400, {=>
             self.secuenciaDoble()})    
-        game.schedule(9400, {=>
+         game.schedule(9200, {=>
             juego.crearNotaRoja()})
+        game.schedule(9500, {=>
+            juego.crearNotaAmarilla()})
+
+    }
+    method cuartaParte() {
+        game.schedule(0, {=> 
+            juego.crearNotaVerde() 
+            juego.crearNotaRoja() })
+        game.schedule(300, {=>
+            juego.crearNotaAmarilla()
+            juego.crearNotaAzul() })
+
+        game.schedule(1300, {=> 
+            juego.crearNotaAmarilla()
+            juego.crearNotaAzul() })
+        game.schedule(1600, {=>
+            juego.crearNotaVerde() 
+            juego.crearNotaRoja() })
     }
     method iniciaMusica() {
         self.primerParte()
@@ -271,6 +301,8 @@ object cancion1 {
         game.schedule(11600, {=>self.terceraParte()
         })
         game.schedule(14200, {=>self.midGame()})
+
+        game.schedule(23900, {=>self.cuartaParte()})
     }
 }
 
