@@ -1,4 +1,3 @@
-import pruebas2.*
 import Menu.*
 object juego {
     var property notasActivas = []
