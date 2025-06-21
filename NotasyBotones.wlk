@@ -125,8 +125,32 @@ object teclado {
     var property estaAmarilloPrendido = false
     var property estaAzulPrendido = false
     var property juegoAsociado = juego
+    var property menus = menu
+    var property reglasAsociadas = reglas
 
     method iniciar(){
+        
+        keyboard.enter().onPressDo {
+            if (menus.estadoJuego() == "menuPrincipal") {
+                menus.ocultarMenuPrincipal()
+                juego.iniciar()
+            }
+        }
+
+        keyboard.r().onPressDo({
+        if (reglasAsociadas.estaVisible()) {
+        game.removeVisual(reglasAsociadas)
+        menus.mostrarMenuPrincipal()   // <- Volver a mostrar el menú
+        } else {
+        menus.ocultarMenuPrincipal()   // <- Ocultar menú
+        game.addVisual(reglasAsociadas)
+        }
+        reglasAsociadas.cambioVisible()
+        })
+
+
+
+
         keyboard.a().onPressDo({=>juegoAsociado.pulsarNotaEn(botonVerde)
         if (!estaVerdePrendido) {
                 estaVerdePrendido = true
@@ -429,6 +453,15 @@ object cartelVida {
     
     method actualizarVida(cantVida) {
         self.text("Vida: " + cantVida)
+    }
+}
+
+object reglas {
+    var property estaVisible = false
+    method position() = game.at(1,-14)
+    method image() = "reglas.png"
+    method cambioVisible() {
+        estaVisible = !estaVisible
     }
 }
 

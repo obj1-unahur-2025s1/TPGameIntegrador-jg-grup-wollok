@@ -26,7 +26,8 @@ object menu {
     var property estadoJuego = "menuPrincipal" 
 
     method iniciar() {
-        self.mostrarMenuPrincipal() 
+        self.mostrarMenuPrincipal()
+        
     }
 
     method mostrarMenuPrincipal() {
@@ -41,14 +42,7 @@ object menu {
 
         // Add start button
         game.addVisual(botonIniciar)
-
-        // Listen for "Enter" key press to start the game
-        keyboard.enter().onPressDo {
-            if (self.estadoJuego() == "menuPrincipal") {
-                self.ocultarMenuPrincipal()
-                juego.iniciar()
-            }
-        }
+        teclado.iniciar()
     }
 
     method ocultarMenuPrincipal() {
