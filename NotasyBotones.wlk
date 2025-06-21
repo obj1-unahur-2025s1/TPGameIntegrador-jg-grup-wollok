@@ -17,7 +17,7 @@ object juego {
         teclado.iniciar()
         
         game.onTick(50, "verificarFallos", { => self.verificarNotasFalladas() })
-
+        menu.cambiarEstado("jugando")
     }
 
     method eliminarVisuals() {
@@ -137,17 +137,28 @@ object teclado {
             }
         }
 
-        keyboard.r().onPressDo({
-        if (reglasAsociadas.estaVisible()) {
-        game.removeVisual(reglasAsociadas)
-        menus.mostrarMenuPrincipal()   // <- Volver a mostrar el menú
-        } else {
-        menus.ocultarMenuPrincipal()   // <- Ocultar menú
-        game.addVisual(reglasAsociadas)
-        }
-        reglasAsociadas.cambioVisible()
-        })
+        // keyboard.r().onPressDo({
+        // if (reglasAsociadas.estaVisible()) {
+        // game.removeVisual(reglasAsociadas)
+        // menus.mostrarMenuPrincipal()   // <- Volver a mostrar el menú
+        // } else {
+        // menus.ocultarMenuPrincipal()   // <- Ocultar menú
+        // game.addVisual(reglasAsociadas)
+        // }
+        // reglasAsociadas.cambioVisible()
+        // })
 
+
+        keyboard.r().onPressDo({
+    if (menu.estadoJuego() == "menuPrincipal" || menu.estadoJuego() == "reglas") {
+        if (reglas.estaVisible()) {
+            menu.ocultarReglas()
+        } else {
+            menu.mostrarReglas()
+        }
+        reglas.cambioVisible()
+    }
+})
 
 
 
@@ -456,10 +467,11 @@ object cartelVida {
     }
 }
 
+
 object reglas {
     var property estaVisible = false
-    method position() = game.at(1,-14)
-    method image() = "reglas.png"
+    method position() = game.at(-10, 0) //game.at(1,-14)
+    method image() = "ruless.png"
     method cambioVisible() {
         estaVisible = !estaVisible
     }
