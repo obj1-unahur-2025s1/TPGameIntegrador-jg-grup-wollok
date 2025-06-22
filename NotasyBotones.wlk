@@ -41,30 +41,28 @@ object juego {
     //     (n.position().equals(unBoton.position()))
     // },{null})
 
-    // guardo la nota que esta por encima del botón, si justo le dio cuando esto sucedía
-        const notaPorEncima = notasActivas.findOrElse({n =>
-        n.botonAsignado() == unBoton &&
-        (n.position().equals(unBoton.position()))
-    },{null})
-    // si hay una nota cercana (sea a 1 posicion del botón) la toma como válida
+
+        // PARA NO COMPLICAR LA PUNTUACION
+
+    //     const notaPorEncima = notasActivas.findOrElse({n =>
+    //     n.botonAsignado() == unBoton &&
+    //     (n.position().equals(unBoton.position()))
+    // },{null})
+
         const notaCercana = notasActivas.findOrElse({n =>
-        (n.botonAsignado() == unBoton) && ((n.position().y() == unBoton.position().y() + 1))
+        (n.botonAsignado() == unBoton) && ((n.position().y() == unBoton.position().y() + 1 ||
+        n.botonAsignado() == unBoton &&  (n.position().equals(unBoton.position()))))
     },{null})
 
         if (notaCercana != null ) {
             notaCercana.hit()
             notasActivas.remove(notaCercana)
             cartelPuntuacion.actualizar(player.puntuacion())
-        } else if (notaPorEncima != null) {
-            notaPorEncima.hit()
-            notasActivas.remove(notaPorEncima)
-            cartelPuntuacion.actualizar(player.puntuacion())
         } else {
             game.sound("sonido2.mp3").play()
             player.sumarFallo()
             player.reiniciarMultiplicador()
             notasActivas.remove(notaCercana)
-            notasActivas.remove(notaPorEncima)
             cartelFallos.actualizarFallo(player.fallos())
             player.restarVida()
         }
@@ -233,7 +231,6 @@ object cancion1 {
     }
     method tresNotas() {
         juego.crearNotaVerde()
-        juego.crearNotaRoja()
         game.schedule(250, {=>juego.crearNotaAzul()})
     }
     method cuatroNotas() {
@@ -244,10 +241,8 @@ object cancion1 {
         self.tresNotas()
         game.schedule(1300, {=>self.cuatroNotas()})
 
-
         game.schedule(2500, {=>self.tresNotas()})
         game.schedule(3800, {=>self.cuatroNotas()})
-
 
         game.schedule(5000, {=>self.tresNotas()})
         game.schedule(6100, {=>self.cuatroNotas()})
@@ -257,10 +252,8 @@ object cancion1 {
     }
     method segundaParte() {
         self.tresNotas()
-
         game.schedule(600, {=>
         juego.crearNotaAmarilla()
-        juego.crearNotaAzul()
         })
         game.schedule(1100, {=>
         juego.crearNotaRoja()})
@@ -269,140 +262,60 @@ object cancion1 {
     method terceraParte() {
         self.tresNotas()
 
-        game.schedule(1200, {=>
-            // juego.crearNotaAmarilla()
-            juego.crearNotaAzul()
-        })
+        game.schedule(1200, {=>juego.crearNotaAzul()})
         // secuencia doble
-        game.schedule(1300, {=>
-            self.secuenciaDoble()
-        })
+        game.schedule(1300, {=>self.secuenciaDoble()})
         game.schedule(2100, {=>
             juego.crearNotaRoja() 
         })
 
         //NOTA AMARILLA RAPIDA DESPUES DE UNA NOTA ROJA
         // NO ES DIFICIL DE DAR, PERO LAGUEA EL JUEGO CUANDO HAY MUCHAS NOTAS EN LA PANTALLA
-       game.schedule(2200, {=>
-           juego.crearNotaAmarilla() 
-       })  
+
     }
     method secuenciaDoble() {
-        game.schedule(0, {=> 
         juego.crearNotaVerde() 
-        juego.crearNotaRoja()
-         })
-        game.schedule(500, {=>
-        // juego.crearNotaAmarilla()
-        juego.crearNotaAzul() 
-        })
+        game.schedule(500, {=>juego.crearNotaAzul()})
     }
     method midGame() {
         self.tresNotas()
         game.schedule(2300, {=>self.terceraParte()})
         game.schedule(5000, {=>self.tresNotas()}) 
 
-        game.schedule(7300, {=>
-            // juego.crearNotaAmarilla()
-            juego.crearNotaAzul()
-                game.schedule(300, {=>
-                    // juego.crearNotaRoja()
-                    juego.crearNotaVerde()
-            })
-        })
+        game.schedule(7300, {=>juego.crearNotaAzul()})
+        game.schedule(7600, {=>juego.crearNotaVerde()})
 
-        game.schedule(8400, {=>
-            self.secuenciaDoble()})    
-         game.schedule(9200, {=>
-            juego.crearNotaRoja()})
-        game.schedule(9500, {=>
-            juego.crearNotaAmarilla()})
+        game.schedule(8400, {=>self.secuenciaDoble()})    
+        game.schedule(9400, {=>juego.crearNotaAmarilla()})
 
     }
 
     //ANTES DEL DROP CUARTA PARTE
     method cuartaParte() {
-        game.schedule(0, {=> 
-            juego.crearNotaVerde() 
-            juego.crearNotaRoja() })
-        game.schedule(300, {=>
-            // juego.crearNotaAmarilla()
-            juego.crearNotaAzul() })
-
-        game.schedule(1400, {=> 
-            //juego.crearNotaAmarilla()
-            juego.crearNotaAzul() })
-        game.schedule(1700, {=>
-            // juego.crearNotaVerde() 
-            juego.crearNotaRoja() })
-        game.schedule(2700, {=>
-            // juego.crearNotaVerde() 
-            juego.crearNotaRoja() })
-        game.schedule(3000, {=>
-            juego.crearNotaAmarilla()})
-        game.schedule(4000, {=>
-            juego.crearNotaAzul()})
+        juego.crearNotaRoja() 
+        game.schedule(300, {=>juego.crearNotaAzul()})
+        game.schedule(1400, {=>juego.crearNotaAzul() })
+        game.schedule(1700, {=>juego.crearNotaRoja() })
+        
+        game.schedule(3000, {=>juego.crearNotaAmarilla()})
+        game.schedule(4000, {=>juego.crearNotaAzul()})
     }
     method drop() { 
         juego.crearNotaVerde()
-        game.schedule(650, {=>
-            juego.crearNotaRoja()
-            game.schedule(650, {=>
-                juego.crearNotaAmarilla()
-                game.schedule(650, {=>
-                    juego.crearNotaAzul()
-                    game.schedule(650, {=>
-                        juego.crearNotaVerde()
-                        game.schedule(650, {=>
-                            juego.crearNotaRoja()
-                            game.schedule(650, {=>
-                                juego.crearNotaAmarilla()
-                                game.schedule(500, {=>
-                                    juego.crearNotaAzul()
-                                })
-                            })
-                        })
-                    })
-                })
-            })
-        })
-        game.schedule(4800, {=> 
-            juego.crearNotaVerde()
-            game.schedule(350, {=>
-                juego.crearNotaRoja()
-                game.schedule(300, {=>
-                    juego.crearNotaAmarilla()
-                    game.schedule(300, {=>
-                        juego.crearNotaAzul()
-                        game.schedule(300, {=>
-                            juego.crearNotaVerde()
-                            game.schedule(300, {=> 
-                                juego.crearNotaAzul()
-                                game.schedule(300, {=>
-                                    juego.crearNotaAmarilla()
-                            })
-                        })
-                    })
-                })
-            })
-        })
-        game.schedule(2600, {=> 
-            juego.crearNotaRoja()
-            juego.crearNotaAzul()
-            game.schedule(400, {=> 
-                juego.crearNotaAmarilla()    
-            })})
-        game.schedule(3500, {=> 
-            juego.crearNotaVerde()
-            juego.crearNotaAmarilla()
-            game.schedule(600, {=> 
-                juego.crearNotaRoja()
-                juego.crearNotaAzul()  
-                game.schedule(900, {=> 
-                    juego.crearNotaAmarilla()
-                })  
-            })
-    })})
+        game.schedule(400, {=> juego.crearNotaRoja()})
+
+        game.schedule(1300, {=> juego.crearNotaAmarilla()})
+        game.schedule(1600, {=> juego.crearNotaAzul()})
+
+        game.schedule(2000, {=> juego.crearNotaRoja()})
+        game.schedule(2500, {=> juego.crearNotaAmarilla()})
+
+        
+        game.schedule(3500, {=> juego.crearNotaAmarilla()})
+        game.schedule(4000, {=> juego.crearNotaRoja()})
+
+        game.schedule(4700, {=> juego.crearNotaVerde()
+                                juego.crearNotaAzul()})
     }
     method iniciaMusica() {
         self.primerParte()
@@ -414,15 +327,23 @@ object cancion1 {
 
         game.schedule(23900, {=>self.cuartaParte()})
         
-        game.schedule(33000, {=>
+        game.schedule(31500, {=>self.puntosEnPantalla()})
+        game.schedule(38200, {=>
             self.drop()
         })
+    }
+    method puntosEnPantalla() {
+        game.sound("sonido3.mp3").play()
+        imagenPuntuacion.position(game.at(3,8))
+        cartelPuntuacion.position(game.at(8,8))
+        game.schedule(4000, {=> cartelPuntuacion.position(game.at(16.5, 14))})
+        game.schedule(4000, {=> imagenPuntuacion.position(game.at(14, 14.5))})
     }
 }
 
 
 object imagenPuntuacion {
-    method position() = game.at(14, 14.5)
+    var property position = game.at(14, 14.5)
     method image() = "puntuacionchica.png"
 }
 
