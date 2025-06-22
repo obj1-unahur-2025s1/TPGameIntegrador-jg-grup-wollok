@@ -30,7 +30,6 @@ object menu {
 
     method iniciar() {
         self.mostrarMenuPrincipal()
-        
     }
 
 
@@ -53,8 +52,8 @@ object menu {
         game.addVisual(dificultad)
         game.addVisual(tituloJuego)
         game.addVisual(botonIniciar)
+        tecladoMenu.iniciar()
         self.cambiarEstado("menuPrincipal")
-        teclado.iniciar()
     }
 
     method mostrarReglas() {

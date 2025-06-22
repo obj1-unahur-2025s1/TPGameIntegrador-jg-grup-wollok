@@ -32,29 +32,11 @@ object juego {
     }
     
     method pulsarNotaEn(unBoton) {
-        // implementar un codigo que dada la distancia de la nota con el boton, le mande al metodo multiplicador
-        // si la nota esta por fuera del botón, no le multiplica la puntuación
-        // si la nota esta dentro del botón, le multiplica la puntuación por el multiplicador
-
-    //     const notaCercana = notasActivas.findOrElse({n =>
-    //     n.botonAsignado() == unBoton &&
-    //     (n.position().equals(unBoton.position()))
-    // },{null})
-
-
-        // PARA NO COMPLICAR LA PUNTUACION
-
-    //     const notaPorEncima = notasActivas.findOrElse({n =>
-    //     n.botonAsignado() == unBoton &&
-    //     (n.position().equals(unBoton.position()))
-    // },{null})
-
         const notaCercana = notasActivas.findOrElse({n =>
         (n.botonAsignado() == unBoton) && ((n.position().y() == unBoton.position().y() + 1 ||
         n.botonAsignado() == unBoton &&  (n.position().equals(unBoton.position()))))
-    },{null})
-
-        if (notaCercana != null ) {
+            },{null})
+        if (notaCercana != null) {
             notaCercana.hit()
             notasActivas.remove(notaCercana)
             cartelPuntuacion.actualizar(player.puntuacion())
@@ -67,7 +49,7 @@ object juego {
             player.restarVida()
         }
     }
-
+    
     method verificarNotasFalladas() {
 
         // const notasFalladas = notasActivas.filter({ n =>
@@ -88,8 +70,6 @@ object juego {
             player.restarVida()
         })
     }
-
-
 
     method crearNotaVerde() {
         const notaNueva = new Notas(image = "note1.png",  position = game.at(2,18), botonAsignado = botonVerde)
@@ -116,50 +96,38 @@ object juego {
         notasActivas.add(notaNueva)
     }
 }
-
+object tecladoMenu {
+    var property juegoAsociado = juego
+    var property menus = menu
+    var property reglasAsociadas = reglas
+    method iniciar() {
+        keyboard.enter().onPressDo {
+                menus.estado("jugando") 
+                menus.ocultarMenuPrincipal()
+                juego.iniciar()
+        }
+        keyboard.r().onPressDo({
+            if (menu.estadoJuego() == "menuPrincipal" || menu.estadoJuego() == "reglas") {
+                if (reglas.estaVisible()) {
+                    menu.ocultarReglas()
+                } else {
+                    menu.mostrarReglas()
+                }
+                reglas.cambioVisible()
+                }
+            })
+    }
+}
 object teclado {
     var property estaVerdePrendido = false
     var property estaRojoPrendido = false
     var property estaAmarilloPrendido = false
     var property estaAzulPrendido = false
     var property juegoAsociado = juego
-    var property menus = menu
-    var property reglasAsociadas = reglas
+    // var property menus = menu
+    // var property reglasAsociadas = reglas
 
     method iniciar(){
-        
-        keyboard.enter().onPressDo {
-            if (menus.estadoJuego() == "menuPrincipal") {
-                menus.ocultarMenuPrincipal()
-                juego.iniciar()
-            }
-        }
-
-        // keyboard.r().onPressDo({
-        // if (reglasAsociadas.estaVisible()) {
-        // game.removeVisual(reglasAsociadas)
-        // menus.mostrarMenuPrincipal()   // <- Volver a mostrar el menú
-        // } else {
-        // menus.ocultarMenuPrincipal()   // <- Ocultar menú
-        // game.addVisual(reglasAsociadas)
-        // }
-        // reglasAsociadas.cambioVisible()
-        // })
-
-
-        keyboard.r().onPressDo({
-    if (menu.estadoJuego() == "menuPrincipal" || menu.estadoJuego() == "reglas") {
-        if (reglas.estaVisible()) {
-            menu.ocultarReglas()
-        } else {
-            menu.mostrarReglas()
-        }
-        reglas.cambioVisible()
-    }
-})
-
-
-
         keyboard.a().onPressDo({=>juegoAsociado.pulsarNotaEn(botonVerde)
         if (!estaVerdePrendido) {
                 estaVerdePrendido = true
@@ -479,17 +447,11 @@ class Notas {
         player.sumarPuntuacion(puntuacion * player.multiplicador())
         self.eliminar()
         player.aumentarMultiplicador()
-
         }
-        
-    
-
     // SISTEMA DE REINICIO 
     method fail() {
         player.sumarFallo()
         player.reiniciarMultiplicador()
-        
-        
     }
 }
 // // BOTONES
