@@ -12,7 +12,7 @@ object tecladoMenu {
         keyboard.enter().onPressDo {
             game.sound("sonido4.mp3").play()
             menus.estado("jugando") 
-            dificultades.ocultar()
+            dificultades.ocultarDificultades()
             menus.ocultarMenuPrincipal()
             juego.iniciar()
         }
@@ -28,14 +28,14 @@ object tecladoMenu {
         reglas.cambioVisible()
     }
 })
-        keyboard.t().onPressDo({
+         keyboard.t().onPressDo({
             if (menu.estadoJuego() == "menuPrincipal") {
                 game.sound("sonido3.mp3").play()
                 if (!dificultadesVistas) {
-                    self.mostrarDificultades()
+                    dificultades.mostrarDificultades()
                     dificultadesVistas = true
                 } else {
-                    self.ocultarDificultades()
+                    dificultades.ocultarDificultades()
                     dificultadesVistas = false
                 }
             }
@@ -55,16 +55,8 @@ object tecladoMenu {
             }
         })
     }
-    method mostrarDificultades() {
-            game.addVisual(normal)
-            game.addVisual(dificil)
-            game.addVisual(selector)
-    }
-    method ocultarDificultades() {
-            game.removeVisual(normal)
-            game.removeVisual(dificil)
-            game.removeVisual(selector)
-    }
+
+
 }
 
 object teclado {
@@ -75,10 +67,10 @@ object teclado {
     var property juegoAsociado = juego
     var property menus = menu
     // var property reglasAsociadas = reglas
-
     method iniciar(){
-        keyboard.a().onPressDo({=>juegoAsociado.pulsarNotaEn(botonVerde)
+        keyboard.a().onPressDo({=>
         if (menus.estadoJuego() == "jugando" && !estaVerdePrendido) {
+                juegoAsociado.pulsarNotaEn(botonVerde)
                 estaVerdePrendido = true
                 botonVerde.cambiarImage(botonVerde.botonHit()) 
 
@@ -89,8 +81,9 @@ object teclado {
                 game.removeTickEvent("apagadoBotonVerde")
                 })
             }})
-        keyboard.s().onPressDo({=>juegoAsociado.pulsarNotaEn(botonRojo)
+        keyboard.s().onPressDo({=>
         if (menus.estadoJuego() == "jugando" && !estaRojoPrendido) {
+                juegoAsociado.pulsarNotaEn(botonRojo)
                 estaRojoPrendido = true
                 botonRojo.cambiarImage(botonRojo.botonHit()) 
 
@@ -101,8 +94,9 @@ object teclado {
                     game.removeTickEvent("apagadoBotonRojo")
                 })
             }})
-        keyboard.d().onPressDo({=>juegoAsociado.pulsarNotaEn(botonAmarillo)
+        keyboard.d().onPressDo({=>
             if (menus.estadoJuego() == "jugando" && !estaAmarilloPrendido) {
+                juegoAsociado.pulsarNotaEn(botonAmarillo)
                 estaAmarilloPrendido = true
                 botonAmarillo.cambiarImage(botonAmarillo.botonHit())
 
@@ -114,8 +108,9 @@ object teclado {
                 })
             }})
 
-        keyboard.f().onPressDo({=>juegoAsociado.pulsarNotaEn(botonAzul)
+        keyboard.f().onPressDo({=>
             if (menus.estadoJuego() == "jugando" && !estaAzulPrendido) {
+                juegoAsociado.pulsarNotaEn(botonAzul)
                 estaAzulPrendido = true
                 botonAzul.cambiarImage(botonAzul.botonHit()) 
                 game.removeTickEvent("apagadoBotonAzul")
@@ -126,7 +121,10 @@ object teclado {
                 })
             }})
         keyboard.space().onPressDo({ => 
-            cancion1.cerrarNivel()
+            if(menus.estadoJuego() == "jugando") {
+                juego.nivelElegido().cerrarNivel()
+            }
         })
     }
+ 
 }
