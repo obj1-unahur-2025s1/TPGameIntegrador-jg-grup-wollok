@@ -10,23 +10,24 @@ object tecladoMenu {
     var property dificultadesVistas = false
     method iniciar() {
         keyboard.enter().onPressDo {
+            if (menu.estadoJuego() == "menuPrincipal") {
             game.sound("sonido4.mp3").play()
             menus.estado("jugando") 
             dificultades.ocultarDificultades()
             menus.ocultarMenuPrincipal()
             juego.iniciar()
-        }
+        }}
+    
         keyboard.r().onPressDo({
         const enMenu = menu.estadoJuego() == "menuPrincipal" || menu.estadoJuego() == "reglas"
-
         if (enMenu) {
-        if (reglas.estaVisible()) {
-            menu.ocultarReglas()
-        } else {
-            menu.mostrarReglas()
+            if (reglas.estaVisible()) {
+                menu.ocultarReglas()
+            } else {
+                menu.mostrarReglas()
+            }
+            reglas.cambioVisible()
         }
-        reglas.cambioVisible()
-    }
 })
          keyboard.t().onPressDo({
             if (menu.estadoJuego() == "menuPrincipal") {
