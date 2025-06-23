@@ -17,7 +17,7 @@ object player {
         if(falloOculto == 6) {
             vida = (vida-1).max(0)
             falloOculto = 0
-            cartelVida.actualizarVida(self.vida())
+            cartelVida.actualizarVida()
         } 
         else if (vida == 0) {
             game.addVisual(gameOver)

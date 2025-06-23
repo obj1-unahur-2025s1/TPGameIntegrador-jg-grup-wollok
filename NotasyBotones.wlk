@@ -17,7 +17,9 @@ object juego {
         game.addVisual(cartelPuntuacion)
         game.addVisual(imagenPuntuacion)
         game.addVisual(cartelFallos)
-        game.addVisual(cartelVida)
+        game.addVisual(vida1)
+        game.addVisual(vida2)
+        game.addVisual(vida3)
 
         nivelElegido.iniciar()
         teclado.iniciar()

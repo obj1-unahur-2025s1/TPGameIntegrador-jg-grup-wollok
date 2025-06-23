@@ -39,13 +39,38 @@ object cartelFallos {
     }
 }
 object cartelVida {
-    var property text = "Vida: 3" 
-    var property size = 20
-    var property position = game.at(17,12)
+    // var property text = "Vida: 3" 
+    // var property size = 20
+    // var property position = game.at(17,12)
     
-    method actualizarVida(cantVida) {
-        self.text("Vida: " + cantVida)
+    // method actualizarVida(cantVida) {
+    //     self.text("Vida: " + cantVida)
+    // }
+
+    const vidas = [vida1, vida2, vida3]
+    method actualizarVida() {
+        vidas.find({v => v.image() == "guitarraVida2.png"}).imagen("guitarraVidaPerdida2.png")
     }
+}
+object vida1 {
+    var property position = game.at(15, 12)
+    var property imagen = "guitarraVida2.png"
+    method image() =  imagen
+}
+object vida2 {
+    var property position = game.at(16, 12)
+    var property imagen = "guitarraVida2.png"
+    method image() =  imagen
+}
+object vida3 {
+    var property position = game.at(17, 12)
+    var property imagen = "guitarraVida2.png"
+    method image() =  imagen
+}
+
+class VidaPerdida {
+    var property position = game.at(14, 10)
+    method image() = "guitarraVidaPerdida.png"
 }
 object reglas {
     var property estaVisible = false
