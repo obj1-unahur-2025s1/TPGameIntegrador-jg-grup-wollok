@@ -78,28 +78,28 @@ object juego {
         })
     }
 
-    method crearNotaVerde() {
+    method crearNotaVerde(velocidad) {
         const notaNueva = new Notas(image = "note1.png",  position = game.at(2,18), botonAsignado = botonVerde)
         game.addVisual(notaNueva)
-        notaNueva.queCaiga()
+        notaNueva.queCaiga(velocidad)
         notasActivas.add(notaNueva)
     }
-    method crearNotaRoja() {
+    method crearNotaRoja(velocidad) {
         const notaNueva = new Notas(image = "note2.png", position = game.at(5,18), botonAsignado = botonRojo)
         game.addVisual(notaNueva)
-        notaNueva.queCaiga()
+        notaNueva.queCaiga(velocidad)
         notasActivas.add(notaNueva)
     }
-    method crearNotaAmarilla() {
+    method crearNotaAmarilla(velocidad) {
         const notaNueva = new Notas(image = "note3.png", position = game.at(8,18), botonAsignado = botonAmarillo)
         game.addVisual(notaNueva)
-        notaNueva.queCaiga()
+        notaNueva.queCaiga(velocidad)
         notasActivas.add(notaNueva)
     }
-    method crearNotaAzul() {
+    method crearNotaAzul(velocidad) {
         const notaNueva = new Notas(image = "note4.png", position = game.at(11,18), botonAsignado = botonAzul)
         game.addVisual(notaNueva)
-        notaNueva.queCaiga()
+        notaNueva.queCaiga(velocidad)
         notasActivas.add(notaNueva)
     }
 }
@@ -116,8 +116,8 @@ class Notas {
         game.removeVisual(self)
         
     }
-    method queCaiga() {
-        game.onTick(100,"caerse", {self.position(self.position().down(1))})
+    method queCaiga(velocidad) {
+        game.onTick(velocidad,"caerse", {self.position(self.position().down(1))})
     }
 
     //SISTEMA DE PUNTUACION
