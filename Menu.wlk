@@ -7,6 +7,11 @@ object fondoMenu {
     method position() = game.at(0,-12) 
 }
 
+object botonReglas {
+    method image() = "reglasdefinitivo1.png"
+    method position() = game.at(0,0)
+}
+
 object botonIniciar {
     method image() = "togar.png"
     method position() = game.at(6, 9) 
@@ -63,6 +68,7 @@ object menu {
     method ocultarMenuPrincipal() {
         game.removeVisual(dificultad)
         game.removeVisual(fondoMenu)
+        game.removeVisual(botonReglas)
         game.removeVisual(botonIniciar)
         self.cambiarEstado("jugando")
         self.detenerMusica()
@@ -71,6 +77,7 @@ object menu {
     method mostrarMenuPrincipal() {
         juego.eliminarVisuals()
         game.addVisual(fondoMenu)
+        game.addVisual(botonReglas)
         game.addVisual(dificultad)
         game.addVisual(botonIniciar)
         tecladoMenu.iniciar()
