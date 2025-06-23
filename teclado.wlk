@@ -7,10 +7,10 @@ object tecladoMenu {
     var property juegoAsociado = juego
     var property menus = menu
     var property reglasAsociadas = reglas
-    
+    var property dificultadesVistas = false
     method iniciar() {
         keyboard.enter().onPressDo {
-
+            game.sound("sonido4.mp3").play()
             menus.estado("jugando") 
             dificultades.ocultar()
             menus.ocultarMenuPrincipal()
@@ -27,19 +27,41 @@ object tecladoMenu {
                 }
             })
         keyboard.t().onPressDo({
+             if (menu.estadoJuego() == "menuPrincipal") {
+                game.sound("sonido3.mp3").play()
+                if (!dificultadesVistas) {
+                    self.mostrarDificultades()
+                    dificultadesVistas = true
+                } else {
+                    self.ocultarDificultades()
+                    dificultadesVistas = false
+                }
+            }
+        })
+        keyboard.n().onPressDo({
+             if (menu.estadoJuego() == "menuPrincipal" && dificultadesVistas) {
+                juego.nivelElegido(cancion1)
+                game.sound("sonido5.mp3").play()
+                selector.position(game.at(2, 0))
+        }
+    })
+        keyboard.m().onPressDo({
+            if (menu.estadoJuego() == "menuPrincipal" && dificultadesVistas) {
+                juego.nivelElegido(cancion2)
+                game.sound("sonido5.mp3").play()
+                selector.position(game.at(10, 0))
+            }
+        })
+    }
+    method mostrarDificultades() {
             game.addVisual(normal)
             game.addVisual(dificil)
             game.addVisual(selector)
-        })
-        keyboard.n().onPressDo({
-            juego.nivelElegido(cancion1)
-            selector.position(game.at(2, 0))
-        })
-        keyboard.m().onPressDo({
-            juego.nivelElegido(cancion2)
-            selector.position(game.at(10, 0))
-
-        })
+    }
+    method ocultarDificultades() {
+            game.removeVisual(normal)
+            game.removeVisual(dificil)
+            game.removeVisual(selector)
     }
 }
 
