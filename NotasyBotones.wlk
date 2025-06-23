@@ -38,6 +38,9 @@ object juego {
         game.removeVisual(cartelFallos)
         game.removeVisual(cartelHits)
         game.removeVisual(cartelVida)
+        game.removeVisual(vida1)
+        game.removeVisual(vida2)
+        game.removeVisual(vida3)
     }
     method eliminarNotasActivas() {
         notasActivas.forEach({ n =>
