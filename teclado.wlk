@@ -27,17 +27,17 @@ object tecladoMenu {
                 }
             })
         keyboard.t().onPressDo({
-            game.addVisual(facil)
+            game.addVisual(normal)
             game.addVisual(dificil)
             game.addVisual(selector)
         })
         keyboard.n().onPressDo({
             juego.nivelElegido(cancion1)
-            selector.position(game.at(2, 1))
+            selector.position(game.at(2, 0))
         })
         keyboard.m().onPressDo({
             juego.nivelElegido(cancion2)
-            selector.position(game.at(10, 1))
+            selector.position(game.at(10, 0))
 
         })
     }

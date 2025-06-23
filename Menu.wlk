@@ -3,33 +3,28 @@ import teclado.*
 import carteles.*
 import player.*
 object fondoMenu {
-    method image() = "fondomenu4.png" 
-    method position() = game.at(0,-8) 
-}
-
-object tituloJuego {
-    method image() = "game_title.png" 
-    method position() = game.at(5, 15) 
+    method image() = "fondomenu8.png" 
+    method position() = game.at(0,-12) 
 }
 
 object botonIniciar {
-    method image() = "jugar4.png"
-    method position() = game.at(7, 9) 
+    method image() = "togar.png"
+    method position() = game.at(6, 9) 
 }
 object dificultad {
-    method image() = "dificultad3.png"
+    method image() = "dificultaadd.png"
     method position() = game.at(6,4) 
 }
 object selector {
-    var property position = game.at(2, 1)
+    var property position = game.at(2, 0)
     method image() = "selectorChico.png"
 }
-object facil {
-    method image() = "facil.png"
+object normal {
+    method image() = "normal3.png"
     method position() = game.at(4, 1) 
 }
 object dificil {
-    method image() = "dificil.png"
+    method image() = "dificil5.png"
     method position() = game.at(12, 1) 
 }
 object gameOverText {
@@ -37,11 +32,11 @@ object gameOverText {
     method position() = game.at(5, 10)
 }
 object dificultades {
-    const property nivelFacil = facil
+    const property nivelNormal = normal
     const property nivelDificil = dificil
 
     method ocultar() {
-        game.removeVisual(facil)
+        game.removeVisual(normal)
         game.removeVisual(dificil)
         game.removeVisual(selector)
     }
@@ -61,7 +56,6 @@ object menu {
     method ocultarMenuPrincipal() {
         game.removeVisual(dificultad)
         game.removeVisual(fondoMenu)
-        game.removeVisual(tituloJuego)
         game.removeVisual(botonIniciar)
         self.cambiarEstado("jugando")
     }
@@ -70,7 +64,6 @@ object menu {
         juego.eliminarVisuals()
         game.addVisual(fondoMenu)
         game.addVisual(dificultad)
-        game.addVisual(tituloJuego)
         game.addVisual(botonIniciar)
         tecladoMenu.iniciar()
         self.cambiarEstado("menuPrincipal")
