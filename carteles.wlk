@@ -72,7 +72,7 @@ object vida3 {
 
 object reglas {
     var property estaVisible = false
-    method position() = game.at(-10, 0) //game.at(1,-14)
+    method position() = game.at(0, 0) //game.at(1,-14)
     method image() = "reglasbiem.png"
     method cambioVisible() {
         estaVisible = !estaVisible

@@ -7,6 +7,11 @@ object fondoMenu {
     method position() = game.at(0,-12) 
 }
 
+object botonReglas {
+    method image() = "reglasdefinitivo1.png"
+    method position() = game.at(0,0)
+}
+
 object botonIniciar {
     method image() = "togar.png"
     method position() = game.at(6, 9) 
@@ -43,8 +48,11 @@ object dificultades {
 }
 object menu {
     var property estado = "menuPrincipal" // puede ser: "menuPrincipal", "jugando", "reglas"
+    const musicaDeFondo = game.sound("sonidoM.mp3")
 
     method iniciar() {
+        musicaDeFondo.volume(0.2)
+        musicaDeFondo.play()
         self.mostrarMenuPrincipal()
     }
     
@@ -53,16 +61,23 @@ object menu {
         estado = nuevoEstado
     }
 
+    method detenerMusica() {
+    musicaDeFondo.stop()
+    }
+
     method ocultarMenuPrincipal() {
         game.removeVisual(dificultad)
         game.removeVisual(fondoMenu)
+        game.removeVisual(botonReglas)
         game.removeVisual(botonIniciar)
         self.cambiarEstado("jugando")
+        self.detenerMusica()
     }
 
     method mostrarMenuPrincipal() {
         juego.eliminarVisuals()
         game.addVisual(fondoMenu)
+        game.addVisual(botonReglas)
         game.addVisual(dificultad)
         game.addVisual(botonIniciar)
         tecladoMenu.iniciar()
