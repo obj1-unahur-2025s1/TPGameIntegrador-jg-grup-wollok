@@ -7,7 +7,7 @@
 - Agustín
 - Gastón
 - Joaquín
-- Jonathan
+- Jonathan Giacomini
 
 ## Capturas
 
