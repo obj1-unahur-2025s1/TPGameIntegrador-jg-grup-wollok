@@ -2,9 +2,12 @@
 
 ## Equipo de desarrollo
 
-- Alguien
-- Persona
-- etc.
+- Alan Agustín Gonzales
+- Damián
+- Agustín
+- Gastón
+- Joaquín
+- Jonathan
 
 ## Capturas
 

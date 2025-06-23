@@ -1,4 +1,7 @@
 import NotasyBotones.*
+import teclado.*
+import carteles.*
+import player.*
 object fondoMenu {
     method image() = "fondomenu4.png" 
     method position() = game.at(0,-8) 
@@ -17,22 +20,39 @@ object dificultad {
     method image() = "dificultad3.png"
     method position() = game.at(6,4) 
 }
-
+object selector {
+    var property position = game.at(2, 1)
+    method image() = "selectorChico.png"
+}
+object facil {
+    method image() = "facil.png"
+    method position() = game.at(4, 1) 
+}
+object dificil {
+    method image() = "dificil.png"
+    method position() = game.at(12, 1) 
+}
 object gameOverText {
     method image() = "game_over_text.png" 
     method position() = game.at(5, 10)
 }
+object dificultades {
+    const property nivelFacil = facil
+    const property nivelDificil = dificil
 
-
-
+    method ocultar() {
+        game.removeVisual(facil)
+        game.removeVisual(dificil)
+        game.removeVisual(selector)
+    }
+}
 object menu {
     var property estado = "menuPrincipal" // puede ser: "menuPrincipal", "jugando", "reglas"
 
     method iniciar() {
         self.mostrarMenuPrincipal()
     }
-
-
+    
     method estadoJuego() = estado
     method cambiarEstado(nuevoEstado) {
         estado = nuevoEstado
