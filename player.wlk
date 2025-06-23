@@ -24,6 +24,7 @@ object player {
         vida = 3
         cartelPuntuacion.actualizar(0)
         cartelFallos.actualizarFallo(0)
+        cartelVida.recargarVidas()
     }
     method restarVida() {
         if(falloOculto == 6) {
