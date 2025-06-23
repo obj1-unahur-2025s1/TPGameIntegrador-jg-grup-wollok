@@ -3,7 +3,7 @@
 ## Equipo de desarrollo
 
 - Alan Agustín Gonzales
-- Damián
+- Damián Haberkorn
 - Agustín
 - Gastón
 - Joaquín
