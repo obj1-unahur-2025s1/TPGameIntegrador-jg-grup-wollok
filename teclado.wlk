@@ -27,7 +27,7 @@ object tecladoMenu {
                 }
             })
         keyboard.t().onPressDo({
-             if (menu.estadoJuego() == "menuPrincipal") {
+            if (menu.estadoJuego() == "menuPrincipal") {
                 game.sound("sonido3.mp3").play()
                 if (!dificultadesVistas) {
                     self.mostrarDificultades()
@@ -39,7 +39,7 @@ object tecladoMenu {
             }
         })
         keyboard.n().onPressDo({
-             if (menu.estadoJuego() == "menuPrincipal" && dificultadesVistas) {
+            if (menu.estadoJuego() == "menuPrincipal" && dificultadesVistas) {
                 juego.nivelElegido(cancion1)
                 game.sound("sonido5.mp3").play()
                 selector.position(game.at(2, 0))

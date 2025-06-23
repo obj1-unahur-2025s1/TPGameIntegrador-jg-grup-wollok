@@ -43,8 +43,11 @@ object dificultades {
 }
 object menu {
     var property estado = "menuPrincipal" // puede ser: "menuPrincipal", "jugando", "reglas"
+    const musicaDeFondo = game.sound("sonidoM.mp3")
 
     method iniciar() {
+        musicaDeFondo.volume(0.2)
+        musicaDeFondo.play()
         self.mostrarMenuPrincipal()
     }
     
@@ -53,11 +56,16 @@ object menu {
         estado = nuevoEstado
     }
 
+    method detenerMusica() {
+    musicaDeFondo.stop()
+    }
+
     method ocultarMenuPrincipal() {
         game.removeVisual(dificultad)
         game.removeVisual(fondoMenu)
         game.removeVisual(botonIniciar)
         self.cambiarEstado("jugando")
+        self.detenerMusica()
     }
 
     method mostrarMenuPrincipal() {
