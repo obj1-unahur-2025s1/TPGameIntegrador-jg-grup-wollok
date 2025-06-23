@@ -104,18 +104,33 @@ object cancion1 {
         game.schedule(7500, {=> if (tecla) {juego.crearNotaRoja()}})
 
         game.schedule(8500, {=> if (tecla) {juego.crearNotaAmarilla()}})
-        game.schedule(9400, {=> if (tecla) {juego.crearNotaAzul()
+        game.schedule(9000, {=> if (tecla) {juego.crearNotaAzul()
             juego.crearNotaRoja()}})
-    }
-    method iniciaMusica() {
     
-        game.schedule(1, {=>if(tecla){self.primerParte()}})
+        game.schedule(9300, {=> if (tecla) {juego.crearNotaVerde()}})
+
+        game.schedule(9700, {=> if (tecla) {juego.crearNotaAmarilla()}})
+        game.schedule(10200, {=> if (tecla) {juego.crearNotaAzul()
+            juego.crearNotaRoja()}}) 
+
+        game.schedule(10700, {=> if (tecla) {juego.crearNotaVerde()}})
+        game.schedule(11100, {=> if (tecla) {juego.crearNotaAmarilla()}})       
+        game.schedule(11700, {=> if (tecla) {juego.crearNotaRoja()}})       
+    }
+
+    method iniciaMusica() {
+        game.schedule(0, {=>if(tecla){self.primerParte()}})
         game.schedule(8500, {=>if (tecla) {self.segundaParte()}})
         game.schedule(11600, {=>if (tecla) {self.terceraParte()}})
         game.schedule(14200, {=>if (tecla) {self.midGame()}})
         game.schedule(23900, {=>if (tecla) {self.cuartaParte()}})
         game.schedule(31500, {=>if (tecla) {self.puntosEnPantalla()}})
         game.schedule(38200, {=>if (tecla) {self.drop()}})
+
+        game.schedule(45000, {=>if (tecla) {
+            
+
+        }})
     }
     method puntosEnPantalla() {
         game.sound("sonido3.mp3").play()
