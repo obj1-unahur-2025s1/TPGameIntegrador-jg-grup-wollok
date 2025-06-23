@@ -38,7 +38,12 @@ object juego {
         game.removeVisual(cartelHits)
         game.removeVisual(cartelVida)
     }
-    
+    method eliminarNotasActivas() {
+        notasActivas.forEach({ n =>
+            game.removeVisual(n)
+        })
+        notasActivas = []
+    }
     method pulsarNotaEn(unBoton) {
         const notaCercana = notasActivas.findOrElse({n =>
         (n.botonAsignado() == unBoton) && ((n.position().y() == unBoton.position().y() + 1 ||

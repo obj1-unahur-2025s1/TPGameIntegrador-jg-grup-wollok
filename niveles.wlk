@@ -15,7 +15,7 @@ object cancion1 {
         music.stop()
         menu.iniciar()
         self.detener()
-
+        juego.eliminarNotasActivas()
         juego.eliminarVisuals()
     }
     method iniciar() {
