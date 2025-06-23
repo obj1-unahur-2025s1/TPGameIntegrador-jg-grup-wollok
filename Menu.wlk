@@ -67,7 +67,7 @@ object menu {
     }
 
     method detenerMusica() {
-    musicaDeFondo.stop()
+        musicaDeFondo.stop()
     }
 
     method ocultarMenuPrincipal() {

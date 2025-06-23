@@ -13,6 +13,18 @@ object player {
     var property hitsAcertados = 0
     var property vida = 3
 
+    method resetear() {
+        puntuacion = 0
+        multiplicador = 1
+        energia = 0
+        fallos = 0
+        falloOculto = 0
+        consecutiveHits = 0
+        hitsAcertados = 0
+        vida = 3
+        cartelPuntuacion.actualizar(0)
+        cartelFallos.actualizarFallo(0)
+    }
     method restarVida() {
         if(falloOculto == 6) {
             vida = (vida-1).max(0)

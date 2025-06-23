@@ -33,8 +33,9 @@ object juego {
         game.removeVisual(botonAzul)
         game.removeVisual(botonRojo)
         game.removeVisual(botonVerde)
+        game.removeVisual(imagenPuntos)
+        game.removeVisual(cartelPuntuacion)
         game.removeVisual(cartelFallos)
-        // game.removeVisual(imagenPuntuacion)
         game.removeVisual(cartelHits)
         game.removeVisual(cartelVida)
     }
