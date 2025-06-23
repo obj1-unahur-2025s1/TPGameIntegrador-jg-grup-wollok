@@ -4,38 +4,39 @@ import NotasyBotones.*
 import player.*
 
 
-object imagenPuntuacion {
-    var property position = game.at(14, 14.5)
-    method image() = "puntuacionchica.png"
-}
-
+// object imagenPuntuacion {
+//     var property position = game.at(14, 14.5)
+//     method image() = "puntuacionchica.png"
+// }
 object cartelPuntuacion {
-    var property position = game.at(16.5, 14)
-    var property text = ": 0"
-    var property size = 50
+    var property position = game.at(16, 12)
+    var property text = "PUNTAJE: 0"
+    method size() = 150
+    method textColor() = "00FF00FF"
     method actualizar(nuevaPuntuacion) {
-        self.text(": " + nuevaPuntuacion)
+        self.text("PUNTAJE: " + nuevaPuntuacion)
     }
-
+}
+object imagenPuntos {
+    var property position = game.at(12, 5)
+    method image() = "cartelPuntuacionGrandeV.png"
 }
 
 object cartelHits {
     var property position = game.at(17,10)
-    var property text = "Hits: 0"
-    var property size = 20 
+    var property text = "HITS: 0"
 
     method actualizarHits(nuevoHits) {
-        self.text("hits: " + nuevoHits)
+        self.text("HITS: " + nuevoHits)
     }
     
 }
 object cartelFallos {
-    var property text = "Fallos: 0" 
-    var property size = 20
-    var property position = game.at(17,13)
-    
+    var property text = "FALLOS: 0" 
+    var property position = game.at(16,11)
+    method textColor() = "FF0000FF" 
     method actualizarFallo(cantFallos) {
-        self.text("Fallos: " + cantFallos)
+        self.text("FALLOS: " + cantFallos)
     }
 }
 object cartelVida {
@@ -53,25 +54,22 @@ object cartelVida {
     }
 }
 object vida1 {
-    var property position = game.at(15, 12)
+    var property position = game.at(15.3, 7)
     var property imagen = "guitarraVida2.png"
     method image() =  imagen
 }
 object vida2 {
-    var property position = game.at(16, 12)
+    var property position = game.at(16.3, 7)
     var property imagen = "guitarraVida2.png"
     method image() =  imagen
 }
 object vida3 {
-    var property position = game.at(17, 12)
+    var property position = game.at(17.3, 7)
     var property imagen = "guitarraVida2.png"
     method image() =  imagen
 }
 
-class VidaPerdida {
-    var property position = game.at(14, 10)
-    method image() = "guitarraVidaPerdida.png"
-}
+
 object reglas {
     var property estaVisible = false
     method position() = game.at(-10, 0) //game.at(1,-14)

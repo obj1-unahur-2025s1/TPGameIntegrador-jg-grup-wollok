@@ -126,18 +126,11 @@ object cancion1 {
         game.schedule(23900, {=>if (tecla) {self.cuartaParte()}})
         game.schedule(31500, {=>if (tecla) {self.puntosEnPantalla()}})
         game.schedule(38200, {=>if (tecla) {self.drop()}})
-
-        game.schedule(45000, {=>if (tecla) {
-            
-
-        }})
     }
     method puntosEnPantalla() {
         game.sound("sonido3.mp3").play()
-        imagenPuntuacion.position(game.at(3,8))
         cartelPuntuacion.position(game.at(8,8))
-        game.schedule(4000, {=> cartelPuntuacion.position(game.at(16.5, 14))})
-        game.schedule(4000, {=> imagenPuntuacion.position(game.at(14, 14.5))})
+        game.schedule(4000, {=> cartelPuntuacion.position(game.at(16, 12))})
     }
  }
  object cancion2 {
