@@ -98,6 +98,7 @@ object menu {
 
     method mostrarMenuPrincipal() {
         juego.eliminarVisuals()
+        juego.eliminarNotasActivas()
         game.addVisual(fondoMenu)
         game.addVisual(botonReglas)
         game.addVisual(dificultad)

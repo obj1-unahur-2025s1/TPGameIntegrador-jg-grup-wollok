@@ -28,8 +28,10 @@ object tecladoMenu {
         const enMenu = menu.estadoJuego() == "menuPrincipal" || menu.estadoJuego() == "reglas"
         if (enMenu) {
             if (reglas.estaVisible()) {
+                game.sound("sonido4.mp3").play()
                 menu.ocultarReglas()
             } else {
+                game.sound("sonido4.mp3").play()
                 menu.mostrarReglas()
             }
             reglas.cambioVisible()
@@ -132,19 +134,16 @@ object teclado {
                 })
             }})
         keyboard.space().onPressDo({ => 
-            if(menus.estadoJuego() == "win1") {
-                juego.nivelElegido(cancion2)
-                juego.nivelElegido().iniciar()
-                win1.ocultarWin()
-                juego.añadirVisuals()
-            }
-            else if ( menus.estadoJuego() == "win2") {
-                juego.nivelElegido().cerrarNivel()
-            } else if (menus.estadoJuego() == "gameOver") {
-                
-                cancion1.iniciar()
-                gameOver.ocultar()
-            }
-        })
+            if(menus.estadoJuego() == "win1" || menus.estadoJuego() == "gameOver") {
+                    juego.nivelElegido().cerrarNivel()     
+            }})
     }
 }
+
+        //     else if ( menus.estadoJuego() == "win2") {
+        //         juego.nivelElegido().cerrarNivel()
+        //     } else if (menus.estadoJuego() == "gameOver") {
+        //         cancion1.iniciar()
+        //         gameOver.ocultar()
+        //     }
+        // }

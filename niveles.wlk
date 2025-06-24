@@ -17,6 +17,12 @@ object cancion1 {
         musica.stop()
     }
     method cerrarNivel() {
+        if (menu.estadoJuego() == "win1") {
+        game.removeVisual(winMenu)
+    } 
+        else if (menu.estadoJuego() == "gameOver"){
+            game.removeVisual(imgGameOver)
+    }
         menu.iniciar()
         self.detener()
         juego.eliminarVisuals()
@@ -147,18 +153,21 @@ object cancion1 {
 }
 
 //////////////////////////////////////////////////////
-
 object cancion2 {
-    var property tecla = true
-    var property inicio = 1
+   var property tecla = true
     const music = game.sound("cancion2.mp3")
     method detener() {
         tecla = false
     }
   method cerrarNivel() {
+    if (menu.estadoJuego() == "win2") {
+        game.removeVisual(winMenu)
+    } 
+    else if (menu.estadoJuego() == "gameOver"){
+        game.removeVisual(imgGameOver)
+    }   
         menu.iniciar()
         self.detener()
-        juego.eliminarVisuals()
     }
     method iniciar() {
         music.play()
@@ -181,80 +190,6 @@ object cancion2 {
         game.schedule(1300, { => if (tecla) { juego.crearNotaRoja(90) } })     
         game.schedule(1600, { => if (tecla) { juego.crearNotaVerde(90)} })
     }
-    
-   
-   
-    method secuenciaDoble() {
-        game.schedule(0,{=>if (tecla) {juego.crearNotaVerde(90)}}) 
-        game.schedule(500, {=>if (tecla) {juego.crearNotaVerde(90)}})
-    }
-    method ritmo1(){
-        game.schedule(0, {=>if (tecla) {juego.crearNotaRoja(90)}})
-        game.schedule(500, {=>if (tecla) {juego.crearNotaAmarilla(90)}})
-        game.schedule(1500, {=>if (tecla) {juego.crearNotaAzul(90)}})
-        game.schedule(2000, {=>if (tecla) {juego.crearNotaVerde(90)}})
-    }
-
-    method ritmo2(){
-        game.schedule(0, {=>if (tecla) {juego.crearNotaRoja(90)}})
-        game.schedule(500, {=>if (tecla) {juego.crearNotaAmarilla(90)}})
-        game.schedule(1500, {=>if (tecla) {self.dobleIzquierdaInverso()}})
-      
-        
-    }
-
-    method ritmo3(){
-        game.schedule(1600, {=>if (tecla) {juego.crearNotaRoja(90)}})
-        game.schedule(200, {=>if (tecla) {juego.crearNotaAmarilla(90)}})
-        game.schedule(500, {=>if (tecla) {juego.crearNotaAzul(90)}})
-        game.schedule(1500, {=>if (tecla) {self.dobleIzquierda()}})
-
-    }
-    method midGame() {
-        game.schedule(0, {=>if (tecla) {self.ritmo1()}})
-        game.schedule(2300, {=>if (tecla) {self.ritmo2()}})
-        game.schedule(4600, {=>if (tecla) {self.ritmo3()}})
-        
-       
-        game.schedule(6200, {=>if (tecla) {juego.crearNotaAmarilla(90)}})
-        game.schedule(7600, {=> if (tecla) {juego.crearNotaAzul(90)}})////////
-        game.schedule(8000, {=> if (tecla) {juego.crearNotaAzul(90)}})
-        game.schedule(8400, {=> if (tecla) {juego.crearNotaAzul(90)}})
-        game.schedule(8800, {=> if (tecla) {juego.crearNotaAzul(90)}})
-
-    }
-   
-    method drop() { 
-        game.schedule(0, {=>if (tecla) {juego.crearNotaVerde(100)}})
-        game.schedule(400, {=>if (tecla) {juego.crearNotaRoja(100)}})
-
-        game.schedule(1300, {=>if (tecla) {juego.crearNotaAmarilla(100)}})
-        game.schedule(1650, {=> if (tecla) {juego.crearNotaAzul(100)}})
-
-        game.schedule(2000, {=> if (tecla) {juego.crearNotaRoja(100)}})
-        game.schedule(2500, {=> if (tecla) {juego.crearNotaAmarilla(100)}})
-        game.schedule(2300, {=> if (tecla) {juego.crearNotaVerde(100)}})
-
-        game.schedule(3500, {=> if (tecla) {juego.crearNotaAzul(100)}})
-        game.schedule(3800, {=> if (tecla) {juego.crearNotaRoja(100)}})
-        game.schedule(4500, {=> if (tecla) {juego.crearNotaAmarilla(100)}})
-        game.schedule(4700, {=> if (tecla) {juego.crearNotaVerde(100)}})
-        game.schedule(5200, {=> if (tecla) {juego.crearNotaRoja(100)}})
-        
-        game.schedule(6000, {=> if (tecla) {juego.crearNotaVerde(100)}})
-        game.schedule(6300, {=> if (tecla) {juego.crearNotaRoja(100)}})
-        game.schedule(6800, {=> if (tecla) {juego.crearNotaAmarilla(100)}})
-
-        game.schedule(7300, {=> if (tecla) {juego.crearNotaAzul(100)}})
-        
-        game.schedule(8000, {=> if (tecla) {juego.crearNotaVerde(100)}})
-        game.schedule(8400, {=> if (tecla) {juego.crearNotaVerde(100)}})
-        game.schedule(8800, {=> if (tecla) {juego.crearNotaVerde(100)}})
-        game.schedule(9400, {=> if (tecla) {juego.crearNotaAzul(100) }})
-         game.schedule(9800, {=> if (tecla) {juego.crearNotaRoja(100)}})
-        game.schedule(10400, {=> if (tecla) {self.midGame()}})
-    }
-
     method dobleIzquierda(){
         game.schedule(500, { => if (tecla) { juego.crearNotaVerde(90) } })    
         game.schedule(750, { => if (tecla) { juego.crearNotaRoja(90) } })     
@@ -273,35 +208,95 @@ object cancion2 {
         game.schedule(750, { => if (tecla) { juego.crearNotaAmarilla(90) } })    
          
     }
+    
+   
+   
+    method secuenciaDoble() {
+        game.schedule(0,{=>if (tecla) {juego.crearNotaVerde(90)}}) 
+        game.schedule(500, {=>if (tecla) {juego.crearNotaVerde(90)}})
+    }
+    method parteFinal() {
+        game.schedule(0, {=>if (tecla) {self.ritmo4()}})
+        game.schedule(2000, {=>if (tecla) {self.ritmo4()}})
+        game.schedule(4200, {=>if (tecla) {self.ritmo4()}})
+        game.schedule(6100, {=>if (tecla) {juego.crearNotaAmarilla(90)}})
+        game.schedule(6500, {=>if (tecla) {juego.crearNotaRoja(90)}})
+        
+        
+       game.schedule(7100, {=> if (tecla) {juego.crearNotaAzul(90)}})////////
+        game.schedule(7500, {=> if (tecla) {juego.crearNotaAzul(90)}})
+        game.schedule(7900, {=> if (tecla) {juego.crearNotaAzul(90)}})
+        game.schedule(8300, {=> if (tecla) {juego.crearNotaAzul(90)}})
 
+
+    }
+   
+    method ritmo4(){
+         game.schedule(300, {=>if (tecla) {juego.crearNotaAmarilla(90)}})
+         game.schedule(650, {=> if (tecla) {juego.crearNotaAzul(90)}})
+
+         game.schedule(1000, {=> if (tecla) {juego.crearNotaRoja(90)}})
+         game.schedule(1300, {=> if (tecla) {juego.crearNotaVerde(90)}})
+        game.schedule(1500, {=> if (tecla) {juego.crearNotaAmarilla(90)}})
+    }
+    
+
+
+    method parte1(){
+        game.schedule(1, { => if (tecla) { self.guitarraPrincipio() } })    
+        game.schedule(1500, { => if (tecla) { self.guitarraPrincipio() } }) 
+        game.schedule(3000, { => if (tecla) { self.guitarraPrincipio() } }) 
+        game.schedule(4500, { => if (tecla) { self.guitarraPrincipio2() } })  
+        game.schedule(6000, { => if (tecla) { self.guitarraPrincipio() } }) 
+        game.schedule(7500, { => if (tecla) { self.guitarraPrincipio2() } }) 
+        game.schedule(9000, { => if (tecla) { self.guitarraPrincipio() } }) 
+        game.schedule(11400, { => if (tecla) { self.guitarraPrincipio() } })
+    }
+
+    method parte2(){
+        game.schedule(1, { => if (tecla) { self.guitarraPrincipio2() } })  
+        game.schedule(1200, { => if (tecla) { self.dobleDerecha() } }) 
+        game.schedule(1900, { => if (tecla) { self.dobleIzquierda() } })   
+        game.schedule(3000, { => if (tecla) { self.dobleDerecha() } }) 
+        game.schedule(3600, { => if (tecla) { self.dobleIzquierda() } })   
+        game.schedule(4400, { => if (tecla) { self.dobleDerechaInverso() } })
+        game.schedule(5200, { => if (tecla) { self.dobleDerecha() } }) 
+        game.schedule(6000, { => if (tecla) { self.dobleIzquierda() } })
+        game.schedule(6700, { => if (tecla) { self.dobleIzquierdaInverso() } })
+        game.schedule(7700, { => if (tecla) { self.dobleDerechaInverso() } })
+        game.schedule(8400, { => if (tecla) { self.dobleIzquierdaInverso() } })
+        game.schedule(9800, { => if (tecla) { self.dobleDerechaInverso() } })
+        game.schedule(10700, { => if (tecla) { self.dobleDerecha() } })
+        game.schedule(11500, { => if (tecla) { self.dobleIzquierda() } })
+        game.schedule(12200, { => if (tecla) { self.dobleIzquierdaInverso() } })
+    }
+    method drop() { 
+
+        game.schedule(1300, {=>if (tecla) {juego.crearNotaAmarilla(100)}})
+        game.schedule(1650, {=> if (tecla) {juego.crearNotaAzul(100)}})
+        game.schedule(2000, {=> if (tecla) {juego.crearNotaRoja(100)}})
+        game.schedule(2300, {=> if (tecla) {juego.crearNotaVerde(100)}})
+        game.schedule(2500, {=> if (tecla) {juego.crearNotaAmarilla(100)}})///
+        game.schedule(3200, {=> if (tecla) {self.ritmo4()}})
+        game.schedule(5200, {=> if (tecla) {juego.crearNotaRoja(100)}})
+        game.schedule(6000, {=> if (tecla) {juego.crearNotaVerde(100)}})
+        game.schedule(6300, {=> if (tecla) {juego.crearNotaRoja(100)}})
+        game.schedule(6800, {=> if (tecla) {juego.crearNotaAmarilla(100)}})
+        game.schedule(7300, {=> if (tecla) {juego.crearNotaAzul(100)}})
+        game.schedule(8000, {=> if (tecla) {juego.crearNotaVerde(100)}})
+        game.schedule(8400, {=> if (tecla) {juego.crearNotaVerde(100)}})
+        game.schedule(8800, {=> if (tecla) {juego.crearNotaVerde(100)}})
+        game.schedule(9400, {=> if (tecla) {juego.crearNotaAzul(100) }})
+        game.schedule(9800, {=> if (tecla) {juego.crearNotaRoja(100)}})
+        game.schedule(10400, {=> if (tecla) {self.parteFinal()}})
+    }
     method iniciaMusica() {
     
-         game.schedule(1, { => if (tecla) { self.guitarraPrincipio() } })    
-         game.schedule(2100, { => if (tecla) { self.guitarraPrincipio() } }) 
-         game.schedule(3500, { => if (tecla) { self.guitarraPrincipio() } })
-         game.schedule(5000, { => if (tecla) { self.guitarraPrincipio2() } })   
-        game.schedule(6400, { => if (tecla) { self.guitarraPrincipio() } })
-        game.schedule(7900, { => if (tecla) { self.guitarraPrincipio2() } })
-         game.schedule(9900, { => if (tecla) { self.guitarraPrincipio() } })
-        game.schedule(11400, { => if (tecla) { self.guitarraPrincipio() } })
-        game.schedule(13000, { => if (tecla) { self.guitarraPrincipio2() } })
-        game.schedule(13700, { => if (tecla) { juego.crearNotaAzul(90) } })/////
-        game.schedule(14200, { => if (tecla) { self.dobleDerecha() } }) 
-        game.schedule(14900, { => if (tecla) { self.dobleIzquierda() } })    
-        game.schedule(16000, { => if (tecla) { self.dobleDerecha() } }) 
-        game.schedule(16600, { => if (tecla) { self.dobleIzquierda() } })  
-        game.schedule(17400, { => if (tecla) { self.dobleDerechaInverso() } })
-        game.schedule(18200, { => if (tecla) { self.dobleDerecha() } }) 
-        game.schedule(19000, { => if (tecla) { self.dobleIzquierda() } })
-        game.schedule(19700, { => if (tecla) { self.dobleIzquierdaInverso() } })
-        game.schedule(20700, { => if (tecla) { self.dobleDerechaInverso() } })
-        game.schedule(21400, { => if (tecla) { self.dobleIzquierdaInverso() } })
-        game.schedule(22800, { => if (tecla) { self.dobleDerechaInverso() } })
-        game.schedule(23700, { => if (tecla) { self.dobleDerecha() } })
-        game.schedule(24500, { => if (tecla) { self.dobleIzquierda() } })
-        game.schedule(25500, { => if (tecla) { self.dobleIzquierdaInverso() } })/////////////////////
-        //  game.schedule(27200, {=>if (tecla) {self.drop()}})
+        game.schedule(1, { => if (tecla) { self.parte1() } })
+        game.schedule(13000, { => if (tecla) { self.parte2() } }) 
+        game.schedule(27200, {=>if (tecla) {self.drop()}})
         
+
     }
     method puntosEnPantalla() {
         game.sound("sonido3.mp3").play()
