@@ -12,11 +12,11 @@ object cancion1 {
         tecla = false
     }
     method cerrarNivel() {
-        menu.mostrarMenuPrincipal()
         music.stop()
+        menu.iniciar()
         self.detener()
-
-        juego.eliminarVisuals()
+        player.resetear()
+        juego.eliminarNotasActivas()
     }
     method iniciar() {
         music.play()

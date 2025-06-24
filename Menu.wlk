@@ -45,10 +45,15 @@ object dificultades {
     const property nivelNormal = normal
     const property nivelDificil = dificil
 
-    method ocultar() {
-        game.removeVisual(normal)
-        game.removeVisual(dificil)
-        game.removeVisual(selector)
+    method mostrarDificultades() {
+            game.addVisual(normal)
+            game.addVisual(dificil)
+            game.addVisual(selector)
+    }
+    method ocultarDificultades() {
+            game.removeVisual(normal)
+            game.removeVisual(dificil)
+            game.removeVisual(selector)
     }
 }
 object menu {
@@ -67,7 +72,7 @@ object menu {
     }
 
     method detenerMusica() {
-    musicaDeFondo.stop()
+        musicaDeFondo.stop()
     }
 
     method ocultarMenuPrincipal() {

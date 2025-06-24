@@ -11,7 +11,6 @@ import player.*
 object cartelPuntuacion {
     var property position = game.at(16, 12)
     var property text = "PUNTAJE: 0"
-    method size() = 150
     method textColor() = "00FF00FF"
     method actualizar(nuevaPuntuacion) {
         self.text("PUNTAJE: " + nuevaPuntuacion)
@@ -52,6 +51,10 @@ object cartelVida {
     method actualizarVida() {
         vidas.find({v => v.image() == "guitarraVida2.png"}).imagen("guitarraVidaPerdida2.png")
     }
+    method recargarVidas() {
+        vidas.forEach({v => v.imagen("guitarraVida2.png")})
+    }
+
 }
 object vida1 {
     var property position = game.at(15.3, 7)
