@@ -48,6 +48,7 @@ object juego {
             game.removeVisual(n)
         })
         notasActivas = []
+        
     }
     method pulsarNotaEn(unBoton) {
         const notaCercana = notasActivas.findOrElse({n =>

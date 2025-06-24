@@ -50,19 +50,14 @@ object dificultades {
     const property selector = new Selector()
 
     method mostrarDificultades() {
-            game.addVisual(nivelNormal)
-            game.addVisual(nivelDificil)
-            game.addVisual(selector)
-        game.addVisual(normal)
-        game.addVisual(dificil)
+        game.addVisual(nivelNormal)
+        game.addVisual(nivelDificil)
         game.addVisual(selector)
+
     }
     method ocultarDificultades() {
-            game.removeVisual(nivelNormal)
-            game.removeVisual(nivelDificil)
-            game.removeVisual(selector)
-        game.removeVisual(normal)
-        game.removeVisual(dificil)
+        game.removeVisual(nivelNormal)
+        game.removeVisual(nivelDificil)
         game.removeVisual(selector)
 
     }
