@@ -1,51 +1,66 @@
+import wollok.mirror.*
 import NotasyBotones.*
 import teclado.*
 import carteles.*
 import player.*
-object fondoMenu {
-    method image() = "fondomenu8.png" 
-    method position() = game.at(0,-12) 
+
+class ImagenesMenu {
+    method image()
+    method position()
+}
+class FondoMenu inherits ImagenesMenu {
+    override method image() = "fondomenu8.png" 
+    override method position() = game.at(0,-12) 
 }
 
-object botonReglas {
-    method image() = "reglasdefinitivo1.png"
-    method position() = game.at(0,0)
+class BotonNiveles inherits ImagenesMenu{
+    override method position() = game.at(18,0)
+    override method image() ="nivelesBoton.png"
 }
 
-object botonIniciar {
-    method image() = "togar.png"
-    method position() = game.at(6, 9) 
+class BotonesPrincipales inherits ImagenesMenu {
+    override method image() = "reglasdefinitivo3.png"
+    override method position() = game.at(0,0)
 }
-object dificultad {
-    method image() = "dificultaadd.png"
-    method position() = game.at(6,4) 
+
+class BotonIniciar inherits ImagenesMenu {
+    override method image() = "togar.png"
+    override method position() = game.at(6, 9) 
 }
-object selector {
+class Dificultad inherits ImagenesMenu{
+    override method image() = "dificultaadd.png"
+    override method position() = game.at(6,4) 
+}
+class Selector inherits ImagenesMenu{
     var property position = game.at(2, 0)
-    method image() = "selectorChico.png"
+    override method image() = "selectorChico.png"
 }
-object normal {
-    method image() = "normal3.png"
-    method position() = game.at(4, 1) 
+class Normal inherits ImagenesMenu {
+    override method image() = "normal3.png"
+    override method position() = game.at(4, 1) 
 }
-object dificil {
-    method image() = "dificil5.png"
-    method position() = game.at(12, 1) 
+class Dificil inherits ImagenesMenu{
+    override method image() = "dificil5.png"
+    override method position() = game.at(12, 1) 
 }
-object gameOverText {
-    method image() = "game_over_text.png" 
-    method position() = game.at(5, 10)
-}
+
 object dificultades {
-    const property nivelNormal = normal
-    const property nivelDificil = dificil
+    const property nivelNormal = new Normal()
+    const property nivelDificil = new Dificil()
+    const property selector = new Selector()
 
     method mostrarDificultades() {
+            game.addVisual(nivelNormal)
+            game.addVisual(nivelDificil)
+            game.addVisual(selector)
         game.addVisual(normal)
         game.addVisual(dificil)
         game.addVisual(selector)
     }
     method ocultarDificultades() {
+            game.removeVisual(nivelNormal)
+            game.removeVisual(nivelDificil)
+            game.removeVisual(selector)
         game.removeVisual(normal)
         game.removeVisual(dificil)
         game.removeVisual(selector)
@@ -55,6 +70,11 @@ object dificultades {
 object menu {
     var property estado = "menuPrincipal" // puede ser: "menuPrincipal", "jugando", "reglas"
     const musicaDeFondo = game.sound("sonidoM.mp3")
+    const property dificultad = new Dificultad()
+    const property fondoMenu = new FondoMenu()
+    const property botonReglas = new BotonesPrincipales()
+    const property botonNiveles = new BotonNiveles()
+    const property botonIniciar = new BotonIniciar()
 
     method iniciar() {
         musicaDeFondo.volume(0.2)
@@ -76,6 +96,7 @@ object menu {
         game.removeVisual(fondoMenu)
         game.removeVisual(botonReglas)
         game.removeVisual(botonIniciar)
+        game.removeVisual(botonNiveles)
         self.cambiarEstado("jugando")
         self.detenerMusica()
     }
