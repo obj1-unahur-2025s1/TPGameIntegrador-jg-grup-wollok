@@ -7,7 +7,7 @@ import Menu.*
 program juegoJorge {
 	game.height(16)
 	game.width(20)
-	game.boardGround("mastilcorrecto.png")
+	game.boardGround("mastilcorrecto9.png")
 	menu.iniciar()
 	game.start()
 }
