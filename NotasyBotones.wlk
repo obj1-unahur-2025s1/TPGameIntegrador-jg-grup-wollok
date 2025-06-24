@@ -6,7 +6,7 @@ import niveles.*
 object juego {
     var property notasActivas = []
     // var property tecladoEnUso = tecladoMenu
-    var property nivelElegido = cancion1
+    var property nivelElegido = cancion2
     
     method iniciar() {
         
@@ -48,6 +48,7 @@ object juego {
             game.removeVisual(n)
         })
         notasActivas = []
+        
     }
     method pulsarNotaEn(unBoton) {
         const notaCercana = notasActivas.findOrElse({n =>

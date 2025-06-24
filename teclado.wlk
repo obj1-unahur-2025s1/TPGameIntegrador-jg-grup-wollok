@@ -8,13 +8,17 @@ object tecladoMenu {
     var property menus = menu
     var property reglasAsociadas = reglas
     var property dificultadesVistas = false
+    var property iniciado = false
+    method estaIniciado() = iniciado
+    
     method iniciar() {
+        iniciado = true
         keyboard.enter().onPressDo {
             if (menu.estadoJuego() == "menuPrincipal") {
             game.sound("sonido4.mp3").play()
-            menus.estado("jugando") 
-            dificultades.ocultarDificultades()
+            menus.cambiarEstado("jugando") 
             menus.ocultarMenuPrincipal()
+            dificultades.ocultarDificultades()
             juego.iniciar()
         }}
     
@@ -31,18 +35,20 @@ object tecladoMenu {
 })
         keyboard.t().onPressDo({
             if (menu.estadoJuego() == "menuPrincipal") {
-                game.sound("sonido3.mp3").play()
                 if (!dificultadesVistas) {
-                    dificultades.mostrarDificultades()
+                    game.sound("sonido5.mp3").play()
                     dificultadesVistas = true
+                    dificultades.mostrarDificultades()
                     game.addVisual(menu.botonNiveles())
                 } else {
-                    dificultades.ocultarDificultades()
+                    game.sound("sonido5.mp3").play()
                     dificultadesVistas = false
+                    dificultades.ocultarDificultades()
                     game.removeVisual(menu.botonNiveles())
                 }
             }
-        })
+        }
+        )
         keyboard.n().onPressDo({
             if (menu.estadoJuego() == "menuPrincipal" && dificultadesVistas) {
                 juego.nivelElegido(cancion1)
@@ -124,8 +130,9 @@ object teclado {
                 })
             }})
         keyboard.space().onPressDo({ => 
-            if(menus.estadoJuego() == "jugando") {
+            if(menus.estadoJuego() == "win1" || menus.estadoJuego() == "win2") {
                 juego.nivelElegido().cerrarNivel()
+                // tecladoMenu.ocultarDificultades()
             }
         })
     }

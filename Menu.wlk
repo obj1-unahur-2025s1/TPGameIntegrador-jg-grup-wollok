@@ -50,14 +50,16 @@ object dificultades {
     const property selector = new Selector()
 
     method mostrarDificultades() {
-            game.addVisual(nivelNormal)
-            game.addVisual(nivelDificil)
-            game.addVisual(selector)
+        game.addVisual(nivelNormal)
+        game.addVisual(nivelDificil)
+        game.addVisual(selector)
+
     }
     method ocultarDificultades() {
-            game.removeVisual(nivelNormal)
-            game.removeVisual(nivelDificil)
-            game.removeVisual(selector)
+        game.removeVisual(nivelNormal)
+        game.removeVisual(nivelDificil)
+        game.removeVisual(selector)
+
     }
 }
 object menu {
@@ -100,7 +102,9 @@ object menu {
         game.addVisual(botonReglas)
         game.addVisual(dificultad)
         game.addVisual(botonIniciar)
-        tecladoMenu.iniciar()
+        if (!tecladoMenu.estaIniciado()) {
+            tecladoMenu.iniciar()
+        }
         self.cambiarEstado("menuPrincipal")
     }
 

@@ -1,4 +1,4 @@
-# Nombre del juego (<- borrar y completar)
+# Wollok Hero
 
 ## Equipo de desarrollo
 
