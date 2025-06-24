@@ -96,7 +96,7 @@ object win1 {
     }
  }
  object winMenu {
-    method image() = "winers.png" 
+    method image() = "winersss.png" 
     method position() = game.at(0,0) 
 }
 object cartelPrecision {
