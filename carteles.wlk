@@ -82,6 +82,35 @@ object reglas {
     }
 }
 object gameOver {
-    method position() = game.at(5, 10)
+    method position() = game.at(0, 0)
     method image() = "gameover.png"
+}
+
+/////////////
+object win1 {
+    method iniciar() {
+        menu.cambiarEstado("win1")
+        juego.eliminarVisuals()
+        juego.eliminarNotasActivas()
+        game.addVisual(winMenu)
+        game.addVisual(cartelPrecision)
+    }
+    method ocultarWin() { // Que ocurra al presionar cualquier boton si se puede
+        game.removeVisual(winMenu)
+        game.removeVisual(cartelPrecision)
+        menu.iniciar()
+    }
+ }
+ object winMenu {
+    method image() = "winers.png" 
+    method position() = game.at(0,0) 
+}
+object cartelPrecision {
+    var property text = "Precision: 0%"
+    var property position = game.at(10,9)
+    method textColor() = "FF0000FF" 
+    method mostrarPresicion(unaCancion) {
+        const presicion = unaCancion.calcularPresicion()
+        self.text("FALLOS: " + presicion)
+    }
 }

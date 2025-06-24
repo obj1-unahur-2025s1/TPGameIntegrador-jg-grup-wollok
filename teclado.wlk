@@ -19,8 +19,11 @@ object tecladoMenu {
             menus.cambiarEstado("jugando") 
             menus.ocultarMenuPrincipal()
             dificultades.ocultarDificultades()
+            juego.nivelElegido().inicio(1)
             juego.iniciar()
-        }}
+            
+         } 
+        }
     
         keyboard.r().onPressDo({
         const enMenu = menu.estadoJuego() == "menuPrincipal" || menu.estadoJuego() == "reglas"
@@ -130,9 +133,18 @@ object teclado {
                 })
             }})
         keyboard.space().onPressDo({ => 
-            if(menus.estadoJuego() == "win1" || menus.estadoJuego() == "win2") {
+            if(menus.estadoJuego() == "win1") {
+                juego.nivelElegido(cancion2)
+                juego.nivelElegido().iniciar()
+                win1.ocultarWin()
+            }
+            else if ( menus.estadoJuego() == "win2") {
                 juego.nivelElegido().cerrarNivel()
-                // tecladoMenu.ocultarDificultades()
+            }
+            else if (menus.estadoJuego() == "gameOver"){
+                juego.nivelElegido().cerrarNivel()
+                game.removeVisual(gameOver)
+                player.resetear()
             }
         })
     }

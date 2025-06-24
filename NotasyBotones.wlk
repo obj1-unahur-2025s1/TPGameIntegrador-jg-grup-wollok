@@ -6,7 +6,7 @@ import niveles.*
 object juego {
     var property notasActivas = []
     // var property tecladoEnUso = tecladoMenu
-    var property nivelElegido = cancion2
+    var property nivelElegido = cancion1
     
     method iniciar() {
         
@@ -41,6 +41,7 @@ object juego {
         game.removeVisual(vida1)
         game.removeVisual(vida2)
         game.removeVisual(vida3)
+        game.removeVisual(gameOver)
 
     }
     method eliminarNotasActivas() {
