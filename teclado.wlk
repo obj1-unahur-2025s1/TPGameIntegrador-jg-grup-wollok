@@ -35,11 +35,11 @@ object tecladoMenu {
                 if (!dificultadesVistas) {
                     dificultades.mostrarDificultades()
                     dificultadesVistas = true
-                    game.addVisual(botonNiveles)
+                    game.addVisual(menu.botonNiveles())
                 } else {
                     dificultades.ocultarDificultades()
                     dificultadesVistas = false
-                    game.removeVisual(botonNiveles)
+                    game.removeVisual(menu.botonNiveles())
                 }
             }
         })
@@ -47,14 +47,14 @@ object tecladoMenu {
             if (menu.estadoJuego() == "menuPrincipal" && dificultadesVistas) {
                 juego.nivelElegido(cancion1)
                 game.sound("sonido5.mp3").play()
-                selector.position(game.at(2, 0))
+                dificultades.selector().position(game.at(2, 0))
         }
     })
         keyboard.m().onPressDo({
             if (menu.estadoJuego() == "menuPrincipal" && dificultadesVistas) {
                 juego.nivelElegido(cancion2)
                 game.sound("sonido5.mp3").play()
-                selector.position(game.at(10, 0))
+                dificultades.selector().position(game.at(10, 0))
             }
         })
     }
