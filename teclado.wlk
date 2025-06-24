@@ -43,12 +43,12 @@ object tecladoMenu {
                     game.sound("sonido5.mp3").play()
                     dificultadesVistas = true
                     dificultades.mostrarDificultades()
-                    game.addVisual(menu.botonNiveles())
+                    game.addVisual(botonNiveles)
                 } else {
                     game.sound("sonido5.mp3").play()
                     dificultadesVistas = false
                     dificultades.ocultarDificultades()
-                    game.removeVisual(menu.botonNiveles())
+                    game.removeVisual(botonNiveles)
                 }
             }
         }
@@ -57,14 +57,14 @@ object tecladoMenu {
             if (menu.estadoJuego() == "menuPrincipal" && dificultadesVistas) {
                 juego.nivelElegido(cancion1)
                 game.sound("sonido5.mp3").play()
-                dificultades.selector().position(game.at(2, 0))
+                selector.position(game.at(2, 0))
         }
     })
         keyboard.m().onPressDo({
             if (menu.estadoJuego() == "menuPrincipal" && dificultadesVistas) {
                 juego.nivelElegido(cancion2)
                 game.sound("sonido5.mp3").play()
-                dificultades.selector().position(game.at(10, 0))
+                selector.position(game.at(10, 0))
             }
         })
     }
@@ -135,7 +135,7 @@ object teclado {
             }})
         keyboard.space().onPressDo({ => 
             if(menus.estadoJuego() == "win1" || menus.estadoJuego() == "gameOver") {
-                    juego.nivelElegido().cerrarNivel()     
+                    juego.nivelElegido().cerrarNivel()
             }})
     }
 }

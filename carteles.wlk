@@ -108,10 +108,6 @@ object cartelPrecision {
         self.text("Precision: " + presicion + "%")
     }
 }
-class BotonSigNivel inherits ImagenesMenu{
-    override method position() = game.at(18,0)
-    override method image() ="nivelesBoton.png"
-}
 object gameOver{
     method iniciar() { 
         menu.cambiarEstado("gameOver")
