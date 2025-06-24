@@ -41,6 +41,7 @@ object juego {
         game.removeVisual(vida1)
         game.removeVisual(vida2)
         game.removeVisual(vida3)
+        game.removeVisual(gameOver)
 
     }
     method eliminarNotasActivas() {

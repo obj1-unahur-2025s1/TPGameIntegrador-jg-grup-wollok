@@ -33,6 +33,11 @@ object player {
             cartelVida.actualizarVida()
         } 
         else if (vida == 0) {
+            menu.cambiarEstado("gameOver")
+            juego.nivelElegido().detener()
+            juego.eliminarVisuals()
+            juego.eliminarNotasActivas()
+            self.resetear()
             game.addVisual(gameOver)
         }
     }
@@ -54,22 +59,4 @@ object player {
         multiplicador = 1
         consecutiveHits = 0 
     }
-
-
-    // method activarPoder() {
-    //     if (energia == 10){ 
-    //         //cancion.notas.forEach({n=>n.cambiarImage("noteSuper.png")}) 
-    //         //cancion.notas.forEach({n=>n.cambiarImage("noteSuperHit.png")})
-    //         multiplicador *= 2
-    //         energia = 0
-    //         poder = true
-    //         self.desactivarPoder()
-    //     } else {
-    //         throw new Exception(message="No hay suficiente energia")
-    //     }
-    // }
-
-    // method desactivarPoder() {
-    //     game.onTick(300,"desactivarPoder", {poder = false})
-    // }
 }
