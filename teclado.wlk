@@ -34,9 +34,11 @@ object tecladoMenu {
                 if (!dificultadesVistas) {
                     self.mostrarDificultades()
                     dificultadesVistas = true
+                    game.addVisual(botonNiveles)
                 } else {
                     self.ocultarDificultades()
                     dificultadesVistas = false
+                    game.removeVisual(botonNiveles)
                 }
             }
         })
