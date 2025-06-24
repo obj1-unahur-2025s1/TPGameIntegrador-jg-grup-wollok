@@ -6,7 +6,6 @@ object player {
     // seguro
     var property puntuacion = 0 // puntuacion del jugador
     var property multiplicador = 1 // maximo 4 sin poder, maximo 8 con poder
-    var property energia =  0 //maximo 10
     var property fallos = 0 // cantidad de fallos
     var property falloOculto = 0
     var property consecutiveHits = 0
@@ -16,7 +15,6 @@ object player {
     method resetear() {
         puntuacion = 0
         multiplicador = 1
-        energia = 0
         fallos = 0
         falloOculto = 0
         consecutiveHits = 0
@@ -25,6 +23,7 @@ object player {
         cartelPuntuacion.actualizar(0)
         cartelFallos.actualizarFallo(0)
         cartelVida.recargarVidas()
+        cartelPrecision.mostrarPresicion(juego.nivelElegido())
     }
     method restarVida() {
             

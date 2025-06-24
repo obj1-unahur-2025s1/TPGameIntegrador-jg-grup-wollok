@@ -110,6 +110,7 @@ object cartelPrecision {
 }
 object gameOver{
     method iniciar() { 
+        game.sound("game_over_sound.mp3").play()
         menu.cambiarEstado("gameOver")
         game.addVisual(imgGameOver)
     }
