@@ -36,7 +36,7 @@ object tecladoMenu {
             reglas.cambioVisible()
         }
 })
-         keyboard.t().onPressDo({
+        keyboard.t().onPressDo({
             if (menu.estadoJuego() == "menuPrincipal") {
                 if (!dificultadesVistas) {
                     game.sound("sonido5.mp3").play()
