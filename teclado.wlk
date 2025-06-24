@@ -29,7 +29,7 @@ object tecladoMenu {
             reglas.cambioVisible()
         }
 })
-         keyboard.t().onPressDo({
+        keyboard.t().onPressDo({
             if (menu.estadoJuego() == "menuPrincipal") {
                 game.sound("sonido3.mp3").play()
                 if (!dificultadesVistas) {
