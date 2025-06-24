@@ -80,7 +80,7 @@ object menu {
         game.removeVisual(fondoMenu)
         game.removeVisual(botonReglas)
         game.removeVisual(botonIniciar)
-        
+        game.removeVisual(botonNiveles)
         self.cambiarEstado("jugando")
         self.detenerMusica()
     }
