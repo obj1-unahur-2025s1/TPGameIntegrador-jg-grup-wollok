@@ -19,7 +19,6 @@ object tecladoMenu {
             menus.cambiarEstado("jugando") 
             menus.ocultarMenuPrincipal()
             dificultades.ocultarDificultades()
-            juego.nivelElegido().inicio(1)
             juego.iniciar()
             
          } 
@@ -137,16 +136,15 @@ object teclado {
                 juego.nivelElegido(cancion2)
                 juego.nivelElegido().iniciar()
                 win1.ocultarWin()
+                juego.añadirVisuals()
             }
             else if ( menus.estadoJuego() == "win2") {
                 juego.nivelElegido().cerrarNivel()
-            }
-            else if (menus.estadoJuego() == "gameOver"){
-                juego.nivelElegido().cerrarNivel()
-                game.removeVisual(gameOver)
-                player.resetear()
+            } else if (menus.estadoJuego() == "gameOver") {
+                
+                cancion1.iniciar()
+                gameOver.ocultar()
             }
         })
     }
- 
 }

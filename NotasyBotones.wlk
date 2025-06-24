@@ -8,8 +8,7 @@ object juego {
     // var property tecladoEnUso = tecladoMenu
     var property nivelElegido = cancion1
     
-    method iniciar() {
-        
+    method añadirVisuals() {
         game.addVisual(botonVerde)
         game.addVisual(botonRojo)
         game.addVisual(botonAmarillo)
@@ -20,6 +19,10 @@ object juego {
         game.addVisual(vida1)
         game.addVisual(vida2)
         game.addVisual(vida3)
+    }
+    method iniciar() {
+        
+        self.añadirVisuals()
 
         nivelElegido.iniciar()
         teclado.iniciar()
@@ -41,7 +44,6 @@ object juego {
         game.removeVisual(vida1)
         game.removeVisual(vida2)
         game.removeVisual(vida3)
-        game.removeVisual(gameOver)
 
     }
     method eliminarNotasActivas() {
@@ -72,13 +74,6 @@ object juego {
     }
     
     method verificarNotasFalladas() {
-
-        // const notasFalladas = notasActivas.filter({ n =>
-        //     n.position().y() < (n.botonAsignado().position().y() + posicionParaFallo)
-        // })
-        // cambie este código para poder acertar las notas 
-        // si estan en +1 posición arriba del botón porque sino
-        // era muy difícil acertar las notas en el juego
          const notasFalladas = notasActivas.filter({ n =>
             n.position().y() < (n.botonAsignado().position().y() - 2)
         })

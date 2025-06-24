@@ -81,24 +81,18 @@ object reglas {
         estaVisible = !estaVisible
     }
 }
-object gameOver {
-    method position() = game.at(0, 0)
-    method image() = "gameover.png"
-}
 
 /////////////
 object win1 {
     method iniciar() {
         menu.cambiarEstado("win1")
-        juego.eliminarVisuals()
-        juego.eliminarNotasActivas()
+        cartelPrecision.mostrarPresicion(juego.nivelElegido())
         game.addVisual(winMenu)
         game.addVisual(cartelPrecision)
     }
-    method ocultarWin() { // Que ocurra al presionar cualquier boton si se puede
+    method ocultarWin() {
         game.removeVisual(winMenu)
         game.removeVisual(cartelPrecision)
-        menu.iniciar()
     }
  }
  object winMenu {
@@ -111,6 +105,23 @@ object cartelPrecision {
     method textColor() = "FF0000FF" 
     method mostrarPresicion(unaCancion) {
         const presicion = unaCancion.calcularPresicion()
-        self.text("FALLOS: " + presicion)
+        self.text("Precision: " + presicion + "%")
     }
+}
+class BotonSigNivel inherits ImagenesMenu{
+    override method position() = game.at(18,0)
+    override method image() ="nivelesBoton.png"
+}
+object gameOver{
+    method iniciar() { 
+        menu.cambiarEstado("gameOver")
+        game.addVisual(imgGameOver)
+    }
+    method ocultar() {
+        game.removeVisual(imgGameOver)
+    }
+}
+object imgGameOver {
+    method image() = "gameover1.png"
+    method position() = game.at(0,0)
 }

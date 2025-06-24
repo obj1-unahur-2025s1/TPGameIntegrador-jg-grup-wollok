@@ -27,19 +27,12 @@ object player {
         cartelVida.recargarVidas()
     }
     method restarVida() {
-        if(falloOculto == 6) {
-            vida = (vida-1).max(0)
-            falloOculto = 0
-            cartelVida.actualizarVida()
-        } 
-        else if (vida == 0) {
-            menu.cambiarEstado("gameOver")
-            juego.nivelElegido().detener()
-            juego.eliminarVisuals()
-            juego.eliminarNotasActivas()
-            self.resetear()
-            game.addVisual(gameOver)
-        }
+            
+            if(falloOculto == 6 and vida >= 1) {
+                vida = (vida-1).max(0)
+                falloOculto = 0
+                cartelVida.actualizarVida()
+            }
     }
     
     
