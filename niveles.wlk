@@ -181,6 +181,7 @@ object cancion2 {
         menu.iniciar()
         self.detener()
         juego.eliminarVisuals()
+        player.resetear()
     }
     method iniciar() {
         music.play()

@@ -67,9 +67,42 @@ object tecladoMenu {
                 selector.position(game.at(10, 0))
             }
         })
-    }
-
-
+        keyboard.right().onPressDo({
+            if (menu.estadoJuego() == "reglas" && reglas.estaVisible() && reglas.image() == "textoreglas1.png") {
+                reglas.imagenPuesta("textoreglas2.png")
+                game.sound("sonido3.mp3").play()
+            }
+            else if (menu.estadoJuego() == "reglas" && reglas.estaVisible() && reglas.image() == "textoreglas2.png") {
+                reglas.imagenPuesta("textoreglas3.png")
+                game.sound("sonido3.mp3")
+            }
+            else if (menu.estadoJuego() == "reglas" && reglas.estaVisible() && reglas.image() == "textoreglas3.png") {
+                reglas.imagenPuesta("textoreglas4.png")
+                game.sound("sonido3.mp3")
+            }
+            else if (menu.estadoJuego() == "reglas" && reglas.estaVisible() && reglas.image() == "textoreglas4.png") {
+                reglas.imagenPuesta("textoreglas5.png")
+                game.sound("sonido3.mp3")
+            }
+        })
+        keyboard.left().onPressDo({
+              if (menu.estadoJuego() == "reglas" && reglas.estaVisible() && reglas.image() == "textoreglas5.png") {
+                reglas.imagenPuesta("textoreglas4.png")
+                game.sound("sonido3.mp3").play()
+            }
+            else if (menu.estadoJuego() == "reglas" && reglas.estaVisible() && reglas.image() == "textoreglas4.png") {
+                reglas.imagenPuesta("textoreglas3.png")
+                game.sound("sonido3.mp3")
+            }
+            else if (menu.estadoJuego() == "reglas" && reglas.estaVisible() && reglas.image() == "textoreglas3.png") {
+                reglas.imagenPuesta("textoreglas2.png")
+                game.sound("sonido3.mp3")
+            }
+            else if (menu.estadoJuego() == "reglas" && reglas.estaVisible() && reglas.image() == "textoreglas2.png") {
+                reglas.imagenPuesta("textoreglas1.png")
+                game.sound("sonido3.mp3")
+        }})
+        }
 }
 
 object teclado {
