@@ -140,10 +140,3 @@ object teclado {
     }
 }
 
-        //     else if ( menus.estadoJuego() == "win2") {
-        //         juego.nivelElegido().cerrarNivel()
-        //     } else if (menus.estadoJuego() == "gameOver") {
-        //         cancion1.iniciar()
-        //         gameOver.ocultar()
-        //     }
-        // }

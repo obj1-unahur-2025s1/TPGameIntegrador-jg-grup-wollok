@@ -108,34 +108,3 @@ object menu {
         self.cambiarEstado("menuPrincipal")
     }
 }
-// object menu {
-//     var property estadoJuego = "menuPrincipal" 
-
-//     method iniciar() {
-//         self.mostrarMenuPrincipal()
-        
-//     }
-
-//     method mostrarMenuPrincipal() {
-//         // Clear any existing visuals
-//         juego.eliminarVisuals()
-//         // Add menu background
-//         game.addVisual(fondoMenu)
-
-//         game.addVisual(dificultad)
-//         // Add game title
-//         game.addVisual(tituloJuego)
-
-//         // Add start button
-//         game.addVisual(botonIniciar)
-//         teclado.iniciar()
-//     }
-
-//     method ocultarMenuPrincipal() {
-//         game.removeVisual(dificultad)
-//         game.removeVisual(fondoMenu)
-//         game.removeVisual(tituloJuego)
-//         game.removeVisual(botonIniciar)
-//         keyboard.enter().onPressDo {} // Clear the event listener
-//     }
-// }

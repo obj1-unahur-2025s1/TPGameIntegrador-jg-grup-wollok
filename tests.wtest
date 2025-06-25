@@ -1,0 +1,56 @@
+import carteles.*
+import teclado.*
+import Menu.*
+import NotasyBotones.*
+import player.*
+import niveles.*
+
+describe "Tests básicos" {
+
+    test "Player se reinicia correctamente" {
+        player.sumarFallo()
+        player.sumarPuntuacion(100)
+        player.sumarHit()
+        player.aumentarMultiplicador()
+
+        player.resetear()
+
+        assert.equals(player.puntuacion(), 0)
+        assert.equals(player.fallos(), 0)
+        assert.equals(player.multiplicador(), 1)
+        assert.equals(player.hitsAcertados(), 0)
+        assert.equals(player.vida(), 3)
+    }
+    test "El jugador suma puntuación correctamente" {
+        player.resetear()
+        player.sumarPuntuacion(50)
+
+        assert.equals(player.puntuacion(), 50)
+    }
+
+    test"El jugador pierde una vida después de 6 fallos ocultos" {
+        player.resetear()
+        player.sumarFallo()
+        player.sumarFallo()
+        player.sumarFallo()
+        player.sumarFallo()
+        player.sumarFallo()
+        player.sumarFallo()
+        player.restarVida()
+
+        assert.equals(player.vida(), 2)
+        assert.equals(player.falloOculto(), 0)
+    }
+
+    test"El selector de nivel cambia correctamente a cancion2" {
+        juego.nivelElegido(cancion2)
+
+        assert.equals(juego.nivelElegido(), cancion2)
+    }
+
+    test"El método crearNotaVerde crea una nota y la añade a notasActivas" {
+        juego.crearNotaVerde(90)
+
+        assert.equals(juego.notasActivas().size(), 1)
+    }
+}
