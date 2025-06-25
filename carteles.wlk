@@ -10,15 +10,11 @@ import player.*
 // }
 object cartelPuntuacion {
     var property position = game.at(16, 12)
-    var property text = "0"
+    var property text = "PUNTUACION: O"
     method textColor() =  "F9F9F9" //"00FF00FF"
     method actualizar(nuevaPuntuacion) {
-        self.text("" + nuevaPuntuacion)
+        self.text("PUNTUACION:" + nuevaPuntuacion)
     }
-}
-object puntuacion {
-    method image() = "puntuacion10.png"
-    method position() = game.at(15, 13)
 }
 
 object imagenPuntos {
@@ -36,17 +32,12 @@ object cartelHits {
     
 }
 object cartelFallos {
-    var property text = "0" 
+    var property text = "FALLOS: 0" 
     var property position = game.at(16,10)
     method textColor() = "FF0000FF" 
     method actualizarFallo(cantFallos) {
-        self.text("" + cantFallos)
+        self.text("FALLOS:" + cantFallos)
     }
-}
-
-object fallos {
-  method position() = game.at(15,11)
-  method image() = "fallo2.png"
 }
 object cartelVida {
     // var property text = "Vida: 3" 
