@@ -3,7 +3,7 @@ import NotasyBotones.*
 import Menu.*
 import wollokJuego.*
 
-program juegoJorge {
+program wollokHero {
 	game.height(16)
 	game.width(20)
 	game.boardGround("mastilcorrecto9.png")
