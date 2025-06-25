@@ -46,5 +46,5 @@ Ganarás la partida si terminas la cancion antes de perder todas tus vidas y hab
 ## Otros
 
 - Tecnicatura en Programación / Programación con Objetos 1 - Comisión 4 / Unahur
-- Versión de wollok
+- Versión de wollok: 0.3.1
 - Una vez terminado, no tenemos problemas en que el repositorio sea público
