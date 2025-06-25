@@ -13,7 +13,7 @@
 
 ![Imagen del juego en el menu](capturas/fotoMenuSinDificultades.png)
 ![Imagen del juego en el menu, con dificultades abiertas](capturas/fotoMenuConDificultades.png)
-![Imagen de las reglas](capturas/textoreglas1.png)
+![Imagen de las reglas](capturas/imagenDeLasReglas.png)
 ![Imagen jugando](capturas/fotoDentroDelJuego.png)
 
 ## Reglas de Juego / Instrucciones
