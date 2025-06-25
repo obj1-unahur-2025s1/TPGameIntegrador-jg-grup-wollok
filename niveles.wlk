@@ -3,8 +3,9 @@ import NotasyBotones.*
 import Menu.*
 import carteles.*
 import teclado.*
+import wollokJuego.*
 
-
+// NIVEL 1 
 object cancion1 {
 
     const notasTotales = 70
@@ -151,12 +152,11 @@ object cancion1 {
     method puntosEnPantalla() {
         game.sound("sonido3.mp3").play()
         cartelPuntuacion.position(game.at(7,8))
-        game.schedule(8000, {=> cartelPuntuacion.position(game.at(16, 12))})
+        game.schedule(7300, {=> cartelPuntuacion.position(game.at(16, 12))})
     }
 }
 
-
-
+// NIVEL 2 
 object cancion2 {
     const notasTotales = 84
     var property tecla = true
@@ -222,8 +222,6 @@ object cancion2 {
         game.schedule(750, { => if (tecla) { juego.crearNotaAmarilla(90) } })    
          
     }
-    
-   
    
     method secuenciaDoble() {
         game.schedule(0,{=>if (tecla) {juego.crearNotaVerde(90)}}) 
@@ -235,27 +233,16 @@ object cancion2 {
         game.schedule(4200, {=>if (tecla) {self.ritmo4()}})
         game.schedule(6100, {=>if (tecla) {juego.crearNotaAmarilla(90)}})
         game.schedule(6500, {=>if (tecla) {juego.crearNotaRoja(90)}})
-        
-        
-       game.schedule(7100, {=> if (tecla) {juego.crearNotaAzul(90)}})////////
+       game.schedule(7100, {=> if (tecla) {juego.crearNotaAzul(90)}})
         game.schedule(7500, {=> if (tecla) {juego.crearNotaAzul(90)}})
-        //game.schedule(7900, {=> if (tecla) {juego.crearNotaAzul(90)}})
         game.schedule(8300, {=> if (tecla) {juego.crearNotaAzul(90)}})
-
-
     }
    
     method ritmo4(){
          game.schedule(300, {=>if (tecla) {juego.crearNotaAmarilla(90)}})
-        //game.schedule(650, {=> if (tecla) {juego.crearNotaAzul(90)}})
-
          game.schedule(1000, {=> if (tecla) {juego.crearNotaRoja(90)}})
-        //game.schedule(1300, {=> if (tecla) {juego.crearNotaVerde(90)}})
         game.schedule(1500, {=> if (tecla) {juego.crearNotaAmarilla(90)}})
     }
-    
-
-
     method parte1(){
         game.schedule(1, { => if (tecla) { self.guitarraPrincipio() } })    
         game.schedule(1500, { => if (tecla) { self.guitarraPrincipio() } }) 
@@ -270,16 +257,13 @@ object cancion2 {
     method parte2(){
         game.schedule(1, { => if (tecla) { self.guitarraPrincipio2() } })  
         game.schedule(1200, { => if (tecla) { self.dobleDerecha() } }) 
-        //game.schedule(1900, { => if (tecla) { self.dobleIzquierda() } })   
         game.schedule(3000, { => if (tecla) { self.dobleDerecha() } }) 
         game.schedule(3600, { => if (tecla) { self.dobleIzquierda() } })   
         game.schedule(4400, { => if (tecla) { self.dobleDerechaInverso() } })
-        //game.schedule(5200, { => if (tecla) { self.dobleDerecha() } }) 
         game.schedule(6000, { => if (tecla) { self.dobleIzquierda() } })
         game.schedule(6700, { => if (tecla) { self.dobleIzquierdaInverso() } })
         game.schedule(7700, { => if (tecla) { self.dobleDerechaInverso() } })
         game.schedule(8400, { => if (tecla) { self.dobleIzquierdaInverso() } })
-        //game.schedule(9800, { => if (tecla) { self.dobleDerechaInverso() } })
         game.schedule(10700, { => if (tecla) { self.dobleDerecha() } })
         game.schedule(11500, { => if (tecla) { self.dobleIzquierda() } })
         game.schedule(12200, { => if (tecla) { self.dobleIzquierdaInverso() } })
@@ -288,19 +272,13 @@ object cancion2 {
 
         game.schedule(1300, {=>if (tecla) {juego.crearNotaAmarilla(100)}})
         game.schedule(1650, {=> if (tecla) {juego.crearNotaAzul(100)}})
-        //game.schedule(2000, {=> if (tecla) {juego.crearNotaRoja(100)}})
         game.schedule(2300, {=> if (tecla) {juego.crearNotaVerde(100)}})
-        //game.schedule(2500, {=> if (tecla) {juego.crearNotaAmarilla(100)}})///
         game.schedule(3200, {=> if (tecla) {self.ritmo4()}})
         game.schedule(5200, {=> if (tecla) {juego.crearNotaRoja(100)}})
         game.schedule(6000, {=> if (tecla) {juego.crearNotaVerde(100)}})
-        //game.schedule(6300, {=> if (tecla) {juego.crearNotaRoja(100)}})
         game.schedule(6800, {=> if (tecla) {juego.crearNotaAmarilla(100)}})
-        //game.schedule(7300, {=> if (tecla) {juego.crearNotaAzul(100)}})
         game.schedule(8000, {=> if (tecla) {juego.crearNotaVerde(100)}})
-        //game.schedule(8400, {=> if (tecla) {juego.crearNotaVerde(100)}})
         game.schedule(8800, {=> if (tecla) {juego.crearNotaVerde(100)}})
-        //game.schedule(9400, {=> if (tecla) {juego.crearNotaAzul(100) }})
         game.schedule(9800, {=> if (tecla) {juego.crearNotaRoja(100)}})
         game.schedule(10400, {=> if (tecla) {self.parteFinal()}})
     }
@@ -323,3 +301,21 @@ object cancion2 {
         game.schedule(4000, {=> imagenPuntos.position(game.at(14, 14.5))})
     }
  }
+//////////////////////
+
+// Imagenes de game over (cuando finaliza la partida)
+object gameOver{
+    method iniciar() { 
+        game.sound("game_over_sound.mp3").play()
+        menu.cambiarEstado("gameOver")
+        game.addVisual(imgGameOver)
+    }
+    method ocultar() {
+        game.removeVisual(imgGameOver)
+    }
+}
+object imgGameOver {
+    method image() = "gameover2.png"
+    method position() = game.at(0,0)
+}
+ /////////////////////

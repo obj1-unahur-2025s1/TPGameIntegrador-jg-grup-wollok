@@ -3,6 +3,7 @@ import teclado.*
 import Menu.*
 import NotasyBotones.*
 import player.*
+import wollokJuego.*
 import niveles.*
 
 describe "Tests básicos" {

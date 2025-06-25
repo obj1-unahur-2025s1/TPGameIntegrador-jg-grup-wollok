@@ -1,8 +1,7 @@
 import wollok.game.*
-
 import NotasyBotones.*
-
 import Menu.*
+import wollokJuego.*
 
 program juegoJorge {
 	game.height(16)

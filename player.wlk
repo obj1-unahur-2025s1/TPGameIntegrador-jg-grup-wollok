@@ -1,12 +1,12 @@
 import Menu.*
 import NotasyBotones.*
 import teclado.*
+import wollokJuego.*
 import carteles.*
 object player {
-    // seguro
-    var property puntuacion = 0 // puntuacion del jugador
-    var property multiplicador = 1 // maximo 4 sin poder, maximo 8 con poder
-    var property fallos = 0 // cantidad de fallos
+    var property puntuacion = 0
+    var property multiplicador = 1 
+    var property fallos = 0 
     var property falloOculto = 0
     var property consecutiveHits = 0
     var property hitsAcertados = 0
@@ -26,15 +26,12 @@ object player {
         cartelPrecision.mostrarPresicion(juego.nivelElegido())
     }
     method restarVida() {
-            
-            if(falloOculto == 6 and vida >= 1) {
-                vida = (vida-1).max(0)
-                falloOculto = 0
-                cartelVida.actualizarVida()
-            }
+        if(falloOculto == 6 and vida >= 1) {
+            vida = (vida-1).max(0)
+            falloOculto = 0
+            cartelVida.actualizarVida()
+        }
     }
-    
-    
     method sumarFallo() {fallos += 1 falloOculto += 1}
     method sumarPuntuacion(valor) {puntuacion += valor}
     method sumarHit() {hitsAcertados += 1 return hitsAcertados}
@@ -46,7 +43,6 @@ object player {
             multiplicador = 3
         } 
     }
-
     method reiniciarMultiplicador() {
         multiplicador = 1
         consecutiveHits = 0 

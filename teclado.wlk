@@ -3,6 +3,7 @@ import Menu.*
 import carteles.*
 import player.*
 import niveles.*
+import wollokJuego.*
 object tecladoMenu {
     var property juegoAsociado = juego
     var property menus = menu
@@ -43,12 +44,12 @@ object tecladoMenu {
                     game.sound("sonido5.mp3").play()
                     dificultadesVistas = true
                     dificultades.mostrarDificultades()
-                    game.addVisual(botonNiveles)
+                    game.addVisual(menu.botonNiveles())
                 } else {
                     game.sound("sonido5.mp3").play()
                     dificultadesVistas = false
                     dificultades.ocultarDificultades()
-                    game.removeVisual(botonNiveles)
+                    game.removeVisual(menu.botonNiveles())
                 }
             }
         }
@@ -57,50 +58,50 @@ object tecladoMenu {
             if (menu.estadoJuego() == "menuPrincipal" && dificultadesVistas) {
                 juego.nivelElegido(cancion1)
                 game.sound("sonido5.mp3").play()
-                selector.position(game.at(2, 0))
+                dificultades.selector().position(game.at(2, 0))
         }
     })
         keyboard.m().onPressDo({
             if (menu.estadoJuego() == "menuPrincipal" && dificultadesVistas) {
                 juego.nivelElegido(cancion2)
                 game.sound("sonido5.mp3").play()
-                selector.position(game.at(10, 0))
+                dificultades.selector().position(game.at(10, 0))
             }
         })
         keyboard.right().onPressDo({
-            if (menu.estadoJuego() == "reglas" && reglas.estaVisible() && reglas.image() == "textoreglas1.png") {
-                reglas.imagenPuesta("textoreglas2.png")
+            if (menu.estadoJuego() == "reglas" && reglas.estaVisible() && reglas.image() == "textoreglas1.jpg") {
+                reglas.imagenPuesta("textoreglas2.jpg")
                 game.sound("sonido3.mp3").play()
             }
-            else if (menu.estadoJuego() == "reglas" && reglas.estaVisible() && reglas.image() == "textoreglas2.png") {
-                reglas.imagenPuesta("textoreglas3.png")
-                game.sound("sonido3.mp3")
+            else if (menu.estadoJuego() == "reglas" && reglas.estaVisible() && reglas.image() == "textoreglas2.jpg") {
+                reglas.imagenPuesta("textoreglas3.jpg")
+                game.sound("sonido3.mp3").play()
             }
-            else if (menu.estadoJuego() == "reglas" && reglas.estaVisible() && reglas.image() == "textoreglas3.png") {
-                reglas.imagenPuesta("textoreglas4.png")
-                game.sound("sonido3.mp3")
+            else if (menu.estadoJuego() == "reglas" && reglas.estaVisible() && reglas.image() == "textoreglas3.jpg") {
+                reglas.imagenPuesta("textoreglas4.jpg")
+                game.sound("sonido3.mp3").play()
             }
-            else if (menu.estadoJuego() == "reglas" && reglas.estaVisible() && reglas.image() == "textoreglas4.png") {
-                reglas.imagenPuesta("textoreglas5.png")
-                game.sound("sonido3.mp3")
+            else if (menu.estadoJuego() == "reglas" && reglas.estaVisible() && reglas.image() == "textoreglas4.jpg") {
+                reglas.imagenPuesta("textoreglas5.jpg")
+                game.sound("sonido3.mp3").play()
             }
         })
         keyboard.left().onPressDo({
-              if (menu.estadoJuego() == "reglas" && reglas.estaVisible() && reglas.image() == "textoreglas5.png") {
-                reglas.imagenPuesta("textoreglas4.png")
+              if (menu.estadoJuego() == "reglas" && reglas.estaVisible() && reglas.image() == "textoreglas5.jpg") {
+                reglas.imagenPuesta("textoreglas4.jpg")
                 game.sound("sonido3.mp3").play()
             }
-            else if (menu.estadoJuego() == "reglas" && reglas.estaVisible() && reglas.image() == "textoreglas4.png") {
-                reglas.imagenPuesta("textoreglas3.png")
-                game.sound("sonido3.mp3")
+            else if (menu.estadoJuego() == "reglas" && reglas.estaVisible() && reglas.image() == "textoreglas4.jpg") {
+                reglas.imagenPuesta("textoreglas3.jpg")
+                game.sound("sonido3.mp3").play()
             }
-            else if (menu.estadoJuego() == "reglas" && reglas.estaVisible() && reglas.image() == "textoreglas3.png") {
-                reglas.imagenPuesta("textoreglas2.png")
-                game.sound("sonido3.mp3")
+            else if (menu.estadoJuego() == "reglas" && reglas.estaVisible() && reglas.image() == "textoreglas3.jpg") {
+                reglas.imagenPuesta("textoreglas2.jpg")
+                game.sound("sonido3.mp3").play()
             }
-            else if (menu.estadoJuego() == "reglas" && reglas.estaVisible() && reglas.image() == "textoreglas2.png") {
-                reglas.imagenPuesta("textoreglas1.png")
-                game.sound("sonido3.mp3")
+            else if (menu.estadoJuego() == "reglas" && reglas.estaVisible() && reglas.image() == "textoreglas2.jpg") {
+                reglas.imagenPuesta("textoreglas1.jpg")
+                game.sound("sonido3.mp3").play()
         }})
         }
 }
@@ -112,7 +113,6 @@ object teclado {
     var property estaAzulPrendido = false
     var property juegoAsociado = juego
     var property menus = menu
-    // var property reglasAsociadas = reglas
     method iniciar(){
         keyboard.a().onPressDo({=>
         if (menus.estadoJuego() == "jugando" && !estaVerdePrendido) {
