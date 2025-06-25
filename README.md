@@ -11,7 +11,7 @@
 
 ## Capturas
 
-(agregar)
+
 
 ## Reglas de Juego / Instrucciones
 

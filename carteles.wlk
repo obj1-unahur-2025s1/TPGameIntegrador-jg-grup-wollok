@@ -47,6 +47,7 @@ object cartelPrecision {
  object win1 {
     method iniciar() {
         menu.cambiarEstado("win1")
+        game.sound("winSonido.mp3").play()
         cartelPrecision.mostrarPresicion(juego.nivelElegido())
         game.addVisual(winMenu)
         game.addVisual(cartelPrecision)
