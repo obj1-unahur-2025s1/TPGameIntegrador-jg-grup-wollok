@@ -150,7 +150,7 @@ object cancion1 {
     }
     method puntosEnPantalla() {
         game.sound("sonido3.mp3").play()
-        cartelPuntuacion.position(game.at(8,8))
+        cartelPuntuacion.position(game.at(7,8))
         game.schedule(8000, {=> cartelPuntuacion.position(game.at(16, 12))})
     }
 }
