@@ -10,7 +10,7 @@ import player.*
 // }
 object cartelPuntuacion {
     var property position = game.at(16, 12)
-    var property text = "PUNTUACION: O"
+    var property text = "PUNTUACION : 0"
     method textColor() =  "F9F9F9" //"00FF00FF"
     method actualizar(nuevaPuntuacion) {
         self.text("PUNTUACION:" + nuevaPuntuacion)
@@ -32,11 +32,11 @@ object cartelHits {
     
 }
 object cartelFallos {
-    var property text = "FALLOS: 0" 
+    var property text = "FALLOS : 0" 
     var property position = game.at(16,10)
     method textColor() = "FF0000FF" 
     method actualizarFallo(cantFallos) {
-        self.text("FALLOS:" + cantFallos)
+        self.text("FALLOS: " + cantFallos)
     }
 }
 object cartelVida {
@@ -77,7 +77,7 @@ object vida3 {
 object reglas {
     var property estaVisible = false
     method position() = game.at(0, 0) //game.at(1,-14)
-    method image() = "reglasbiem.png"
+    method image() = "texto2.jpg"//"reglasbiem.png"
     method cambioVisible() {
         estaVisible = !estaVisible
     }
