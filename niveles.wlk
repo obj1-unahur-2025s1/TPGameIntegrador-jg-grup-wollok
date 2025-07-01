@@ -6,13 +6,17 @@ import teclado.*
 import wollokJuego.*
 
 // NIVEL 1 
-object cancion1 {
-
-    const notasTotales = 70
+class Nivel {
+    const property notasTotales
+    var property nivel
+    var property musica
     var property inicio = 1
     var property tecla = true
-    const musica = game.sound("cancionNivel1.mp3")
-
+    method iniciar() {
+        tecla = true
+        nivel.musica().play()
+        game.schedule(4300, {=>nivel.iniciaMusica()})
+    }
     method detener() {
         tecla = false
         musica.stop()
@@ -31,120 +35,11 @@ object cancion1 {
         juego.eliminarVisuals()
         player.resetear()
     }
-    method iniciar() {
-            tecla = true
-            musica.play()
-            game.schedule(4300, {=>self.iniciaMusica()})
-    }
-    method tresNotas() {
-        game.schedule(0, {=>juego.crearNota(verde, 90)})
-        game.schedule(250, {=> juego.crearNota(azul, 90) })
-    }
-    method cuatroNotas() {
-        game.schedule(0, {=>self.tresNotas()})
-        game.schedule(750, {=>juego.crearNota(amarillo, 90)})
-    }
-    method primerParte() {
-        game.schedule(0,{=>self.tresNotas()})
-        game.schedule(1300, {=>self.cuatroNotas()})
-
-        game.schedule(2500, {=>self.tresNotas()})
-        game.schedule(3800, {=>self.cuatroNotas()})
-
-        game.schedule(5000, {=>self.tresNotas()})
-        game.schedule(6100, {=>self.cuatroNotas()})
-
-        game.schedule(7400, {=>self.tresNotas()})
-
-    }
-    method segundaParte() {
-        game.schedule(0, {self.tresNotas()})
-        game.schedule(600, {=>juego.crearNota(amarillo, 90)})
-        game.schedule(1100, {=>juego.crearNota( rojo, 90)})
-    }
-    method terceraParte() {
-        game.schedule(0, {=>self.tresNotas()})
-        game.schedule(1200, {=>juego.crearNota(azul, 90)})
-
-        game.schedule(1300, {=> self.secuenciaDoble()})
-        game.schedule(2100, {=>juego.crearNota(rojo, 90)})
-
-    }
-    method secuenciaDoble() {
-        game.schedule(0,{=>juego.crearNota(verde, 90)}) 
-        game.schedule(500, {=>juego.crearNota(azul, 90)})
-    }
-    method midGame() {
-        game.schedule(0, {=>self.tresNotas()})
-        game.schedule(2300, {=>self.terceraParte()})
-        game.schedule(5000, {=>self.tresNotas()}) 
-
-        game.schedule(7300, {=>juego.crearNota(azul, 90)})
-        game.schedule(7600, {=>juego.crearNota(verde, 90)})
-
-        game.schedule(8400, {=>self.secuenciaDoble()})    
-        game.schedule(9400, {=>juego.crearNota(amarillo, 90)})
-
-    }
-    //ANTES DEL DROP CUARTA PARTE
-    method cuartaParte() {
-        game.schedule(0, {=>juego.crearNota(rojo, 90)})
-        game.schedule(300, {=>juego.crearNota(azul, 90)})
-        game.schedule(1400, {=>juego.crearNota(azul, 90)} )
-        game.schedule(1700, {=>juego.crearNota(rojo, 90) })
-        
-        game.schedule(3000, {=>juego.crearNota(amarillo, 90)})
-        game.schedule(4000, {=>juego.crearNota(azul, 90)})
-    }
-    method drop() { 
-        game.schedule(0, {=>juego.crearNota(verde, 90)})
-        game.schedule(400, {=>juego.crearNota(rojo, 90)})
-
-        game.schedule(1300, {=>juego.crearNota(amarillo, 90)})
-        game.schedule(1650, {=> juego.crearNota(azul, 90)})
-
-        game.schedule(2000, {=> juego.crearNota(rojo, 90)})
-        game.schedule(2500, {=> juego.crearNota(amarillo, 90)})
-
-        game.schedule(3500, {=> juego.crearNota(azul, 90)})
-        game.schedule(3800, {=> juego.crearNota(verde, 90)})
-
-        game.schedule(4500, {=> juego.crearNota(amarillo, 90)})
-
-        game.schedule(5000, {=> juego.crearNota(rojo, 90)})
-        
-        game.schedule(6200, {=> juego.crearNota(verde, 90)})
-
-        game.schedule(7500, {=> juego.crearNota(rojo, 90)})
-
-        game.schedule(8500, {=> juego.crearNota(amarillo ,90)})
-        game.schedule(9000, {=> juego.crearNota(azul, 90)
-            juego.crearNota(rojo, 90)})
-    
-        game.schedule(9300, {=> juego.crearNota(verde, 90)})
-
-        game.schedule(9700, {=> juego.crearNota(amarillo, 90)})
-        game.schedule(10200, {=> juego.crearNota(azul, 90)
-            juego.crearNota(rojo, 90)}) 
-
-        game.schedule(10700, {=> juego.crearNota(verde, 90)})
-        game.schedule(11100, {=> juego.crearNota(amarillo, 90)})       
-        game.schedule(11700, {=> juego.crearNota(rojo, 90)})       
-    }
-    method musicaCompleta() {
-        if (menu.estadoJuego() == juego.estado()){game.schedule(0, {=>self.primerParte()})}
-        if (menu.estadoJuego() == juego.estado()){game.schedule(8500, {=>self.segundaParte()})}
-        if (menu.estadoJuego() == juego.estado()){game.schedule(11600, {=>self.terceraParte()})}
-        if (menu.estadoJuego() == juego.estado()){game.schedule(14200, {=>self.midGame()})}
-        if (menu.estadoJuego() == juego.estado()){game.schedule(23900, {=>self.cuartaParte()})}
-        if (menu.estadoJuego() == juego.estado()){game.schedule(31500, {=>self.puntosEnPantalla()})}
-        if (menu.estadoJuego() == juego.estado()){game.schedule(38200, {=>self.drop()})} 
-    }
     method calcularPresicion() {
         return (player.hitsAcertados() / notasTotales) * 100 
     }
     method iniciaMusica() {
-        self.musicaCompleta()
+        nivel.musicaCompleta()
         game.schedule(56000, {=>if (player.vida() == 0) {
             gameOver.iniciar()
         } else {win1.iniciar()}})
@@ -154,39 +49,105 @@ object cancion1 {
         cartelPuntuacion.position(game.at(7,8))
         game.schedule(7300, {=> cartelPuntuacion.position(game.at(16, 12))})
     }
-}
-
-// NIVEL 2 
-object cancion2 {
-    const notasTotales = 84
-    var property tecla = true
-    const music = game.sound("cancionn2.mp3")
-    method detener() {
-        tecla = false
+    
+//// TIPO DE NOTAS A CAER
+    method caerNota(tiempo, color, velocidad){
+        game.schedule(tiempo, {=>juego.crearNota(color,velocidad)})
+    }
+    method dosNotas(tiempo, color1,color2, velocidad) {
+        self.caerNota(0,color1,velocidad)
+        self.caerNota(tiempo,color2,velocidad)
+    }
+    method tresNotas(tiempo1,tiempo2, color1,color2,color3,velocidad) {
+        self.caerNota(0,color1,velocidad)
+        self.caerNota(tiempo1,color2,velocidad)
+        self.caerNota(tiempo2,color3,velocidad)
+    }
+    method cuatroNotas(tiempo1,tiempo2,tiempo3,color1,color2,color3,color4,velocidad){
+        self.caerNota(0,color1,velocidad)
+        self.caerNota(tiempo1,color2,velocidad)
+        self.caerNota(tiempo2,color3,velocidad)
+        self.caerNota(tiempo3,color4,velocidad)
     }
     
-    method calcularPresicion() {
-        return (player.hitsAcertados() / notasTotales) * 100 
+}
+object cancion1 inherits Nivel(notasTotales=70, musica=game.sound("cancionNivel1.mp3"), nivel=self) {
+
+    method primerParte() {
+        game.schedule(0, {=> self.tresNotas(250, 750, verde, azul, rojo, 90) })
+        game.schedule(1300, {=> self.tresNotas(250, 750, verde, azul, amarillo, 90) })
+        game.schedule(2500, {=> self.tresNotas(250, 750, verde, azul, rojo, 90) })
+        game.schedule(3800, {=> self.tresNotas(250, 750, verde, azul, amarillo, 90) })
+        game.schedule(5000, {=> self.tresNotas(250, 750, verde, azul, rojo, 90) })
+        game.schedule(6100, {=> self.tresNotas(250, 750, verde, azul, amarillo, 90) })
+        game.schedule(7400, {=> self.tresNotas(250, 750, verde, azul, rojo, 90) })
     }
 
-        method cerrarNivel() {
-            if (menu.estadoJuego() == win1.estado()) {
-                win1.ocultarWin()
-            } 
-            else if (menu.estadoJuego() == gameOver.estado()){
-                game.removeVisual(imgGameOver)
-            }
-        game.removeTickEvent("verificarFallos")
-        game.removeTickEvent("caerse")
-        menu.iniciar()
-        self.detener()
-        juego.eliminarVisuals()
-        player.resetear()
+    method segundaParte() {
+        game.schedule(0, {=> self.tresNotas(250, 750, verde, azul, rojo, 90) })
+        game.schedule(600, {=> self.caerNota(0, amarillo, 90) })
+        game.schedule(1100, {=> self.caerNota(0, rojo, 90) })
     }
-    method iniciar() {
-        music.play()
-        game.schedule(4300, {=>self.iniciaMusica()})
+
+    method terceraParte() {
+        game.schedule(0, {=> self.tresNotas(250, 750, verde, azul, rojo, 90) })
+        game.schedule(1200, {=> self.caerNota(0, azul, 90) })
+        game.schedule(1300, {=> self.dosNotas(500, verde, azul, 90) })
+        game.schedule(2100, {=> self.caerNota(0, rojo, 90) })
     }
+
+    method midGame() {
+        game.schedule(0, {=> self.tresNotas(250, 750, verde, azul, rojo, 90) })
+        game.schedule(2300, {=> self.terceraParte() })
+        game.schedule(5000, {=> self.tresNotas(250, 750, verde, azul, rojo, 90) })
+        game.schedule(7300, {=> self.caerNota(0, azul, 90) })
+        game.schedule(7600, {=> self.caerNota(0, verde, 90) })
+        game.schedule(8400, {=> self.dosNotas(500, verde, azul, 90) })
+        game.schedule(9400, {=> self.caerNota(0, amarillo, 90) })
+    }
+
+    method cuartaParte() {
+        self.caerNota(0, rojo, 90)
+        self.caerNota(300, azul, 90)
+        self.caerNota(1400, azul, 90)
+        self.caerNota(1700, rojo, 90)
+        self.caerNota(3000, amarillo, 90)
+        self.caerNota(4000, azul, 90)
+    }
+
+    method drop() {
+        const notas = [
+            [0, verde], [400, rojo], [1300, amarillo], [1650, azul],
+            [2000, rojo], [2500, amarillo], [3500, azul], [3800, verde],
+            [4500, amarillo], [5000, rojo], [6200, verde], [7500, rojo],
+            [8500, amarillo], [9000, azul], [9000, rojo], [9300, verde],
+            [9700, amarillo], [10200, azul], [10200, rojo]
+ 
+        ]
+      
+    notas.forEach({ par =>
+        const tiempo = par.get(0)
+        const color = par.get(1)
+        game.schedule(tiempo, {=> self.caerNota(tiempo, color, 90)})})
+    
+    }
+
+    method musicaCompleta() {
+        if (menu.estadoJuego() == juego.estado()) game.schedule(0, {=> self.primerParte() })
+        if (menu.estadoJuego() == juego.estado()) game.schedule(8500, {=> self.segundaParte() })
+        if (menu.estadoJuego() == juego.estado()) game.schedule(11600, {=> self.terceraParte() })
+        if (menu.estadoJuego() == juego.estado()) game.schedule(14200, {=> self.midGame() })
+        if (menu.estadoJuego() == juego.estado()) game.schedule(23900, {=> self.cuartaParte() })
+        if (menu.estadoJuego() == juego.estado()) game.schedule(31500, {=> self.puntosEnPantalla() })
+        if (menu.estadoJuego() == juego.estado()) game.schedule(38200, {=> self.drop() })
+    }
+} 
+
+
+
+// NIVEL 2 
+object cancion2 inherits Nivel(notasTotales=84,musica=game.sound("cancionn2.mp3"),nivel=self){
+
     method tresNotas() {
         game.schedule(0, {=>juego.crearNota(verde, 90)})
         game.schedule(250, {=> juego.crearNota(azul, 90) })
@@ -282,24 +243,15 @@ object cancion2 {
         game.schedule(9800, {=> juego.crearNota(rojo, 100)})
         game.schedule(10400, {=> self.parteFinal()})
     }
-    method iniciaMusica() {
-    
+    method musicaCompleta() {
         game.schedule(1, { =>  self.parte1() })
         game.schedule(13000, { =>  self.parte2()  }) 
         game.schedule(27200, {=>self.drop()})
         game.schedule(52000, {=>if (player.vida() == 0) {
             gameOver.iniciar()
         } else {win1.iniciar()}})
-        
+    }
 
-    }
-    method puntosEnPantalla() {
-        game.sound("sonido3.mp3").play()
-        imagenPuntos.position(game.at(3,8))
-        cartelPuntuacion.position(game.at(8,8))
-        game.schedule(4000, {=> cartelPuntuacion.position(game.at(16.5, 14))})
-        game.schedule(4000, {=> imagenPuntos.position(game.at(14, 14.5))})
-    }
  }
 //////////////////////
 
