@@ -18,10 +18,10 @@ object cancion1 {
         musica.stop()
     }
     method cerrarNivel() {
-        if (menu.estadoJuego() == "win1") {
+        if (menu.estadoJuego() == win1.estado()) {
             win1.ocultarWin()
         } 
-        else if (menu.estadoJuego() == "gameOver"){
+        else if (menu.estadoJuego() == gameOver.estado()){
             game.removeVisual(imgGameOver)
         }
         game.removeTickEvent("verificarFallos")
@@ -170,10 +170,10 @@ object cancion2 {
     }
 
         method cerrarNivel() {
-            if (menu.estadoJuego() == "win1") {
+            if (menu.estadoJuego() == win1.estado()) {
                 win1.ocultarWin()
             } 
-            else if (menu.estadoJuego() == "gameOver"){
+            else if (menu.estadoJuego() == gameOver.estado()){
                 game.removeVisual(imgGameOver)
             }
         game.removeTickEvent("verificarFallos")
