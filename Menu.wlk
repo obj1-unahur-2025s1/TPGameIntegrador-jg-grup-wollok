@@ -65,18 +65,13 @@ object dificultades {
 }
 // objeto menu
 object menu {
-    var property estado = "menuPrincipal" // puede ser: "menuPrincipal", "jugando", reglas
+    var property estado = menuPrincipal.estado() // puede ser: menuPrincipal, jugando, reglas
     const musicaDeFondo = game.sound("sonidoM.mp3")
-    const property dificultad = new Dificultad()
-    const property fondoMenu = new FondoMenu()
-    const property botonReglas = new BotonesPrincipales()
-    const property botonNiveles = new BotonNiveles()
-    const property botonIniciar = new BotonIniciar()
 
     method iniciar() {
         musicaDeFondo.volume(0.2)
         musicaDeFondo.play()
-        self.mostrarMenuPrincipal()
+        menuPrincipal.mostrarMenuPrincipal()
     }
     
     method estadoJuego() = estado
@@ -88,14 +83,31 @@ object menu {
         musicaDeFondo.stop()
     }
 
+    method mostrarReglas() {
+        game.addVisual(reglas)
+        self.cambiarEstado(reglas.estado())
+    }
+
+    method ocultarReglas() {
+        game.removeVisual(reglas)
+        self.cambiarEstado(menuPrincipal.estado())
+    }
+}
+object menuPrincipal {
+    const property dificultad = new Dificultad()
+    const property fondoMenu = new FondoMenu()
+    const property botonReglas = new BotonesPrincipales()
+    const property botonNiveles = new BotonNiveles()
+    const property botonIniciar = new BotonIniciar()
+    method estado() = "menuPrincipal"
     method ocultarMenuPrincipal() {
         game.removeVisual(dificultad)
         game.removeVisual(fondoMenu)
         game.removeVisual(botonReglas)
         game.removeVisual(botonIniciar)
         game.removeVisual(botonNiveles)
-        self.cambiarEstado("jugando")
-        self.detenerMusica()
+        menu.cambiarEstado(juego.estado())
+        menu.detenerMusica()
     }
 
     method mostrarMenuPrincipal() {
@@ -108,16 +120,6 @@ object menu {
         if (!tecladoMenu.estaIniciado()) {
             tecladoMenu.iniciar()
         }
-        self.cambiarEstado("menuPrincipal")
-    }
-
-    method mostrarReglas() {
-        game.addVisual(reglas)
-        self.cambiarEstado(reglas)
-    }
-
-    method ocultarReglas() {
-        game.removeVisual(reglas)
-        self.cambiarEstado("menuPrincipal")
+        menu.cambiarEstado(self.estado())
     }
 }

@@ -8,7 +8,7 @@ import teclado.*
 object juego {
     var property notasActivas = []
     var property nivelElegido = cancion1
-    
+    method estado() = "jugando"
     method añadirVisuals() {
         game.addVisual(botonVerde)
         game.addVisual(botonRojo)

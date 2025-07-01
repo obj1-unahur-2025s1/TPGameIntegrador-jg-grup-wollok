@@ -63,8 +63,9 @@ object cartelPrecision {
     }
 }
  object win1 {
+    method estado() = "win1"
     method iniciar() {
-        menu.cambiarEstado("win1")
+        menu.cambiarEstado(self.estado())
         game.sound("winSonido.mp3").play()
         cartelPrecision.mostrarPresicion(juego.nivelElegido())
         game.addVisual(winMenu)
@@ -98,6 +99,7 @@ object vidaPerdida {
 object reglas {
     var property estaVisible = false
     var property imagenPuesta = "textoreglas1.jpg" 
+    method estado() = "reglas"
     method position() = game.at(0, 0) 
     method image() = imagenPuesta
     method cambioVisible() {

@@ -132,13 +132,13 @@ object cancion1 {
         game.schedule(11700, {=> if (tecla) {juego.crearNotaRoja(90)}})       
     }
     method musicaCompleta() {
-        if (menu.estadoJuego() == "jugando" && tecla){game.schedule(0, {=>self.primerParte()})}
-        if (menu.estadoJuego() == "jugando" && tecla){game.schedule(8500, {=>self.segundaParte()})}
-        if (menu.estadoJuego() == "jugando" && tecla){game.schedule(11600, {=>self.terceraParte()})}
-        if (menu.estadoJuego() == "jugando" && tecla){game.schedule(14200, {=>self.midGame()})}
-        if (menu.estadoJuego() == "jugando" && tecla){game.schedule(23900, {=>self.cuartaParte()})}
-        if (menu.estadoJuego() == "jugando" && tecla){game.schedule(31500, {=>self.puntosEnPantalla()})}
-        if (menu.estadoJuego() == "jugando" && tecla){game.schedule(38200, {=>self.drop()})} 
+        if (menu.estadoJuego() == juego.estado() && tecla){game.schedule(0, {=>self.primerParte()})}
+        if (menu.estadoJuego() == juego.estado() && tecla){game.schedule(8500, {=>self.segundaParte()})}
+        if (menu.estadoJuego() == juego.estado() && tecla){game.schedule(11600, {=>self.terceraParte()})}
+        if (menu.estadoJuego() == juego.estado() && tecla){game.schedule(14200, {=>self.midGame()})}
+        if (menu.estadoJuego() == juego.estado() && tecla){game.schedule(23900, {=>self.cuartaParte()})}
+        if (menu.estadoJuego() == juego.estado() && tecla){game.schedule(31500, {=>self.puntosEnPantalla()})}
+        if (menu.estadoJuego() == juego.estado() && tecla){game.schedule(38200, {=>self.drop()})} 
     }
     method calcularPresicion() {
         return (player.hitsAcertados() / notasTotales) * 100 
@@ -305,9 +305,10 @@ object cancion2 {
 
 // Imagenes de game over (cuando finaliza la partida)
 object gameOver{
+    method estado() = "gameOver"
     method iniciar() { 
         game.sound("game_over_sound.mp3").play()
-        menu.cambiarEstado("gameOver")
+        menu.cambiarEstado(self.estado())
         game.addVisual(imgGameOver)
     }
     method ocultar() {
