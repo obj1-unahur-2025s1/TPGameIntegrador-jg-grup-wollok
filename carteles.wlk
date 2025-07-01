@@ -32,7 +32,7 @@ object cartelVida {
         vidas.find({v => v.image() == vida.image()}).imagen(vidaPerdida.image())
     }
     method recargarVidas() {
-        vidas.forEach({v => v.imagen(vida.image())})
+        vidas.forEach({v => v.recargarVida()})
     }
 }
 object cartelPrecision {
@@ -64,22 +64,32 @@ object winMenu {
 //Imagenes de las vidas
 object vida {
     var property imagen = "guitarraVida2.png"
-    method image() =  imagen   
+    method image() =  imagen  
+
 }
 object vida1 {
     var property position = game.at(15.3, 7)
     var property imagen = "guitarraVida2.png"
     method image() =  imagen
+    method recargarVida() {
+        if (self.imagen() == vidaPerdida.image()) {self.imagen("guitarraVida2.png")}
+    } 
 }
 object vida2 {
     var property position = game.at(16.3, 7)
     var property imagen = "guitarraVida2.png"
     method image() =  imagen
+    method recargarVida() {
+        if (self.imagen() == vidaPerdida.image()) {self.imagen("guitarraVida2.png")}
+    } 
 }
 object vida3 {
     var property position = game.at(17.3, 7)
     var property imagen = "guitarraVida2.png"
     method image() =  imagen
+    method recargarVida() {
+        if (self.imagen() == vidaPerdida.image()) {self.imagen("guitarraVida2.png")}
+    } 
 }
 object vidaPerdida {
     method image() = "guitarraVidaPerdida2.png"
