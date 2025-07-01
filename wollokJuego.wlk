@@ -92,7 +92,7 @@ object juego {
     }
 
     method crearNota(color, velocidad) {
-    if (cancion1.tecla()) {
+    if (self.nivelElegido().tecla()) {
         const notaNueva = new Notas(image = color.imagen(), position = color.posicion(), botonAsignado = color.boton())
         game.addVisual(notaNueva)
         notaNueva.queCaiga(velocidad)
