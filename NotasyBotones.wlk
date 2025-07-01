@@ -39,7 +39,8 @@ class Notas {
 }
 }
 // clase botones usada para los botones del juego
-class Botones {
+
+class Boton {
     var property position
     var property imagenApagado     
     var property imagenActual      
@@ -49,17 +50,20 @@ class Botones {
     method position() = position
     method cambiarImage(png) { imagenActual = png }
 }
+const botonVerde    = new Boton(position = game.at(2,1),  imagenApagado = "boton1.png", imagenActual = "boton1.png",  botonHit = "boton1Hit.png")
+const botonRojo     = new Boton(position = game.at(5,1),  imagenApagado = "boton2.png", imagenActual = "boton2.png",  botonHit = "boton2Hit.png")
+const botonAmarillo = new Boton(position = game.at(8,1),  imagenApagado = "boton3.png", imagenActual = "boton3.png",  botonHit = "boton3Hit.png")
+const botonAzul     = new Boton(position = game.at(11,1), imagenApagado = "boton4.png", imagenActual = "boton4.png", botonHit = "boton4Hit.png")
+// object botonVerde inherits Boton(position = game.at(2,1), imagenApagado = "boton1.png", imagenActual = "boton1.png" ,botonHit = "boton1Hit.png"){
 
-object botonVerde inherits Botones(position = game.at(2,1), imagenApagado = "boton1.png", imagenActual = "boton1.png" ,botonHit = "boton1Hit.png"){
+// }
+// object botonRojo inherits Boton(position = game.at(5,1), imagenApagado = "boton2.png", imagenActual = "boton2.png", botonHit = "boton2Hit.png"){
 
-}
-object botonRojo inherits Botones(position = game.at(5,1), imagenApagado = "boton2.png", imagenActual = "boton2.png", botonHit = "boton2Hit.png"){
+// }
+// object botonAmarillo inherits Boton(position = game.at(8,1), imagenApagado = "boton3.png", imagenActual ="boton3.png", botonHit = "boton3Hit.png"){
 
-}
-object botonAmarillo inherits Botones(position = game.at(8,1), imagenApagado = "boton3.png", imagenActual ="boton3.png", botonHit = "boton3Hit.png"){
+// }
+// object botonAzul inherits Boton(position = game.at(11,1), imagenApagado = "boton4.png", imagenActual = "boton4.png", botonHit = "boton4Hit.png"){
 
-}
-object botonAzul inherits Botones(position = game.at(11,1), imagenApagado = "boton4.png", imagenActual = "boton4.png", botonHit = "boton4Hit.png"){
-
-}
+// }
 
