@@ -91,28 +91,37 @@ object juego {
         })
     }
 
-    method crearNotaVerde(velocidad) {
-        const notaNueva = new Notas(image = "note1.png",  position = game.at(2,18), botonAsignado = botonVerde)
+    method crearNota(color, velocidad) {
+    if (self.nivelElegido().tecla()) {
+        const notaNueva = new Notas(image = color.imagen(), position = color.posicion(), botonAsignado = color.boton())
         game.addVisual(notaNueva)
         notaNueva.queCaiga(velocidad)
         notasActivas.add(notaNueva)
+        }   
     }
-    method crearNotaRoja(velocidad) {
-        const notaNueva = new Notas(image = "note2.png", position = game.at(5,18), botonAsignado = botonRojo)
-        game.addVisual(notaNueva)
-        notaNueva.queCaiga(velocidad)
-        notasActivas.add(notaNueva)
-    }
-    method crearNotaAmarilla(velocidad) {
-        const notaNueva = new Notas(image = "note3.png", position = game.at(8,18), botonAsignado = botonAmarillo)
-        game.addVisual(notaNueva)
-        notaNueva.queCaiga(velocidad)
-        notasActivas.add(notaNueva)
-    }
-    method crearNotaAzul(velocidad) {
-        const notaNueva = new Notas(image = "note4.png", position = game.at(11,18), botonAsignado = botonAzul)
-        game.addVisual(notaNueva)
-        notaNueva.queCaiga(velocidad)
-        notasActivas.add(notaNueva)
-    }
+}
+
+
+object verde {
+    method imagen() = "note1.png"
+    method posicion() = game.at(2, 18)
+    method boton() = botonVerde
+}
+
+object rojo {
+    method imagen() = "note2.png"
+    method posicion() = game.at(5, 18)
+    method boton() = botonRojo
+}
+
+object amarillo {
+    method imagen() = "note3.png"
+    method posicion() = game.at(8, 18)
+    method boton() = botonAmarillo
+}
+
+object azul {
+    method imagen() = "note4.png"
+    method posicion() = game.at(11, 18)
+    method boton() = botonAzul
 }
