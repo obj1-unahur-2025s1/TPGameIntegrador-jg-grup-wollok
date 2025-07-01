@@ -26,7 +26,7 @@ object tecladoMenu {
         }
     
         keyboard.r().onPressDo({
-        const enMenu = menu.estadoJuego() == "menuPrincipal" || menu.estadoJuego() == "reglas"
+        const enMenu = menu.estadoJuego() == "menuPrincipal" || menu.estadoJuego() == reglas
         if (enMenu) {
             if (reglas.estaVisible()) {
                 game.sound("sonido4.mp3").play()
@@ -69,37 +69,37 @@ object tecladoMenu {
             }
         })
         keyboard.right().onPressDo({
-            if (menu.estadoJuego() == "reglas" && reglas.estaVisible() && reglas.image() == "textoreglas1.jpg") {
+            if (menu.estadoJuego() == reglas && reglas.estaVisible() && reglas.image() == "textoreglas1.jpg") {
                 reglas.imagenPuesta("textoreglas2.jpg")
                 game.sound("sonido3.mp3").play()
             }
-            else if (menu.estadoJuego() == "reglas" && reglas.estaVisible() && reglas.image() == "textoreglas2.jpg") {
+            else if (menu.estadoJuego() == reglas && reglas.estaVisible() && reglas.image() == "textoreglas2.jpg") {
                 reglas.imagenPuesta("textoreglas3.jpg")
                 game.sound("sonido3.mp3").play()
             }
-            else if (menu.estadoJuego() == "reglas" && reglas.estaVisible() && reglas.image() == "textoreglas3.jpg") {
+            else if (menu.estadoJuego() == reglas && reglas.estaVisible() && reglas.image() == "textoreglas3.jpg") {
                 reglas.imagenPuesta("textoreglas4.jpg")
                 game.sound("sonido3.mp3").play()
             }
-            else if (menu.estadoJuego() == "reglas" && reglas.estaVisible() && reglas.image() == "textoreglas4.jpg") {
+            else if (menu.estadoJuego() == reglas && reglas.estaVisible() && reglas.image() == "textoreglas4.jpg") {
                 reglas.imagenPuesta("textoreglas5.jpg")
                 game.sound("sonido3.mp3").play()
             }
         })
         keyboard.left().onPressDo({
-              if (menu.estadoJuego() == "reglas" && reglas.estaVisible() && reglas.image() == "textoreglas5.jpg") {
+              if (menu.estadoJuego() == reglas && reglas.estaVisible() && reglas.image() == "textoreglas5.jpg") {
                 reglas.imagenPuesta("textoreglas4.jpg")
                 game.sound("sonido3.mp3").play()
             }
-            else if (menu.estadoJuego() == "reglas" && reglas.estaVisible() && reglas.image() == "textoreglas4.jpg") {
+            else if (menu.estadoJuego() == reglas && reglas.estaVisible() && reglas.image() == "textoreglas4.jpg") {
                 reglas.imagenPuesta("textoreglas3.jpg")
                 game.sound("sonido3.mp3").play()
             }
-            else if (menu.estadoJuego() == "reglas" && reglas.estaVisible() && reglas.image() == "textoreglas3.jpg") {
+            else if (menu.estadoJuego() == reglas && reglas.estaVisible() && reglas.image() == "textoreglas3.jpg") {
                 reglas.imagenPuesta("textoreglas2.jpg")
                 game.sound("sonido3.mp3").play()
             }
-            else if (menu.estadoJuego() == "reglas" && reglas.estaVisible() && reglas.image() == "textoreglas2.jpg") {
+            else if (menu.estadoJuego() == reglas && reglas.estaVisible() && reglas.image() == "textoreglas2.jpg") {
                 reglas.imagenPuesta("textoreglas1.jpg")
                 game.sound("sonido3.mp3").play()
         }})

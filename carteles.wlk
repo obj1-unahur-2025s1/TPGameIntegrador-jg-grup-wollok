@@ -29,10 +29,10 @@ object cartelFallos {
 object cartelVida {
     const vidas = [vida1, vida2, vida3]
     method actualizarVida() {
-        vidas.find({v => v.image() == "guitarraVida2.png"}).imagen("guitarraVidaPerdida2.png")
+        vidas.find({v => v.image() == vida.image()}).imagen(vidaPerdida.image())
     }
     method recargarVidas() {
-        vidas.forEach({v => v.imagen("guitarraVida2.png")})
+        vidas.forEach({v => v.imagen(vida.image())})
     }
 }
 object cartelPrecision {
@@ -62,6 +62,10 @@ object winMenu {
     method position() = game.at(0,0) 
 }
 //Imagenes de las vidas
+object vida {
+    var property imagen = "guitarraVida2.png"
+    method image() =  imagen   
+}
 object vida1 {
     var property position = game.at(15.3, 7)
     var property imagen = "guitarraVida2.png"
@@ -77,6 +81,10 @@ object vida3 {
     var property imagen = "guitarraVida2.png"
     method image() =  imagen
 }
+object vidaPerdida {
+    method image() = "guitarraVidaPerdida2.png"
+}
+
 ///////////////////////
 
 //Imagenes actualizables de las reglas

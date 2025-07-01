@@ -65,7 +65,7 @@ object dificultades {
 }
 // objeto menu
 object menu {
-    var property estado = "menuPrincipal" // puede ser: "menuPrincipal", "jugando", "reglas"
+    var property estado = "menuPrincipal" // puede ser: "menuPrincipal", "jugando", reglas
     const musicaDeFondo = game.sound("sonidoM.mp3")
     const property dificultad = new Dificultad()
     const property fondoMenu = new FondoMenu()
@@ -113,7 +113,7 @@ object menu {
 
     method mostrarReglas() {
         game.addVisual(reglas)
-        self.cambiarEstado("reglas")
+        self.cambiarEstado(reglas)
     }
 
     method ocultarReglas() {
