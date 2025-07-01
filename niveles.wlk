@@ -12,7 +12,7 @@ object cancion1 {
     var property inicio = 1
     var property tecla = true
     const musica = game.sound("cancionNivel1.mp3")
-    
+
     method detener() {
         tecla = false
         musica.stop()
