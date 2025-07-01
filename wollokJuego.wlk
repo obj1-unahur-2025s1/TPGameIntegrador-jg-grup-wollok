@@ -76,26 +76,6 @@ object juego {
         cartelFallos.actualizarFallo(player.fallos())
         player.restarVida()
     }
-////////////////
-    // method pulsarNotaEn(unBoton) {
-    //     const notaCercana = notasActivas.findOrElse({n =>
-    //     (n.botonAsignado() == unBoton) && ((n.position().y() == unBoton.position().y() + 1 ||
-    //     n.botonAsignado() == unBoton &&  (n.position().equals(unBoton.position()))))
-    //         },{null})
-    //     if (notaCercana != null) {
-    //         notaCercana.hit()
-    //         notasActivas.remove(notaCercana)
-    //         player.sumarHit()
-    //         cartelPuntuacion.actualizar(player.puntuacion())
-    //     } else {
-    //         game.sound("sonido2.mp3").play()
-    //         player.sumarFallo()
-    //         player.reiniciarMultiplicador()
-    //         notasActivas.remove(notaCercana)
-    //         cartelFallos.actualizarFallo(player.fallos())
-    //         player.restarVida()
-    //     }
-    // }
     
     method verificarNotasFalladas() {
          const notasFalladas = notasActivas.filter({ n =>

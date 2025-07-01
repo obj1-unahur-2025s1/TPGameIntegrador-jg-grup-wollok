@@ -54,16 +54,3 @@ const botonVerde    = new Boton(position = game.at(2,1),  imagenApagado = "boton
 const botonRojo     = new Boton(position = game.at(5,1),  imagenApagado = "boton2.png", imagenActual = "boton2.png",  botonHit = "boton2Hit.png")
 const botonAmarillo = new Boton(position = game.at(8,1),  imagenApagado = "boton3.png", imagenActual = "boton3.png",  botonHit = "boton3Hit.png")
 const botonAzul     = new Boton(position = game.at(11,1), imagenApagado = "boton4.png", imagenActual = "boton4.png", botonHit = "boton4Hit.png")
-// object botonVerde inherits Boton(position = game.at(2,1), imagenApagado = "boton1.png", imagenActual = "boton1.png" ,botonHit = "boton1Hit.png"){
-
-// }
-// object botonRojo inherits Boton(position = game.at(5,1), imagenApagado = "boton2.png", imagenActual = "boton2.png", botonHit = "boton2Hit.png"){
-
-// }
-// object botonAmarillo inherits Boton(position = game.at(8,1), imagenApagado = "boton3.png", imagenActual ="boton3.png", botonHit = "boton3Hit.png"){
-
-// }
-// object botonAzul inherits Boton(position = game.at(11,1), imagenApagado = "boton4.png", imagenActual = "boton4.png", botonHit = "boton4Hit.png"){
-
-// }
-
