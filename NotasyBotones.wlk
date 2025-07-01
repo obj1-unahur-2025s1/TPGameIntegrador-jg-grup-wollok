@@ -29,6 +29,14 @@ class Notas {
         player.sumarFallo()
         player.reiniciarMultiplicador()
     }
+
+
+    ///nuevo
+    method esCercanaA(unBoton) {
+        const mismaPosicion = self.position().equals(unBoton.position())
+        const justoAbajo = self.position().y() == unBoton.position().y() + 1
+        return self.botonAsignado() == unBoton && (mismaPosicion || justoAbajo)
+}
 }
 // clase botones usada para los botones del juego
 class Botones {
