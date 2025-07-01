@@ -17,9 +17,7 @@ object juego {
         game.addVisual(imagenPuntos)
         game.addVisual(cartelFallos)
         game.addVisual(cartelPuntuacion)
-        game.addVisual(vida1)
-        game.addVisual(vida2)
-        game.addVisual(vida3)
+        cartelVida.mostrarVidas()
     }
     method iniciar() {
         
@@ -41,9 +39,7 @@ object juego {
         game.removeVisual(cartelPuntuacion)
         game.removeVisual(cartelFallos)
         game.removeVisual(cartelVida)
-        game.removeVisual(vida1)
-        game.removeVisual(vida2)
-        game.removeVisual(vida3)
+        cartelVida.ocultarVidas()
 
     }
     method eliminarNotasActivas() {

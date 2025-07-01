@@ -27,7 +27,25 @@ object cartelFallos {
     }
 }
 object cartelVida {
+    //vida auxiliar
+    const vida = new Vida(position = game.at(0,0))
+    // vidas del jugador 
+    const property vida1 = new Vida(position = game.at(15.3, 7))
+    const property vida2 = new Vida(position = game.at(16.3, 7))
+    const property vida3 = new Vida(position = game.at(17.3, 7))
+
     const vidas = [vida1, vida2, vida3]
+
+    method mostrarVidas() {
+        game.addVisual(vida1)
+        game.addVisual(vida2)
+        game.addVisual(vida3)
+    }
+    method ocultarVidas() {
+        game.removeVisual(vida1)
+        game.removeVisual(vida2)
+        game.removeVisual(vida3)
+    }
     method actualizarVida() {
         vidas.find({v => v.image() == vida.image()}).imagen(vidaPerdida.image())
     }
@@ -62,31 +80,10 @@ object winMenu {
     method position() = game.at(0,0) 
 }
 //Imagenes de las vidas
-object vida {
+class Vida {
+    var property position 
     var property imagen = "guitarraVida2.png"
-    method image() =  imagen  
-
-}
-object vida1 {
-    var property position = game.at(15.3, 7)
-    var property imagen = "guitarraVida2.png"
-    method image() =  imagen
-    method recargarVida() {
-        if (self.imagen() == vidaPerdida.image()) {self.imagen("guitarraVida2.png")}
-    } 
-}
-object vida2 {
-    var property position = game.at(16.3, 7)
-    var property imagen = "guitarraVida2.png"
-    method image() =  imagen
-    method recargarVida() {
-        if (self.imagen() == vidaPerdida.image()) {self.imagen("guitarraVida2.png")}
-    } 
-}
-object vida3 {
-    var property position = game.at(17.3, 7)
-    var property imagen = "guitarraVida2.png"
-    method image() =  imagen
+    method image() =  imagen 
     method recargarVida() {
         if (self.imagen() == vidaPerdida.image()) {self.imagen("guitarraVida2.png")}
     } 
