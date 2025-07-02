@@ -20,14 +20,13 @@ object juego {
         cartelVida.mostrarVidas()
     }
     method iniciar() {
-        
         self.añadirVisuals()
-
         nivelElegido.iniciar()
         teclado.iniciar()
         
+
         game.onTick(50, "verificarFallos", { => self.verificarNotasFalladas() })
-        menu.cambiarEstado("jugando")
+        menu.cambiarEstado(self.estado())
     }
 
     method eliminarVisuals() {
@@ -92,36 +91,123 @@ object juego {
     }
 
     method crearNota(color, velocidad) {
-    if (self.nivelElegido().tecla()) {
-        const notaNueva = new Notas(image = color.imagen(), position = color.posicion(), botonAsignado = color.boton())
-        game.addVisual(notaNueva)
-        notaNueva.queCaiga(velocidad)
-        notasActivas.add(notaNueva)
+    // if (self.nivelElegido().tecla()) {
+    //     const notaNueva = new Notas(image = color.imagen(), position = color.posicion(), botonAsignado = color.boton())
+    //     game.addVisual(notaNueva)
+    //     notaNueva.queCaiga(velocidad)
+    //     notasActivas.add(notaNueva)
+    //     }   
+        const notaDisponible = color.notaSinUsar()
+        if (self.nivelElegido().tecla()) {
+            if (notaDisponible != null) {
+                notaDisponible.resetearPosicion()
+                game.addVisual(notaDisponible)
+                notaDisponible.queCaiga(velocidad)
+                notasActivas.add(notaDisponible)
+                color.marcarComoUsada(notaDisponible)
+            }
         }   
     }
 }
-
-
+object contadorNotas {
+    var property id = 0
+    method siguienteId() {
+        id = id + 1
+        return id
+    }
+}
 object verde {
-    method imagen() = "note1.png"
-    method posicion() = game.at(2, 18)
-    method boton() = botonVerde
+    const notas = [nota1, nota2, nota3, nota4, nota5]
+    const notasEnUso = []
+    const property nota1= new Notas(image = "note1.png", position = game.at(2,18), botonAsignado = botonVerde, colorDefinido = self)
+    const property nota2= new Notas(image = "note1.png", position = game.at(2,18), botonAsignado = botonVerde, colorDefinido = self)
+    const property nota3= new Notas(image = "note1.png", position = game.at(2,18), botonAsignado = botonVerde, colorDefinido = self)
+    const property nota4= new Notas(image = "note1.png", position = game.at(2,18), botonAsignado = botonVerde, colorDefinido = self)
+    const property nota5= new Notas(image = "note1.png", position = game.at(2,18), botonAsignado = botonVerde, colorDefinido = self)
+    method notaSinUsar() {
+        return notas.findOrElse({n => !notasEnUso.contains(n)}, { null })
+    }
+    method marcarComoUsada(nota) {
+        notasEnUso.add(nota)
+    }
+    method liberarNota(nota) {
+        notasEnUso.remove(nota)
+    }
 }
+object azul  {
+    const notas = [nota1,nota2,nota3,nota4,nota5]
+    const notasEnUso = []
+    const property nota1= new Notas(image = "note4.png", position = game.at(11,18), botonAsignado = botonAzul,  colorDefinido = self)
+    const property nota2= new Notas(image = "note4.png", position = game.at(11,18), botonAsignado = botonAzul,  colorDefinido = self)
+    const property nota3= new Notas(image = "note4.png", position = game.at(11,18), botonAsignado = botonAzul,  colorDefinido = self)
+    const property nota4= new Notas(image = "note4.png", position = game.at(11,18), botonAsignado = botonAzul,  colorDefinido = self)
+    const property nota5= new Notas(image = "note4.png", position = game.at(11,18), botonAsignado = botonAzul,  colorDefinido = self)
+    method notaSinUsar() {
+        return notas.findOrElse({n => !notasEnUso.contains(n)}, { null })
+        }
+    method marcarComoUsada(nota) {
+        notasEnUso.add(nota)
+        }
+    method liberarNota(nota) {
+        notasEnUso.remove(nota)
+    }
+}
+object amarilla {
+    const notas = [nota1,nota2,nota3,nota4,nota5]
+    const notasEnUso = []
+    const property nota1= new Notas(image = "note3.png", position = game.at(8,18), botonAsignado = botonAmarillo,  colorDefinido = self)
+    const property nota2= new Notas(image = "note3.png", position = game.at(8,18), botonAsignado = botonAmarillo,  colorDefinido = self)
+    const property nota3= new Notas(image = "note3.png", position = game.at(8,18), botonAsignado = botonAmarillo,  colorDefinido = self)
+    const property nota4= new Notas(image = "note3.png", position = game.at(8,18), botonAsignado = botonAmarillo,  colorDefinido = self)
+    const property nota5= new Notas(image = "note3.png", position = game.at(8,18), botonAsignado = botonAmarillo,  colorDefinido = self)
+    method notaSinUsar() {
+        return notas.findOrElse({n => !notasEnUso.contains(n)}, { null })
+    }
+    method marcarComoUsada(nota) {
+        notasEnUso.add(nota)
+        }
+    method liberarNota(nota) {
+        notasEnUso.remove(nota)
+    }
+}
+object roja {
+    const notas = [nota1,nota2,nota3,nota4,nota5]
+    const notasEnUso = []
+    const property nota1= new Notas(image = "note2.png", position = game.at(5,18), botonAsignado = botonRojo,  colorDefinido = self)
+    const property nota2= new Notas(image = "note2.png", position = game.at(5,18), botonAsignado = botonRojo,  colorDefinido = self)
+    const property nota3= new Notas(image = "note2.png", position = game.at(5,18), botonAsignado = botonRojo,  colorDefinido = self)
+    const property nota4= new Notas(image = "note2.png", position = game.at(5,18), botonAsignado = botonRojo,  colorDefinido = self)
+    const property nota5= new Notas(image = "note2.png", position = game.at(5,18), botonAsignado = botonRojo,  colorDefinido = self)
+    method notaSinUsar() {
+        return notas.findOrElse({n => !notasEnUso.contains(n)}, { null })
+    }
+    method marcarComoUsada(nota) {
+        notasEnUso.add(nota)
+    }
+    method liberarNota(nota) {
+        notasEnUso.remove(nota)
+    }
+}
+// object verde {
+//     method imagen() = "note1.png"
+//     method posicion() = game.at(2, 18)
+//     method boton() = botonVerde
+// }
 
-object rojo {
-    method imagen() = "note2.png"
-    method posicion() = game.at(5, 18)
-    method boton() = botonRojo
-}
+// object rojo {
+//     method imagen() = "note2.png"
+//     method posicion() = game.at(5, 18)
+//     method boton() = botonRojo
+// }
 
-object amarillo {
-    method imagen() = "note3.png"
-    method posicion() = game.at(8, 18)
-    method boton() = botonAmarillo
-}
+// object amarillo {
+//     method imagen() = "note3.png"
+//     method posicion() = game.at(8, 18)
+//     method boton() = botonAmarillo
+// }
 
-object azul {
-    method imagen() = "note4.png"
-    method posicion() = game.at(11, 18)
-    method boton() = botonAzul
-}
+// object azul {
+//     method imagen() = "note4.png"
+//     method posicion() = game.at(11, 18)
+//     method boton() = botonAzul
+// }

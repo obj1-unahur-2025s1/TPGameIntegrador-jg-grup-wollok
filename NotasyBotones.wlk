@@ -11,32 +11,51 @@ class Notas {
     var property puntuacion = 2
     var property position
     var property botonAsignado
+    var property colorDefinido
+    var property idUnico = contadorNotas.siguienteId()
     //ELIMINA LA NOTA
     method eliminar() {
+        colorDefinido.liberarNota(self)
         game.removeVisual(self)
+        game.removeTickEvent("caer" + idUnico) 
     }
     method queCaiga(velocidad) {
-        game.onTick(velocidad,"caerse", {self.position(self.position().down(1))})
+        // game.onTick(velocidad,"caerse", {self.position(self.position().down(1))})
+        const idEvento = "caer" + idUnico
+        game.onTick(velocidad, idEvento, {
+            self.position(self.position().down(1))
+        })
     }
     //SISTEMA DE PUNTUACION
     method hit() {
         player.sumarPuntuacion(puntuacion * player.multiplicador())
         self.eliminar()
         player.aumentarMultiplicador()
+
+        colorDefinido.liberarNota(self)
         }
     // SISTEMA DE REINICIO 
+    // method fail() {
+    //     player.sumarFallo()
+    //     player.reiniciarMultiplicador()
+    //     colorDefinido.liberarNota(self)
+    // }
     method fail() {
         player.sumarFallo()
         player.reiniciarMultiplicador()
+        
+        self.eliminar() 
     }
-
-
-    ///nuevo
     method esCercanaA(unBoton) {
         const mismaPosicion = self.position().equals(unBoton.position())
         const justoAbajo = self.position().y() == unBoton.position().y() + 1
         return self.botonAsignado() == unBoton && (mismaPosicion || justoAbajo)
-}
+    }
+    method resetearPosicion() {
+        const posX = self.botonAsignado().position().x()
+        self.position(game.at(posX, 18))
+    }
+    method image() = image
 }
 // clase botones usada para los botones del juego
 

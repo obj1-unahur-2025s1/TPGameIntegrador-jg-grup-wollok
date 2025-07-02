@@ -29,8 +29,8 @@ class Nivel {
         else if (menu.estadoJuego() == gameOver.estado()){
             game.removeVisual(imgGameOver)
         }
-        game.removeTickEvent("verificarFallos")
-        game.removeTickEvent("caerse")
+        game.removeTickEvent("verificarFallos")   
+        game.removeTickEvent("caer") 
         menu.iniciar()
         self.detener()
         juego.eliminarVisuals()
@@ -78,53 +78,53 @@ class Nivel {
 object cancion1 inherits Nivel(notasTotales=70, duracion=65 ,musica=game.sound("cancionNivel1.mp3"), nivel=self) {
 
     method primerParte() {
-        game.schedule(0, {=> self.tresNotas(250, 750, verde, azul, rojo, 90) })
-        game.schedule(1300, {=> self.tresNotas(250, 750, verde, azul, amarillo, 90) })
-        game.schedule(2500, {=> self.tresNotas(250, 750, verde, azul, rojo, 90) })
-        game.schedule(3800, {=> self.tresNotas(250, 750, verde, azul, amarillo, 90) })
-        game.schedule(5000, {=> self.tresNotas(250, 750, verde, azul, rojo, 90) })
-        game.schedule(6100, {=> self.tresNotas(250, 750, verde, azul, amarillo, 90) })
-        game.schedule(7400, {=> self.tresNotas(250, 750, verde, azul, rojo, 90) })
+        game.schedule(0, {=> self.tresNotas(250, 750, verde, azul, roja, 90) })
+        game.schedule(1300, {=> self.tresNotas(250, 750, verde, azul, amarilla, 90) })
+        game.schedule(2500, {=> self.tresNotas(250, 750, verde, azul, roja, 90) })
+        game.schedule(3800, {=> self.tresNotas(250, 750, verde, azul, amarilla, 90) })
+        game.schedule(5000, {=> self.tresNotas(250, 750, verde, azul, roja, 90) })
+        game.schedule(6100, {=> self.tresNotas(250, 750, verde, azul, amarilla, 90) })
+        game.schedule(7400, {=> self.tresNotas(250, 750, verde, azul, roja, 90) })
     }
 
     method segundaParte() {
-        game.schedule(0, {=> self.tresNotas(250, 750, verde, azul, rojo, 90) })
-        game.schedule(600, {=> self.caerNota(0, amarillo, 90) })
-        game.schedule(1100, {=> self.caerNota(0, rojo, 90) })
+        game.schedule(0, {=> self.tresNotas(250, 750, verde, azul, roja, 90) })
+        game.schedule(600, {=> self.caerNota(0, amarilla, 90) })
+        game.schedule(1100, {=> self.caerNota(0, roja, 90) })
     }
 
     method terceraParte() {
-        game.schedule(0, {=> self.tresNotas(250, 750, verde, azul, rojo, 90) })
+        game.schedule(0, {=> self.tresNotas(250, 750, verde, azul, roja, 90) })
         game.schedule(1200, {=> self.caerNota(0, azul, 90) })
         game.schedule(1300, {=> self.dosNotas(500, verde, azul, 90) })
-        game.schedule(2100, {=> self.caerNota(0, rojo, 90) })
+        game.schedule(2100, {=> self.caerNota(0, roja, 90) })
     }
 
     method midGame() {
-        game.schedule(0, {=> self.tresNotas(250, 750, verde, azul, rojo, 90) })
+        game.schedule(0, {=> self.tresNotas(250, 750, verde, azul, roja, 90) })
         game.schedule(2300, {=> self.terceraParte() })
-        game.schedule(5000, {=> self.tresNotas(250, 750, verde, azul, rojo, 90) })
+        game.schedule(5000, {=> self.tresNotas(250, 750, verde, azul, roja, 90) })
         game.schedule(7300, {=> self.caerNota(0, azul, 90) })
         game.schedule(7600, {=> self.caerNota(0, verde, 90) })
         game.schedule(8400, {=> self.dosNotas(500, verde, azul, 90) })
-        game.schedule(9400, {=> self.caerNota(0, amarillo, 90) })
+        game.schedule(9400, {=> self.caerNota(0, amarilla, 90) })
     }
 
     method cuartaParte() {
-        self.caerNota(0, rojo, 90)
+        self.caerNota(0, roja, 90)
         self.caerNota(300, azul, 90)
         self.caerNota(1400, azul, 90)
-        self.caerNota(1700, rojo, 90)
-        self.caerNota(3000, amarillo, 90)
+        self.caerNota(1700, roja, 90)
+        self.caerNota(3000, amarilla, 90)
         self.caerNota(4000, azul, 90)
     }
 
     method drop() {
         const notas = [
-            [0, verde], [400, rojo], [1300, amarillo], [1650, azul],
-            [2000, rojo], [2500, amarillo], [3500, azul], [3800, verde],
-            [4500, amarillo], [5000, rojo], [5300, verde], [5800, rojo],
-            [6100, amarillo]]
+            [0, verde], [400, roja], [1300, amarilla], [1650, azul],
+            [2000, roja], [2500, amarilla], [3500, azul], [3800, verde],
+            [4500, amarilla], [5000, roja], [5300, verde], [5800, roja],
+            [6100, amarilla]]
         notas.forEach({ par =>
         const tiempo = par.get(0)
         const color = par.get(1)
@@ -172,55 +172,66 @@ object cancion2 inherits Nivel(notasTotales=84, duracion=54,musica=game.sound("c
     }
 
     method parte3() {
-        self.caerNota(1300, amarillo, 100)
+        self.caerNota(1300, amarilla, 100)
         self.caerNota(1650, azul, 100)
-        self.caerNota(2300, verde, 100)
-        game.schedule(3200, {=> self.ritmo4() })
-        self.caerNota(5200, rojo, 100)
-        self.caerNota(6000, verde, 100)
-        self.caerNota(6800, amarillo, 100)
-        self.caerNota(8000, verde, 100)
-        self.caerNota(8800, verde, 100)
-        self.caerNota(9800, rojo, 100)
+        self.caerNota(2200, verde, 100)
+        game.schedule(2600, {=> self.ritmo4() })
+        self.caerNota(3500, roja, 100)
+        self.caerNota(4000, verde, 100)
+        self.caerNota(4300, verde, 100)
+        self.caerNota(5000, azul, 100)
+        self.caerNota(6300, roja, 100)
     }
 
     method parte4() {
         self.ritmo4()
-        game.schedule(2000, {=> self.ritmo4() })
-        game.schedule(4200, {=> self.ritmo4() })
-        self.caerNota(6100, amarillo, 90)
-        self.caerNota(6500, rojo, 90)
+        self.caerNota(900, amarilla, 90)
+        self.caerNota(1500, roja, 90)
+       
+        game.schedule((2000), {=>self.dobleIzquierda()})
+        game.schedule((2500), {=>self.dobleDerecha()})
+        game.schedule((3000), {=>self.dobleDerechaInverso()})
+        self.caerNota(3300, azul, 90)
+        self.caerNota(3700, verde, 90)
+        self.caerNota(4100, amarilla, 90)
+
+        game.schedule((5000), {=>self.dobleIzquierdaInverso()})
+        game.schedule((5500), {=>self.dobleIzquierda()})
+        game.schedule((6000), {=>self.dobleDerechaInverso()})
+        
+
+
         self.caerNota(7100, azul, 90)
         self.caerNota(7500, azul, 90)
         self.caerNota(8300, azul, 90)
     }
 
     method guitarraPrincipio() {
-        self.cuatroNotas(250, 800, 1100, verde, rojo, azul, amarillo, 90)
+        self.cuatroNotas(250, 800, 1100, verde, roja, azul, amarilla, 90)
     }
 
     method guitarraPrincipio2() {
-        self.cuatroNotas(250, 800, 1100, amarillo, azul, rojo, verde, 90)
+        self.cuatroNotas(250, 800, 1100, amarilla, azul, roja, verde, 90)
     }
 
     method dobleIzquierda() {
-        self.dosNotas(250, verde, rojo, 90)
+        self.dosNotas(250, verde, roja, 90)
     }
 
     method dobleDerecha() {
-        self.dosNotas(250, amarillo, azul, 90)
+        self.dosNotas(250, amarilla, azul, 90)
     }
 
     method dobleIzquierdaInverso() {
-        self.dosNotas(250, rojo, verde, 90)
+        self.dosNotas(250, roja, verde, 90)
     }
 
     method dobleDerechaInverso() {
-        self.dosNotas(250, azul, amarillo, 90)
+        self.dosNotas(250, azul, amarilla, 90)
     }
 
     method ritmo4() {
-        self.tresNotas(700, 1200, amarillo, rojo, amarillo, 90)
+        self.tresNotas(700, 1200, amarilla, roja, amarilla, 90)
     }
 
     method drop() {
