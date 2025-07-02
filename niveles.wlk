@@ -9,7 +9,8 @@ import wollokJuego.*
 class Nivel {
     const property notasTotales
     var property nivel
-    var property musica
+    var property musica 
+    var property duracion // en segundos
     var property inicio = 1
     var property tecla = true
     method iniciar() {
@@ -38,9 +39,12 @@ class Nivel {
     method calcularPresicion() {
         return (player.hitsAcertados() / notasTotales) * 100 
     }
+    method duracionEnMs() {
+        return duracion * 1000
+    }
     method iniciaMusica() {
         nivel.musicaCompleta()
-        game.schedule(56000, {=>if (player.vida() == 0) {
+        game.schedule(self.duracionEnMs(), {=>if (player.vida() == 0) {
             gameOver.iniciar()
         } else {win1.iniciar()}})
     }
@@ -71,7 +75,7 @@ class Nivel {
     }
     
 }
-object cancion1 inherits Nivel(notasTotales=70, musica=game.sound("cancionNivel1.mp3"), nivel=self) {
+object cancion1 inherits Nivel(notasTotales=70, duracion=65 ,musica=game.sound("cancionNivel1.mp3"), nivel=self) {
 
     method primerParte() {
         game.schedule(0, {=> self.tresNotas(250, 750, verde, azul, rojo, 90) })
@@ -119,19 +123,14 @@ object cancion1 inherits Nivel(notasTotales=70, musica=game.sound("cancionNivel1
         const notas = [
             [0, verde], [400, rojo], [1300, amarillo], [1650, azul],
             [2000, rojo], [2500, amarillo], [3500, azul], [3800, verde],
-            [4500, amarillo], [5000, rojo], [6200, verde], [7500, rojo],
-            [8500, amarillo], [9000, azul], [9000, rojo], [9300, verde],
-            [9700, amarillo], [10200, azul], [10200, rojo]
- 
-        ]
-      
-    notas.forEach({ par =>
+            [4500, amarillo], [5000, rojo], [5300, verde], [5800, rojo],
+            [6100, amarillo]]
+        notas.forEach({ par =>
         const tiempo = par.get(0)
         const color = par.get(1)
         game.schedule(tiempo, {=> self.caerNota(tiempo, color, 90)})})
     
     }
-
     method musicaCompleta() {
         if (menu.estadoJuego() == juego.estado()) game.schedule(0, {=> self.primerParte() })
         if (menu.estadoJuego() == juego.estado()) game.schedule(8500, {=> self.segundaParte() })
@@ -143,120 +142,103 @@ object cancion1 inherits Nivel(notasTotales=70, musica=game.sound("cancionNivel1
     }
 } 
 
-
-
 // NIVEL 2 
-object cancion2 inherits Nivel(notasTotales=84,musica=game.sound("cancionn2.mp3"),nivel=self){
+object cancion2 inherits Nivel(notasTotales=84, duracion=54,musica=game.sound("cancionn2.mp3"), nivel=self) {
 
-    method tresNotas() {
-        game.schedule(0, {=>juego.crearNota(verde, 90)})
-        game.schedule(250, {=> juego.crearNota(azul, 90) })
-    }
-    
-    method guitarraPrincipio(){
-        game.schedule(500, { =>  juego.crearNota(verde, 90) } )    
-        game.schedule(750, { =>  juego.crearNota(rojo, 90) } )     
-        game.schedule(1300, { =>  juego.crearNota(azul, 90) } )     
-        game.schedule(1600, { =>  juego.crearNota(amarillo, 90)})
-    }
-    method guitarraPrincipio2(){
-        game.schedule(500, { =>  juego.crearNota(amarillo, 90)  })    
-        game.schedule(750, { =>  juego.crearNota(azul, 90)  })     
-        game.schedule(1300, { =>  juego.crearNota(rojo, 90)  })     
-        game.schedule(1600, { =>  juego.crearNota(verde, 90) })
-    }
-    method dobleIzquierda(){
-        game.schedule(500, { =>  juego.crearNota(verde, 90)  })    
-        game.schedule(750, { =>  juego.crearNota(rojo, 90)  })     
+    method parte1() {
+        game.schedule(1, {=> self.guitarraPrincipio() })
+        game.schedule(1500, {=> self.guitarraPrincipio() })
+        game.schedule(3000, {=> self.guitarraPrincipio() })
+        game.schedule(4500, {=> self.guitarraPrincipio2() })
+        game.schedule(6000, {=> self.guitarraPrincipio() })
+        game.schedule(7500, {=> self.guitarraPrincipio2() })
+        game.schedule(9000, {=> self.guitarraPrincipio() })
+        game.schedule(11400, {=> self.guitarraPrincipio() })
     }
 
-    method dobleDerecha(){
-        game.schedule(500, { =>  juego.crearNota(amarillo, 90)  })    
-        game.schedule(750, { =>  juego.crearNota(azul, 90)  })     
-    }
-    method dobleIzquierdaInverso(){
-        game.schedule(500, { =>  juego.crearNota(rojo, 90)  })  
-        game.schedule(750, { =>  juego.crearNota(verde, 90)  }) 
-    }
-    method dobleDerechaInverso(){
-        game.schedule(500, { =>  juego.crearNota(azul, 90) }) 
-        game.schedule(750, { =>  juego.crearNota(amarillo, 90)  })    
-        
-    }
-
-    method secuenciaDoble() {
-        game.schedule(0,{=>juego.crearNota(verde, 90)}) 
-        game.schedule(500, {=>juego.crearNota(verde, 90)})
-    }
-    method parteFinal() {
-        game.schedule(0, {=>self.ritmo4()})
-        game.schedule(2000, {=>self.ritmo4()})
-        game.schedule(4200, {=>self.ritmo4()})
-        game.schedule(6100, {=>juego.crearNota(amarillo, 90)})
-        game.schedule(6500, {=>juego.crearNota(rojo, 90)})
-        game.schedule(7100, {=> juego.crearNota(azul, 90)})
-        game.schedule(7500, {=> juego.crearNota(azul, 90)})
-        game.schedule(8300, {=> juego.crearNota(azul, 90)})
+    method parte2() {
+        game.schedule(1, {=> self.guitarraPrincipio2() })
+        game.schedule(1200, {=> self.dobleDerecha() })
+        game.schedule(3000, {=> self.dobleDerecha() })
+        game.schedule(3600, {=> self.dobleIzquierda() })
+        game.schedule(4400, {=> self.dobleDerechaInverso() })
+        game.schedule(6000, {=> self.dobleIzquierda() })
+        game.schedule(6700, {=> self.dobleIzquierdaInverso() })
+        game.schedule(7700, {=> self.dobleDerechaInverso() })
+        game.schedule(8400, {=> self.dobleIzquierdaInverso() })
+        game.schedule(10700, {=> self.dobleDerecha() })
+        game.schedule(11500, {=> self.dobleIzquierda() })
+        game.schedule(12200, {=> self.dobleIzquierdaInverso() })
     }
 
-    method ritmo4(){
-        game.schedule(300, {=>juego.crearNota(amarillo, 90)})
-        game.schedule(1000, {=> juego.crearNota(rojo, 90)})
-        game.schedule(1500, {=> juego.crearNota(amarillo, 90)})
-    }
-    method parte1(){
-        game.schedule(1, { =>  self.guitarraPrincipio()  })    
-        game.schedule(1500, { =>  self.guitarraPrincipio() }) 
-        game.schedule(3000, { =>  self.guitarraPrincipio()  }) 
-        game.schedule(4500, { =>  self.guitarraPrincipio2()  })  
-        game.schedule(6000, { =>  self.guitarraPrincipio()  }) 
-        game.schedule(7500, { =>  self.guitarraPrincipio2()  }) 
-        game.schedule(9000, { =>  self.guitarraPrincipio()  }) 
-        game.schedule(11400, { =>  self.guitarraPrincipio() })
+    method parte3() {
+        self.caerNota(1300, amarillo, 100)
+        self.caerNota(1650, azul, 100)
+        self.caerNota(2300, verde, 100)
+        game.schedule(3200, {=> self.ritmo4() })
+        self.caerNota(5200, rojo, 100)
+        self.caerNota(6000, verde, 100)
+        self.caerNota(6800, amarillo, 100)
+        self.caerNota(8000, verde, 100)
+        self.caerNota(8800, verde, 100)
+        self.caerNota(9800, rojo, 100)
     }
 
-    method parte2(){
-        game.schedule(1, { =>  self.guitarraPrincipio2()  })  
-        game.schedule(1200, { =>  self.dobleDerecha()  }) 
-        game.schedule(3000, { =>  self.dobleDerecha()  }) 
-        game.schedule(3600, { =>  self.dobleIzquierda()  })   
-        game.schedule(4400, { =>  self.dobleDerechaInverso()  })
-        game.schedule(6000, { =>  self.dobleIzquierda()  })
-        game.schedule(6700, { =>  self.dobleIzquierdaInverso()  })
-        game.schedule(7700, { =>  self.dobleDerechaInverso()  })
-        game.schedule(8400, { =>  self.dobleIzquierdaInverso()  })
-        game.schedule(10700, { =>  self.dobleDerecha()  })
-        game.schedule(11500, { =>  self.dobleIzquierda()  })
-        game.schedule(12200, { =>  self.dobleIzquierdaInverso()  })
+    method parte4() {
+        self.ritmo4()
+        game.schedule(2000, {=> self.ritmo4() })
+        game.schedule(4200, {=> self.ritmo4() })
+        self.caerNota(6100, amarillo, 90)
+        self.caerNota(6500, rojo, 90)
+        self.caerNota(7100, azul, 90)
+        self.caerNota(7500, azul, 90)
+        self.caerNota(8300, azul, 90)
     }
-    method drop() { 
 
-        game.schedule(1300, {=>juego.crearNota(amarillo, 100)})
-        game.schedule(1650, {=> juego.crearNota(azul, 100)})
-        game.schedule(2300, {=> juego.crearNota(verde, 100)})
-        game.schedule(3200, {=> self.ritmo4()})
-        game.schedule(5200, {=> juego.crearNota(rojo, 100)})
-        game.schedule(6000, {=> juego.crearNota(verde, 100)})
-        game.schedule(6800, {=> juego.crearNota(amarillo, 100)})
-        game.schedule(8000, {=> juego.crearNota(verde, 100)})
-        game.schedule(8800, {=> juego.crearNota(verde, 100)})
-        game.schedule(9800, {=> juego.crearNota(rojo, 100)})
-        game.schedule(10400, {=> self.parteFinal()})
+    method guitarraPrincipio() {
+        self.cuatroNotas(250, 800, 1100, verde, rojo, azul, amarillo, 90)
     }
+
+    method guitarraPrincipio2() {
+        self.cuatroNotas(250, 800, 1100, amarillo, azul, rojo, verde, 90)
+    }
+
+    method dobleIzquierda() {
+        self.dosNotas(250, verde, rojo, 90)
+    }
+
+    method dobleDerecha() {
+        self.dosNotas(250, amarillo, azul, 90)
+    }
+
+    method dobleIzquierdaInverso() {
+        self.dosNotas(250, rojo, verde, 90)
+    }
+
+    method dobleDerechaInverso() {
+        self.dosNotas(250, azul, amarillo, 90)
+    }
+
+    method ritmo4() {
+        self.tresNotas(700, 1200, amarillo, rojo, amarillo, 90)
+    }
+
+    method drop() {
+        game.schedule(0, {=> self.parte3() })
+        game.schedule(10400, {=> self.parte4() })
+    }
+
     method musicaCompleta() {
-        game.schedule(1, { =>  self.parte1() })
-        game.schedule(13000, { =>  self.parte2()  }) 
-        game.schedule(27200, {=>self.drop()})
-        game.schedule(52000, {=>if (player.vida() == 0) {
-            gameOver.iniciar()
-        } else {win1.iniciar()}})
+        game.schedule(1, {=> self.parte1() })
+        game.schedule(13000, {=> self.parte2() })
+        game.schedule(27200, {=> self.drop() })
     }
+}
 
- }
 //////////////////////
 
 // Imagenes de game over (cuando finaliza la partida)
-object gameOver{
+object gameOver {
     method estado() = "gameOver"
     method iniciar() { 
         game.sound("game_over_sound.mp3").play()
