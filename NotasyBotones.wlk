@@ -20,7 +20,6 @@ class Notas {
         game.removeTickEvent("caer" + idUnico) 
     }
     method queCaiga(velocidad) {
-        // game.onTick(velocidad,"caerse", {self.position(self.position().down(1))})
         const idEvento = "caer" + idUnico
         game.onTick(velocidad, idEvento, {
             self.position(self.position().down(1))
@@ -34,12 +33,7 @@ class Notas {
 
         colorDefinido.liberarNota(self)
         }
-    // SISTEMA DE REINICIO 
-    // method fail() {
-    //     player.sumarFallo()
-    //     player.reiniciarMultiplicador()
-    //     colorDefinido.liberarNota(self)
-    // }
+
     method fail() {
         player.sumarFallo()
         player.reiniciarMultiplicador()

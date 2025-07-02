@@ -91,12 +91,6 @@ object juego {
     }
 
     method crearNota(color, velocidad) {
-    // if (self.nivelElegido().tecla()) {
-    //     const notaNueva = new Notas(image = color.imagen(), position = color.posicion(), botonAsignado = color.boton())
-    //     game.addVisual(notaNueva)
-    //     notaNueva.queCaiga(velocidad)
-    //     notasActivas.add(notaNueva)
-    //     }   
         const notaDisponible = color.notaSinUsar()
         if (self.nivelElegido().tecla()) {
             if (notaDisponible != null) {
@@ -188,26 +182,3 @@ object roja {
         notasEnUso.remove(nota)
     }
 }
-// object verde {
-//     method imagen() = "note1.png"
-//     method posicion() = game.at(2, 18)
-//     method boton() = botonVerde
-// }
-
-// object rojo {
-//     method imagen() = "note2.png"
-//     method posicion() = game.at(5, 18)
-//     method boton() = botonRojo
-// }
-
-// object amarillo {
-//     method imagen() = "note3.png"
-//     method posicion() = game.at(8, 18)
-//     method boton() = botonAmarillo
-// }
-
-// object azul {
-//     method imagen() = "note4.png"
-//     method posicion() = game.at(11, 18)
-//     method boton() = botonAzul
-// }
