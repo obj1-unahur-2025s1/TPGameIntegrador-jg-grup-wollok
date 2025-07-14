@@ -6,49 +6,15 @@ import wollokJuego.*
 
 // Clase para la interfaz del menu 
 class ImagenesMenu {
-    method image()
-    method position()
-}
-class FondoMenu inherits ImagenesMenu {
-    override method image() = "fondomenu8.png" 
-    override method position() = game.at(0,-12) 
+    var property  image
+    var  property position
 }
 
-class BotonNiveles inherits ImagenesMenu{
-    override method position() = game.at(18,0)
-    override method image() ="nivelesBoton.png"
-}
-
-class BotonesPrincipales inherits ImagenesMenu {
-    override method image() = "reglasdefinitivo3.png"
-    override method position() = game.at(0,0)
-}
-
-class BotonIniciar inherits ImagenesMenu {
-    override method image() = "togar.png"
-    override method position() = game.at(6, 9) 
-}
-class Dificultad inherits ImagenesMenu{
-    override method image() = "dificultaadd.png"
-    override method position() = game.at(6,4) 
-}
-class Selector inherits ImagenesMenu{
-    var property position = game.at(2, 0)
-    override method image() = "selectorChico.png"
-}
-class Normal inherits ImagenesMenu {
-    override method image() = "normal3.png"
-    override method position() = game.at(4, 1) 
-}
-class Dificil inherits ImagenesMenu{
-    override method image() = "dificil5.png"
-    override method position() = game.at(12, 1) 
-}
 // objeto dificultades
 object dificultades {
-    const property nivelNormal = new Normal()
-    const property nivelDificil = new Dificil()
-    const property selector = new Selector()
+    const property nivelNormal = new ImagenesMenu(image = "normal3.png",position = game.at(4, 1)  )
+    const property nivelDificil = new ImagenesMenu(image = "dificil5.png", position = game.at(12, 1) )
+    const property selector = new ImagenesMenu(position = game.at(2, 0), image = "selectorChico.png")
 
     method mostrarDificultades() {
         game.addVisual(nivelNormal)
@@ -94,11 +60,11 @@ object menu {
     }
 }
 object menuPrincipal {
-    const property dificultad = new Dificultad()
-    const property fondoMenu = new FondoMenu()
-    const property botonReglas = new BotonesPrincipales()
-    const property botonNiveles = new BotonNiveles()
-    const property botonIniciar = new BotonIniciar()
+    const property dificultad = new ImagenesMenu(image = "dificultaadd.png", position = game.at(6,4) )
+    const property fondoMenu = new ImagenesMenu(image = "fondomenu8.png" , position = game.at(0,-12) )
+    const property botonReglas = new ImagenesMenu(image = "reglasdefinitivo3.png", position = game.at(0,0) )
+    const property botonNiveles = new ImagenesMenu(image ="nivelesBoton.png", position = game.at(18,0))
+    const property botonIniciar = new ImagenesMenu(image = "togar.png", position = game.at(6, 9) )
     method estado() = "menuPrincipal"
     method ocultarMenuPrincipal() {
         game.removeVisual(dificultad)
